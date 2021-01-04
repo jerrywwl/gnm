@@ -1,7 +1,7 @@
 #ifndef GNM_QUAT_TYPE_H_
 #define GNM_QUAT_TYPE_H_
 
-#include "swizzles/quat_swizzles.h"
+#include "../swizzles/quat_swizzles.h"
 
 GNM_NAMESPACE_BEGIN
 

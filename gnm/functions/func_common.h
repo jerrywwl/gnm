@@ -9,20 +9,20 @@
 
 GNM_NAMESPACE_BEGIN
 
-//float abs(const float x);
+template <typename T>
+T abs(const T x);
 vec2 abs(const vec2& x);
 vec3 abs(const vec3& x);
 vec4 abs(const vec4& x);
-int abs(const int x);
 ivec2 abs(const ivec2& x);
 ivec3 abs(const ivec3& x);
 ivec4 abs(const ivec4& x);
 
-float sign(const float x);
+template <typename T>
+T sign(const T x);
 vec2 sign(const vec2& x);
 vec3 sign(const vec3& x);
 vec4 sign(const vec4& x);
-int sign(const int x);
 ivec2 sign(const ivec2& x);
 ivec3 sign(const ivec3& x);
 ivec4 sign(const ivec4& x);
@@ -75,152 +75,70 @@ vec4 modf(const vec4& x, vec4& i);
 template <typename T>
 T min(const T x, const T y);
 
-template <typename T>
-vec2_t<T> min(const vec2_t<T>& x, const vec2_t<T>& y);
-
-template <typename T>
-vec2_t<T> min(const vec2_t<T>& x, const T y);
-
-template <typename T>
-vec3_t<T> min(const vec3_t<T>& x, const vec3_t<T>& y);
-
-template <typename T>
-vec3_t<T> min(const vec3_t<T>& x, const T y);
-
-template <typename T>
-vec4_t<T> min(const vec4_t<T>& x, const vec4_t<T>& y);
-
-template <typename T>
-vec4_t<T> min(const vec4_t<T>& x, const T y);
-
-template <typename T,
-  uint8 N, uint8 X, uint8 Y, uint8 Z, uint8 W,
-  uint8 _N, uint8 _X, uint8 _Y, uint8 _Z, uint8 _W>
-vec2_t<T> min(const swizzle_2_t<T, N, X, Y, Z, W>& x, const swizzle_2_t<T, _N, _X, _Y, _Z, _W>& y);
-
-template <typename T,
-  uint8 N, uint8 X, uint8 Y, uint8 Z, uint8 W>
-vec2_t<T> min(const swizzle_2_t<T, N, X, Y, Z, W>& x, const T y);
-
-template <typename T,
-  uint8 N, uint8 X, uint8 Y, uint8 Z, uint8 W,
-  uint8 _N, uint8 _X, uint8 _Y, uint8 _Z, uint8 _W>
-vec3_t<T> min(const swizzle_3_t<T, N, X, Y, Z, W>& x, const swizzle_3_t<T, _N, _X, _Y, _Z, _W>& y);
-
-template <typename T,
-  uint8 N, uint8 X, uint8 Y, uint8 Z, uint8 W,
-  uint8 _N, uint8 _X, uint8 _Y, uint8 _Z, uint8 _W>
-vec3_t<T> min(const swizzle_3_t<T, N, X, Y, Z, W>& x, const T y);
-
-template <typename T,
-  uint8 N, uint8 X, uint8 Y, uint8 Z, uint8 W,
-  uint8 _N, uint8 _X, uint8 _Y, uint8 _Z, uint8 _W>
-vec4_t<T> min(const swizzle_4_t<T, N, X, Y, Z, W>& x, const swizzle_4_t<T, _N, _X, _Y, _Z, _W>& y);
-
-template <typename T,
-  uint8 N, uint8 X, uint8 Y, uint8 Z, uint8 W,
-  uint8 _N, uint8 _X, uint8 _Y, uint8 _Z, uint8 _W>
-vec4_t<T> min(const swizzle_4_t<T, N, X, Y, Z, W>& x, const T y);
+vec2 min(const vec2& x, const vec2& y);
+vec2 min(const vec2& x, const float y);
+vec3 min(const vec3& x, const vec3& y);
+vec3 min(const vec3& x, const float y);
+vec4 min(const vec4& x, const vec4& y);
+vec4 min(const vec4& x, const float y);
+ivec2 min(const ivec2& x, const ivec2& y);
+ivec2 min(const ivec2& x, const int y);
+ivec3 min(const ivec3& x, const ivec3& y);
+ivec3 min(const ivec3& x, const int y);
+ivec4 min(const ivec4& x, const ivec4& y);
+ivec4 min(const ivec4& x, const int y);
+uvec2 min(const uvec2& x, const uvec2& y);
+uvec2 min(const uvec2& x, const uint y);
+uvec3 min(const uvec3& x, const uvec3& y);
+uvec3 min(const uvec3& x, const uint y);
+uvec4 min(const uvec4& x, const uvec4& y);
+uvec4 min(const uvec4& x, const uint y);
 
 // ----------------------------------------------------------------------------------------------------
 
 template <typename T>
 T max(const T x, const T y);
-
-template <typename T>
-vec2_t<T> max(const vec2_t<T>& x, const vec2_t<T>& y);
-
-template <typename T>
-vec2_t<T> max(const vec2_t<T>& x, const T y);
-
-template <typename T>
-vec3_t<T> max(const vec3_t<T>& x, const vec3_t<T>& y);
-
-template <typename T>
-vec3_t<T> max(const vec3_t<T>& x, const T y);
-
-template <typename T>
-vec4_t<T> max(const vec4_t<T>& x, const vec4_t<T>& y);
-
-template <typename T>
-vec4_t<T> max(const vec4_t<T>& x, const T y);
-
-template <typename T,
-  uint8 N, uint8 X, uint8 Y, uint8 Z, uint8 W,
-  uint8 _N, uint8 _X, uint8 _Y, uint8 _Z, uint8 _W>
-vec2_t<T> max(const swizzle_2_t<T, N, X, Y, Z, W>& x, const swizzle_2_t<T, _N, _X, _Y, _Z, _W>& y);
-
-template <typename T,
-  uint8 N, uint8 X, uint8 Y, uint8 Z, uint8 W>
-vec2_t<T> max(const swizzle_2_t<T, N, X, Y, Z, W>& x, const T y);
-
-template <typename T,
-  uint8 N, uint8 X, uint8 Y, uint8 Z, uint8 W,
-  uint8 _N, uint8 _X, uint8 _Y, uint8 _Z, uint8 _W>
-vec3_t<T> max(const swizzle_3_t<T, N, X, Y, Z, W>& x, const swizzle_3_t<T, _N, _X, _Y, _Z, _W>& y);
-
-template <typename T,
-  uint8 N, uint8 X, uint8 Y, uint8 Z, uint8 W>
-vec3_t<T> max(const swizzle_3_t<T, N, X, Y, Z, W>& x, const T y);
-
-template <typename T,
-  uint8 N, uint8 X, uint8 Y, uint8 Z, uint8 W,
-  uint8 _N, uint8 _X, uint8 _Y, uint8 _Z, uint8 _W>
-vec4_t<T> max(const swizzle_4_t<T, N, X, Y, Z, W>& x, const swizzle_4_t<T, _N, _X, _Y, _Z, _W>& y);
-
-template <typename T,
-  uint8 N, uint8 X, uint8 Y, uint8 Z, uint8 W>
-vec4_t<T> max(const swizzle_4_t<T, N, X, Y, Z, W>& x, const T y);
+vec2 max(const vec2& x, const vec2& y);
+vec2 max(const vec2& x, const float y);
+vec3 max(const vec3& x, const vec3& y);
+vec3 max(const vec3& x, const float y);
+vec4 max(const vec4& x, const vec4& y);
+vec4 max(const vec4& x, const float y);
+ivec2 max(const ivec2& x, const ivec2& y);
+ivec2 max(const ivec2& x, const int y);
+ivec3 max(const ivec3& x, const ivec3& y);
+ivec3 max(const ivec3& x, const int y);
+ivec4 max(const ivec4& x, const ivec4& y);
+ivec4 max(const ivec4& x, const int y);
+uvec2 max(const uvec2& x, const uvec2& y);
+uvec2 max(const uvec2& x, const uint y);
+uvec3 max(const uvec3& x, const uvec3& y);
+uvec3 max(const uvec3& x, const uint y);
+uvec4 max(const uvec4& x, const uvec4& y);
+uvec4 max(const uvec4& x, const uint y);
 
 // ----------------------------------------------------------------------------------------------------
 
 template <typename T>
 T clamp(const T x, const T minVal, const T maxVal);
-
-template <typename T>
-vec2_t<T> clamp(const vec2_t<T>& x, const vec2_t<T>& minVal, const vec2_t<T>& maxVal);
-
-template <typename T>
-vec2_t<T> clamp(const vec2_t<T>& x, const T minVal, const T maxVal);
-
-template <typename T>
-vec3_t<T> clamp(const vec3_t<T>& x, const vec3_t<T>& minVal, const vec3_t<T>& maxVal);
-
-template <typename T>
-vec3_t<T> clamp(const vec3_t<T>& x, const T minVal, const T maxVal);
-
-template <typename T>
-vec4_t<T> clamp(const vec4_t<T>& x, const vec4_t<T>& minVal, const vec4_t<T>& maxVal);
-
-template <typename T>
-vec4_t<T> clamp(const vec4_t<T>& x, const T minVal, const T maxVal);
-
-template <typename T,
-  uint8 N, uint8 X, uint8 Y, uint8 Z, uint8 W,
-  uint8 _N, uint8 _X, uint8 _Y, uint8 _Z, uint8 _W,
-  uint8 _N1, uint8 _X1, uint8 _Y1, uint8 _Z1, uint8 _W1>
-vec2_t<T> clamp(const swizzle_2_t<T, N, X, Y, Z, W>& x, const swizzle_2_t<T, _N, _X, _Y, _Z, _W>& minVal, const swizzle_2_t<T, _N1, _X1, _Y1, _Z1, _W1>& maxVal);
-
-template <typename T, uint8 N, uint8 X, uint8 Y, uint8 Z, uint8 W>
-vec2_t<T> clamp(const swizzle_2_t<T, N, X, Y, Z, W>& x, const T minVal, const T maxVal);
-
-template <typename T,
-  uint8 N, uint8 X, uint8 Y, uint8 Z, uint8 W,
-  uint8 _N, uint8 _X, uint8 _Y, uint8 _Z, uint8 _W,
-  uint8 _N1, uint8 _X1, uint8 _Y1, uint8 _Z1, uint8 _W1>
-vec3_t<T> clamp(const swizzle_3_t<T, N, X, Y, Z, W>& x, const swizzle_3_t<T, _N, _X, _Y, _Z, _W>& minVal, const swizzle_3_t<T, _N1, _X1, _Y1, _Z1, _W1>& maxVal);
-
-template <typename T, uint8 N, uint8 X, uint8 Y, uint8 Z, uint8 W>
-vec3_t<T> clamp(const swizzle_3_t<T, N, X, Y, Z, W>& x, const T minVal, const T maxVal);
-
-template <typename T,
-  uint8 N, uint8 X, uint8 Y, uint8 Z, uint8 W,
-  uint8 _N, uint8 _X, uint8 _Y, uint8 _Z, uint8 _W,
-  uint8 _N1, uint8 _X1, uint8 _Y1, uint8 _Z1, uint8 _W1>
-vec4_t<T> clamp(const swizzle_4_t<T, N, X, Y, Z, W>& x, const swizzle_4_t<T, _N, _X, _Y, _Z, _W>& minVal, const swizzle_4_t<T, _N1, _X1, _Y1, _Z1, _W1>& maxVal);
-
-template <typename T, uint8 N, uint8 X, uint8 Y, uint8 Z, uint8 W>
-vec4_t<T> clamp(const swizzle_4_t<T, N, X, Y, Z, W>& x, const T minVal, const T maxVal);
+vec2 clamp(const vec2& x, const vec2& minVal, const vec2& maxVal);
+vec2 clamp(const vec2& x, const float minVal, const float maxVal);
+vec3 clamp(const vec3& x, const vec3& minVal, const vec3& maxVal);
+vec3 clamp(const vec3& x, const float minVal, const float maxVal);
+vec4 clamp(const vec4& x, const vec4& minVal, const vec4& maxVal);
+vec4 clamp(const vec4& x, const float minVal, const float maxVal);
+ivec2 clamp(const ivec2& x, const ivec2& minVal, const ivec2& maxVal);
+ivec2 clamp(const ivec2& x, const int minVal, const int maxVal);
+ivec3 clamp(const ivec3& x, const ivec3& minVal, const ivec3& maxVal);
+ivec3 clamp(const ivec3& x, const int minVal, const int maxVal);
+ivec4 clamp(const ivec4& x, const ivec4& minVal, const ivec4& maxVal);
+ivec4 clamp(const ivec4& x, const int minVal, const int maxVal);
+uvec2 clamp(const uvec2& x, const uvec2& minVal, const uvec2& maxVal);
+uvec2 clamp(const uvec2& x, const uint minVal, const uint maxVal);
+uvec3 clamp(const uvec3& x, const uvec3& minVal, const uvec3& maxVal);
+uvec3 clamp(const uvec3& x, const uint minVal, const uint maxVal);
+uvec4 clamp(const uvec4& x, const uvec4& minVal, const uvec4& maxVal);
+uvec4 clamp(const uvec4& x, const uint minVal, const uint maxVal);
 
 // ----------------------------------------------------------------------------------------------------
 
@@ -236,33 +154,18 @@ vec4 mix(const vec4& x, const vec4& y, const float a);
 
 template <typename T>
 T mix(const T x, const T y, const bool a);
-
-template <typename T>
-vec2_t<T> mix(const vec2_t<T>& x, const vec2_t<T>& y, const bvec2& a);
-
-template <typename T>
-vec3_t<T> mix(const vec3_t<T>& x, const vec3_t<T>& y, const bvec3& a);
-
-template <typename T>
-vec4_t<T> mix(const vec4_t<T>& x, const vec4_t<T>& y, const bvec4& a);
-
-template <typename T,
-  uint8 N, uint8 X, uint8 Y, uint8 Z, uint8 W,
-  uint8 _N, uint8 _X, uint8 _Y, uint8 _Z, uint8 _W,
-  uint8 _N1, uint8 _X1, uint8 _Y1, uint8 _Z1, uint8 _W1>
-vec2_t<T> mix(const swizzle_2_t<T, N, X, Y, Z, W>& x, const swizzle_2_t<T, _N, _X, _Y, _Z, _W>& y, const swizzle_2_t<bool, _N1, _X1, _Y1, _Z1, _W1>& a);
-
-template <typename T,
-  uint8 N, uint8 X, uint8 Y, uint8 Z, uint8 W,
-  uint8 _N, uint8 _X, uint8 _Y, uint8 _Z, uint8 _W,
-  uint8 _N1, uint8 _X1, uint8 _Y1, uint8 _Z1, uint8 _W1>
-vec3_t<T> mix(const swizzle_3_t<T, N, X, Y, Z, W>& x, const swizzle_3_t<T, _N, _X, _Y, _Z, _W>& y, const swizzle_3_t<bool, _N1, _X1, _Y1, _Z1, _W1>& a);
-
-template <typename T,
-  uint8 N, uint8 X, uint8 Y, uint8 Z, uint8 W,
-  uint8 _N, uint8 _X, uint8 _Y, uint8 _Z, uint8 _W,
-  uint8 _N1, uint8 _X1, uint8 _Y1, uint8 _Z1, uint8 _W1>
-vec4_t<T> mix(const swizzle_4_t<T, N, X, Y, Z, W>& x, const swizzle_4_t<T, _N, _X, _Y, _Z, _W>& y, const swizzle_4_t<bool, _N1, _X1, _Y1, _Z1, _W1>& a);
+vec2 mix(const vec2& x, const vec2& y, const bvec2& a);
+vec3 mix(const vec3& x, const vec3& y, const bvec3& a);
+vec4 mix(const vec4& x, const vec4& y, const bvec4& a);
+ivec2 mix(const ivec2& x, const ivec2& y, const bvec2& a);
+ivec3 mix(const ivec3& x, const ivec3& y, const bvec3& a);
+ivec4 mix(const ivec4& x, const ivec4& y, const bvec4& a);
+uvec2 mix(const uvec2& x, const uvec2& y, const bvec2& a);
+uvec3 mix(const uvec3& x, const uvec3& y, const bvec3& a);
+uvec4 mix(const uvec4& x, const uvec4& y, const bvec4& a);
+bvec2 mix(const bvec2& x, const bvec2& y, const bvec2& a);
+bvec3 mix(const bvec3& x, const bvec3& y, const bvec3& a);
+bvec4 mix(const bvec4& x, const bvec4& y, const bvec4& a);
 
 // ----------------------------------------------------------------------------------------------------
 

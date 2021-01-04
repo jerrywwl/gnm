@@ -17,7 +17,7 @@ union uif32 {
 	unsigned int i;
 };
 
-int16 toFloat16(float const& f) {
+GNM_INLINE int16 ToFloat16(float const& f) {
 	uif32 entry;
 	entry.f = f;
 	int i = static_cast<int>(entry.i);
@@ -66,7 +66,7 @@ int16 toFloat16(float const& f) {
 	}
 }
 
-float toFloat32(int16 value) {
+GNM_INLINE float ToFloat32(int16 value) {
 	int s = (value >> 15) & 0x00000001;
 	int e = (value >> 10) & 0x0000001f;
 	int m = value & 0x000003ff;
@@ -168,8 +168,8 @@ GNM_INLINE uint packHalf2x16(const vec2& v) {
 		uint out;
 	} u;
 
-	u.in[0] = detail::toFloat16(v.x);
-	u.in[1] = detail::toFloat16(v.y);
+	u.in[0] = detail::ToFloat16(v.x);
+	u.in[1] = detail::ToFloat16(v.y);
 
 	return u.out;
 }
@@ -183,7 +183,7 @@ GNM_INLINE vec2 unpackHalf2x16(const uint v) {
 
 	u.in = v;
 
-	return vec2(detail::toFloat32(u.out[0]), detail::toFloat32(u.out[1]));
+	return vec2(detail::ToFloat32(u.out[0]), detail::ToFloat32(u.out[1]));
 }
 
 GNM_INLINE uint packUnorm4x8(const vec4& v) {

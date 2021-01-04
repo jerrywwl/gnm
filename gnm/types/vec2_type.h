@@ -1,7 +1,7 @@
 #ifndef GNM_VEC2_TYPE_H_
 #define GNM_VEC2_TYPE_H_
 
-#include "swizzles/vec2_swizzles.h"
+#include "../swizzles/vec2_swizzles.h"
 
 GNM_NAMESPACE_BEGIN
 
@@ -9,7 +9,7 @@ template <typename T>
 struct vec2_t {
 
 	vec2_t() {}
-	vec2_t(const T f) : x(f), y(f), z(f) {}
+	vec2_t(const T f) : x(f), y(f) {}
 	vec2_t(const T _x, const T _y) : x(_x), y(_y) {}
 	vec2_t(const vec2_t<T>& v) : x(v.x), y(v.y) {}
 

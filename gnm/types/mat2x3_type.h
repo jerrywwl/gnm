@@ -13,20 +13,20 @@ struct mat2x3_t {
 	
 	mat2x3_t(const T f)
 		: _m00(f), _m10(f), _m20(f),
-		_m01(f), _m11(f), _m21(f) {}
+			_m01(f), _m11(f), _m21(f) {}
 
 	mat2x3_t(const T f00, const T f10, const T f20,
 					const T f01, const T f11, const T f21)
 		: _m00(f00), _m10(f01), _m20(f20),
-		_m01(f01), _m11(f11), _m21(f21) {}
+			_m01(f01), _m11(f11), _m21(f21) {}
 
-	mat2x3_t(const mat2x3_t& mat) {
-		memcpy(_m, mat._m, sizeof(mat2x3_t));
-	}
+	mat2x3_t(const mat2x3_t& mat)
+		: _m00(mat._m00), _m10(mat._m10), _m20(mat._m20),
+			_m01(mat._m01), _m11(mat._m11), _m21(mat._m21) {}
 
 	mat2x3_t(const vec3_t<T>& v0, const vec3_t<T>& v1)
-		: _m00(v0.x), _m10(v0.y), _m20(v2.z),
-		_m01(v1.x), _m11(v1.y), _m21(v2.z) {}
+		: _m00(v0.x), _m10(v0.y), _m20(v0.z),
+			_m01(v1.x), _m11(v1.y), _m21(v1.z) {}
 
 	GNM_INLINE vec3_t<T>& operator [] (int index) {
 		assert(index >= 0 && index < 2 && "Index out of bounds.");

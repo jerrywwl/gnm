@@ -2,12 +2,6 @@
 
 GNM_USING_NAMESPACE
 
-vec3 FresnelSchlick(float cosTheta, vec3 F0) {
-  float reflectance = max(max(F0.r, F0.g), F0.b);
-  vec3 F90 = vec3(clamp(reflectance * 25.0, 0.0, 1.0));
-  return F0 + (F90 - F0) * pow(1.0 - cosTheta, 5.0);
-}
-
 int main() {
   
   vec3 camera_pos(10.0f, 10.0f, 10.0f);

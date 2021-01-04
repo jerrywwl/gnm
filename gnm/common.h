@@ -2,7 +2,6 @@
 #define GNM_COMMON_H_
 
 #include <assert.h>
-#include <limits>
 #include <cmath>
 
 #define GNM_NAMESPACE_BEGIN	namespace gnm {

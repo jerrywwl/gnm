@@ -1,7 +1,7 @@
 #ifndef GNM_VEC4_TYPE_H_
 #define GNM_VEC4_TYPE_H_
 
-#include "swizzles/vec4_swizzles.h"
+#include "../swizzles/vec4_swizzles.h"
 
 GNM_NAMESPACE_BEGIN
 

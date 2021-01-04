@@ -34,7 +34,7 @@ cmake -E chdir build_nmake_x64 cmake -G "NMake Makefiles" ^
 	-DMSVC=1 ^
 	-DCPU_X64=1 ^
 	-DGNM_ENABLE_CLANG=1 ^
-	-DCMAKE_TOOLCHAIN_FILE=cmake\clang-cl.cmake ^
+	-DCMAKE_TOOLCHAIN_FILE=cmake\android.toolchain.cmake ^
 	..
 goto end
 

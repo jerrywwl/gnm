@@ -1,7 +1,9 @@
 ﻿GNM_NAMESPACE_BEGIN
 
+#define GNM_ABS_T(T, x) (x > (T)0 ? x : -x)
 #define GNM_ABS_F(x) (x > 0.0f ? x : -x)
 #define GNM_ABS_I(x) (x > 0 ? x : -x)
+#define GNM_SIGN_T(T, x) (x < (T)0 ? (T)-1 : (x > (T)0 ? (T)1 : (T)0))
 #define GNM_SIGN_F(x) (x < 0.0f ? -1.0f : (x > 0.0f ? 1.0f : 0.0f))
 #define GNM_SIGN_I(x) (x < 0 ? -1 : (x > 0 ? 1 : 0))
 #define GNM_FRACT_F(x) (x - std::floor(x))
@@ -10,17 +12,15 @@
 #define GNM_MAX(x, y) ((y > x) ? y : x)
 #define GNM_CLAMP(x, minVal, maxVal) GNM_MIN(GNM_MAX(x, minVal), maxVal)
 #define GNM_MIX_F(x, y, a) (x * (1 - a) + y * a)
-#define GNM_MIX(T, x, y, a) (x * (T(1) - a) + y * a)
 #define GNM_MIX_B(x, y, a) (a? y : x)
 #define GNM_STEP_F(edge, x) ((x < edge)? 0.0f : 1.0f)
 
 // ----------------------------------------------------------------------------------------------------
 
-#if 0
-GNM_INLINE float abs(const float x) {
-  return GNM_ABS_F(x);
+template <typename T>
+GNM_INLINE T abs(const T x) {
+  return GNM_ABS_T(T, x);
 }
-#endif
 
 GNM_INLINE vec2 abs(const vec2& x) {
   return vec2(GNM_ABS_F(x.x), GNM_ABS_F(x.y));
@@ -32,10 +32,6 @@ GNM_INLINE vec3 abs(const vec3& x) {
 
 GNM_INLINE vec4 abs(const vec4& x) {
   return vec4(GNM_ABS_F(x.x), GNM_ABS_F(x.y), GNM_ABS_F(x.z), GNM_ABS_F(x.w));
-}
-
-GNM_INLINE int abs(const int x) {
-  return GNM_ABS_I(x);
 }
 
 GNM_INLINE ivec2 abs(const ivec2& x) {
@@ -52,8 +48,9 @@ GNM_INLINE ivec4 abs(const ivec4& x) {
 
 // ----------------------------------------------------------------------------------------------------
 
-GNM_INLINE float sign(const float x) {
-  return GNM_SIGN_F(x);
+template <typename T>
+GNM_INLINE T sign(const T x) {
+  return GNM_SIGN_T(T, x);
 }
 
 GNM_INLINE vec2 sign(const vec2& x) {
@@ -66,10 +63,6 @@ GNM_INLINE vec3 sign(const vec3& x) {
 
 GNM_INLINE vec4 sign(const vec4& x) {
   return vec4(GNM_SIGN_F(x.x), GNM_SIGN_F(x.y), GNM_SIGN_F(x.z), GNM_SIGN_F(x.w));
-}
-
-GNM_INLINE int sign(const int x) {
-  return GNM_SIGN_I(x);
 }
 
 GNM_INLINE ivec2 sign(const ivec2& x) {
@@ -256,268 +249,240 @@ GNM_INLINE vec4 modf(const vec4& x, vec4& i) {
 
 template <typename T>
 GNM_INLINE T min(const T x, const T y) {
-  static_assert(std::numeric_limits<T>::is_iec559 || std::numeric_limits<T>::is_integer, "Arguments must be floating-point or integer.");
   return GNM_MIN(x, y);
 }
 
-template <typename T>
-GNM_INLINE vec2_t<T> min(const vec2_t<T>& x, const vec2_t<T>& y) {
-  static_assert(std::numeric_limits<T>::is_iec559 || std::numeric_limits<T>::is_integer, "Arguments must be floating-point or integer.");
-  return vec2_t<T>(GNM_MIN(x.x, y.x), GNM_MIN(x.y, y.y));
+GNM_INLINE vec2 min(const vec2& x, const vec2& y) {
+  return vec2(GNM_MIN(x.x, y.x), GNM_MIN(x.y, y.y));
 }
 
-template <typename T>
-GNM_INLINE vec2_t<T> min(const vec2_t<T>& x, const T y) {
-  static_assert(std::numeric_limits<T>::is_iec559 || std::numeric_limits<T>::is_integer, "Arguments must be floating-point or integer.");
-  return vec2_t<T>(GNM_MIN(x.x, y), GNM_MIN(x.y, y));
+GNM_INLINE vec2 min(const vec2& x, const float y) {
+  return vec2(GNM_MIN(x.x, y), GNM_MIN(x.y, y));
 }
 
-template <typename T>
-GNM_INLINE vec3_t<T> min(const vec3_t<T>& x, const vec3_t<T>& y) {
-  static_assert(std::numeric_limits<T>::is_iec559 || std::numeric_limits<T>::is_integer, "Arguments must be floating-point or integer.");
-  return vec3_t<T>(GNM_MIN(x.x, y.x), GNM_MIN(x.y, y.y), GNM_MIN(x.z, y.z));
+GNM_INLINE vec3 min(const vec3& x, const vec3& y) {
+  return vec3(GNM_MIN(x.x, y.x), GNM_MIN(x.y, y.y), GNM_MIN(x.z, y.z));
 }
 
-template <typename T>
-GNM_INLINE vec3_t<T> min(const vec3_t<T>& x, const T y) {
-  static_assert(std::numeric_limits<T>::is_iec559 || std::numeric_limits<T>::is_integer, "Arguments must be floating-point or integer.");
-  return vec3_t<T>(GNM_MIN(x.x, y), GNM_MIN(x.y, y), GNM_MIN(x.z, y));
+GNM_INLINE vec3 min(const vec3& x, const float y) {
+  return vec3(GNM_MIN(x.x, y), GNM_MIN(x.y, y), GNM_MIN(x.z, y));
 }
 
-template <typename T>
-GNM_INLINE vec4_t<T> min(const vec4_t<T>& x, const vec4_t<T>& y) {
-  static_assert(std::numeric_limits<T>::is_iec559 || std::numeric_limits<T>::is_integer, "Arguments must be floating-point or integer.");
-  return vec4_t<T>(GNM_MIN(x.x, y.x), GNM_MIN(x.y, y.y), GNM_MIN(x.z, y.z), GNM_MIN(x.w, y.w));
+GNM_INLINE vec4 min(const vec4& x, const vec4& y) {
+  return vec4(GNM_MIN(x.x, y.x), GNM_MIN(x.y, y.y), GNM_MIN(x.z, y.z), GNM_MIN(x.w, y.w));
 }
 
-template <typename T>
-GNM_INLINE vec4_t<T> min(const vec4_t<T>& x, const T y) {
-  static_assert(std::numeric_limits<T>::is_iec559 || std::numeric_limits<T>::is_integer, "Arguments must be floating-point or integer.");
-  return vec4_t<T>(GNM_MIN(x.x, y), GNM_MIN(x.y, y), GNM_MIN(x.z, y), GNM_MIN(x.w, y));
+GNM_INLINE vec4 min(const vec4& x, const float y) {
+  return vec4(GNM_MIN(x.x, y), GNM_MIN(x.y, y), GNM_MIN(x.z, y), GNM_MIN(x.w, y));
 }
 
-template <typename T,
-  uint8 N, uint8 X, uint8 Y, uint8 Z, uint8 W,
-  uint8 _N, uint8 _X, uint8 _Y, uint8 _Z, uint8 _W>
-GNM_INLINE vec2_t<T> min(const swizzle_2_t<T, N, X, Y, Z, W>& x, const swizzle_2_t<T, _N, _X, _Y, _Z, _W>& y) {
-  static_assert(std::numeric_limits<T>::is_iec559 || std::numeric_limits<T>::is_integer, "Arguments must be floating-point or integer.");
-  return vec2_t<T>(GNM_MIN(x._m[X], y._m[_X]), GNM_MIN(x._m[Y], y._m[_Y]));
+GNM_INLINE ivec2 min(const ivec2& x, const ivec2& y) {
+  return ivec2(GNM_MIN(x.x, y.x), GNM_MIN(x.y, y.y));
 }
 
-template <typename T, uint8 N, uint8 X, uint8 Y, uint8 Z, uint8 W>
-GNM_INLINE vec2_t<T> min(const swizzle_2_t<T, N, X, Y, Z, W>& x, const T y) {
-  static_assert(std::numeric_limits<T>::is_iec559 || std::numeric_limits<T>::is_integer, "Arguments must be floating-point or integer.");
-  return vec2_t<T>(GNM_MIN(x._m[X], y), GNM_MIN(x._m[Y], y));
+GNM_INLINE ivec2 min(const ivec2& x, const int y) {
+  return ivec2(GNM_MIN(x.x, y), GNM_MIN(x.y, y));
 }
 
-template <typename T,
-  uint8 N, uint8 X, uint8 Y, uint8 Z, uint8 W,
-  uint8 _N, uint8 _X, uint8 _Y, uint8 _Z, uint8 _W>
-GNM_INLINE vec3_t<T> min(const swizzle_3_t<T, N, X, Y, Z, W>& x, const swizzle_3_t<T, _N, _X, _Y, _Z, _W>& y) {
-  static_assert(std::numeric_limits<T>::is_iec559 || std::numeric_limits<T>::is_integer, "Arguments must be floating-point or integer.");
-  return vec2_t<T>(GNM_MIN(x._m[X], y._m[_X]), GNM_MIN(x._m[Y], y._m[_Y]), GNM_MIN(x._m[Z], y._m[_Z]));
+GNM_INLINE ivec3 min(const ivec3& x, const ivec3& y) {
+  return ivec3(GNM_MIN(x.x, y.x), GNM_MIN(x.y, y.y), GNM_MIN(x.z, y.z));
 }
 
-template <typename T, uint8 N, uint8 X, uint8 Y, uint8 Z, uint8 W>
-GNM_INLINE vec3_t<T> min(const swizzle_3_t<T, N, X, Y, Z, W>& x, const T y) {
-  static_assert(std::numeric_limits<T>::is_iec559 || std::numeric_limits<T>::is_integer, "Arguments must be floating-point or integer.");
-  return vec2_t<T>(GNM_MIN(x._m[X], y), GNM_MIN(x._m[Y], y), GNM_MIN(x._m[Z], y));
+GNM_INLINE ivec3 min(const ivec3& x, const int y) {
+  return ivec3(GNM_MIN(x.x, y), GNM_MIN(x.y, y), GNM_MIN(x.z, y));
 }
 
-template <typename T,
-  uint8 N, uint8 X, uint8 Y, uint8 Z, uint8 W,
-  uint8 _N, uint8 _X, uint8 _Y, uint8 _Z, uint8 _W>
-GNM_INLINE vec4_t<T> min(const swizzle_4_t<T, N, X, Y, Z, W>& x, const swizzle_4_t<T, _N, _X, _Y, _Z, _W>& y) {
-  static_assert(std::numeric_limits<T>::is_iec559 || std::numeric_limits<T>::is_integer, "Arguments must be floating-point or integer.");
-  return vec2_t<T>(GNM_MIN(x._m[X], y._m[_X]), GNM_MIN(x._m[Y], y._m[_Y]), GNM_MIN(x._m[Z], y._m[_Z]), GNM_MIN(x._m[W], y._m[_W]));
+GNM_INLINE ivec4 min(const ivec4& x, const ivec4& y) {
+  return ivec4(GNM_MIN(x.x, y.x), GNM_MIN(x.y, y.y), GNM_MIN(x.z, y.z), GNM_MIN(x.w, y.w));
 }
 
-template <typename T,
-  uint8 N, uint8 X, uint8 Y, uint8 Z, uint8 W>
-GNM_INLINE vec4_t<T> min(const swizzle_4_t<T, N, X, Y, Z, W>& x, const T y) {
-  static_assert(std::numeric_limits<T>::is_iec559 || std::numeric_limits<T>::is_integer, "Arguments must be floating-point or integer.");
-  return vec2_t<T>(GNM_MIN(x._m[X], y), GNM_MIN(x._m[Y], y), GNM_MIN(x._m[Z], y), GNM_MIN(x._m[W], y));
+GNM_INLINE ivec4 min(const ivec4& x, const int y) {
+  return ivec4(GNM_MIN(x.x, y), GNM_MIN(x.y, y), GNM_MIN(x.z, y), GNM_MIN(x.w, y));
+}
+
+GNM_INLINE uvec2 min(const uvec2& x, const uvec2& y) {
+  return uvec2(GNM_MIN(x.x, y.x), GNM_MIN(x.y, y.y));
+}
+
+GNM_INLINE uvec2 min(const uvec2& x, const uint y) {
+  return uvec2(GNM_MIN(x.x, y), GNM_MIN(x.y, y));
+}
+
+GNM_INLINE uvec3 min(const uvec3& x, const uvec3& y) {
+  return uvec3(GNM_MIN(x.x, y.x), GNM_MIN(x.y, y.y), GNM_MIN(x.z, y.z));
+}
+
+GNM_INLINE uvec3 min(const uvec3& x, const uint y) {
+  return uvec3(GNM_MIN(x.x, y), GNM_MIN(x.y, y), GNM_MIN(x.z, y));
+}
+
+GNM_INLINE uvec4 min(const uvec4& x, const uvec4& y) {
+  return uvec4(GNM_MIN(x.x, y.x), GNM_MIN(x.y, y.y), GNM_MIN(x.z, y.z), GNM_MIN(x.w, y.w));
+}
+
+GNM_INLINE uvec4 min(const uvec4& x, const uint y) {
+  return uvec4(GNM_MIN(x.x, y), GNM_MIN(x.y, y), GNM_MIN(x.z, y), GNM_MIN(x.w, y));
 }
 
 // ----------------------------------------------------------------------------------------------------
 
 template <typename T>
 GNM_INLINE T max(const T x, const T y) {
-  static_assert(std::numeric_limits<T>::is_iec559 || std::numeric_limits<T>::is_integer, "Arguments must be floating-point or integer.");
   return GNM_MAX(x, y);
 }
 
-template <typename T>
-GNM_INLINE vec2_t<T> max(const vec2_t<T>& x, const vec2_t<T>& y) {
-  static_assert(std::numeric_limits<T>::is_iec559 || std::numeric_limits<T>::is_integer, "Arguments must be floating-point or integer.");
-  return vec2_t<T>(GNM_MAX(x.x, y.x), GNM_MAX(x.y, y.y));
+GNM_INLINE vec2 max(const vec2& x, const vec2& y) {
+  return vec2(GNM_MAX(x.x, y.x), GNM_MAX(x.y, y.y));
 }
 
-template <typename T>
-GNM_INLINE vec2_t<T> max(const vec2_t<T>& x, const T y) {
-  static_assert(std::numeric_limits<T>::is_iec559 || std::numeric_limits<T>::is_integer, "Arguments must be floating-point or integer.");
-  return vec2_t<T>(GNM_MAX(x.x, y), GNM_MAX(x.y, y));
+GNM_INLINE vec2 max(const vec2& x, const float y) {
+  return vec2(GNM_MAX(x.x, y), GNM_MAX(x.y, y));
 }
 
-template <typename T>
-GNM_INLINE vec3_t<T> max(const vec3_t<T>& x, const vec3_t<T>& y) {
-  static_assert(std::numeric_limits<T>::is_iec559 || std::numeric_limits<T>::is_integer, "Arguments must be floating-point or integer.");
-  return vec3_t<T>(GNM_MAX(x.x, y.x), GNM_MAX(x.y, y.y), GNM_MAX(x.z, y.z));
+GNM_INLINE vec3 max(const vec3& x, const vec3& y) {
+  return vec3(GNM_MAX(x.x, y.x), GNM_MAX(x.y, y.y), GNM_MAX(x.z, y.z));
 }
 
-template <typename T>
-GNM_INLINE vec3_t<T> max(const vec3_t<T>& x, const T y) {
-  static_assert(std::numeric_limits<T>::is_iec559 || std::numeric_limits<T>::is_integer, "Arguments must be floating-point or integer.");
-  return vec3_t<T>(GNM_MAX(x.x, y), GNM_MAX(x.y, y), GNM_MAX(x.z, y));
+GNM_INLINE vec3 max(const vec3& x, const float y) {
+  return vec3(GNM_MAX(x.x, y), GNM_MAX(x.y, y), GNM_MAX(x.z, y));
 }
 
-template <typename T>
-GNM_INLINE vec4_t<T> max(const vec4_t<T>& x, const vec4_t<T>& y) {
-  static_assert(std::numeric_limits<T>::is_iec559 || std::numeric_limits<T>::is_integer, "Arguments must be floating-point or integer.");
-  return vec4_t<T>(GNM_MAX(x.x, y.x), GNM_MAX(x.y, y.y), GNM_MAX(x.z, y.z), GNM_MAX(x.w, y.w));
+GNM_INLINE vec4 max(const vec4& x, const vec4& y) {
+  return vec4(GNM_MAX(x.x, y.x), GNM_MAX(x.y, y.y), GNM_MAX(x.z, y.z), GNM_MAX(x.w, y.w));
 }
 
-template <typename T>
-GNM_INLINE vec4_t<T> max(const vec4_t<T>& x, const T y) {
-  static_assert(std::numeric_limits<T>::is_iec559 || std::numeric_limits<T>::is_integer, "Arguments must be floating-point or integer.");
-  return vec4_t<T>(GNM_MAX(x.x, y), GNM_MAX(x.y, y), GNM_MAX(x.z, y), GNM_MAX(x.w, y));
+GNM_INLINE vec4 max(const vec4& x, const float y) {
+  return vec4(GNM_MAX(x.x, y), GNM_MAX(x.y, y), GNM_MAX(x.z, y), GNM_MAX(x.w, y));
 }
 
-template <typename T,
-  uint8 N, uint8 X, uint8 Y, uint8 Z, uint8 W,
-  uint8 _N, uint8 _X, uint8 _Y, uint8 _Z, uint8 _W>
-GNM_INLINE vec2_t<T> max(const swizzle_2_t<T, N, X, Y, Z, W>& x, const swizzle_2_t<T, _N, _X, _Y, _Z, _W>& y) {
-  static_assert(std::numeric_limits<T>::is_iec559 || std::numeric_limits<T>::is_integer, "Arguments must be floating-point or integer.");
-  return vec2_t<T>(GNM_MAX(x._m[X], y._m[_X]), GNM_MAX(x._m[Y], y._m[_Y]));
+GNM_INLINE ivec2 max(const ivec2& x, const ivec2& y) {
+  return ivec2(GNM_MAX(x.x, y.x), GNM_MAX(x.y, y.y));
 }
 
-template <typename T,
-  uint8 N, uint8 X, uint8 Y, uint8 Z, uint8 W>
-GNM_INLINE vec2_t<T> max(const swizzle_2_t<T, N, X, Y, Z, W>& x, const T y) {
-  static_assert(std::numeric_limits<T>::is_iec559 || std::numeric_limits<T>::is_integer, "Arguments must be floating-point or integer.");
-  return vec2_t<T>(GNM_MAX(x._m[X], y), GNM_MAX(x._m[Y], y));
+GNM_INLINE ivec2 max(const ivec2& x, const int y) {
+  return ivec2(GNM_MAX(x.x, y), GNM_MAX(x.y, y));
 }
 
-template <typename T,
-  uint8 N, uint8 X, uint8 Y, uint8 Z, uint8 W,
-  uint8 _N, uint8 _X, uint8 _Y, uint8 _Z, uint8 _W>
-GNM_INLINE vec3_t<T> max(const swizzle_3_t<T, N, X, Y, Z, W>& x, const swizzle_3_t<T, _N, _X, _Y, _Z, _W>& y) {
-  static_assert(std::numeric_limits<T>::is_iec559 || std::numeric_limits<T>::is_integer, "Arguments must be floating-point or integer.");
-  return vec2_t<T>(GNM_MAX(x._m[X], y._m[_X]), GNM_MAX(x._m[Y], y._m[_Y]), GNM_MAX(x._m[Z], y._m[_Z]));
+GNM_INLINE ivec3 max(const ivec3& x, const ivec3& y) {
+  return ivec3(GNM_MAX(x.x, y.x), GNM_MAX(x.y, y.y), GNM_MAX(x.z, y.z));
 }
 
-template <typename T, uint8 N, uint8 X, uint8 Y, uint8 Z, uint8 W>
-GNM_INLINE vec3_t<T> max(const swizzle_3_t<T, N, X, Y, Z, W>& x, const T y) {
-  static_assert(std::numeric_limits<T>::is_iec559 || std::numeric_limits<T>::is_integer, "Arguments must be floating-point or integer.");
-  return vec2_t<T>(GNM_MAX(x._m[X], y), GNM_MAX(x._m[Y], y), GNM_MAX(x._m[Z], y));
+GNM_INLINE ivec3 max(const ivec3& x, const int y) {
+  return ivec3(GNM_MAX(x.x, y), GNM_MAX(x.y, y), GNM_MAX(x.z, y));
 }
 
-template <typename T,
-  uint8 N, uint8 X, uint8 Y, uint8 Z, uint8 W,
-  uint8 _N, uint8 _X, uint8 _Y, uint8 _Z, uint8 _W>
-GNM_INLINE vec4_t<T> max(const swizzle_4_t<T, N, X, Y, Z, W>& x, const swizzle_4_t<T, _N, _X, _Y, _Z, _W>& y) {
-  static_assert(std::numeric_limits<T>::is_iec559 || std::numeric_limits<T>::is_integer, "Arguments must be floating-point or integer.");
-  return vec2_t<T>(GNM_MAX(x._m[X], y._m[_X]), GNM_MAX(x._m[Y], y._m[_Y]), GNM_MAX(x._m[Z], y._m[_Z]), GNM_MAX(x._m[W], y._m[_W]));
+GNM_INLINE ivec4 max(const ivec4& x, const ivec4& y) {
+  return ivec4(GNM_MAX(x.x, y.x), GNM_MAX(x.y, y.y), GNM_MAX(x.z, y.z), GNM_MAX(x.w, y.w));
 }
 
-template <typename T,
-  uint8 N, uint8 X, uint8 Y, uint8 Z, uint8 W>
-GNM_INLINE vec4_t<T> max(const swizzle_4_t<T, N, X, Y, Z, W>& x, const T y) {
-  static_assert(std::numeric_limits<T>::is_iec559 || std::numeric_limits<T>::is_integer, "Arguments must be floating-point or integer.");
-  return vec2_t<T>(GNM_MAX(x._m[X], y), GNM_MAX(x._m[Y], y), GNM_MAX(x._m[Z], y), GNM_MAX(x._m[W], y));
+GNM_INLINE ivec4 max(const ivec4& x, const int y) {
+  return ivec4(GNM_MAX(x.x, y), GNM_MAX(x.y, y), GNM_MAX(x.z, y), GNM_MAX(x.w, y));
+}
+
+GNM_INLINE uvec2 max(const uvec2& x, const uvec2& y) {
+  return uvec2(GNM_MAX(x.x, y.x), GNM_MAX(x.y, y.y));
+}
+
+GNM_INLINE uvec2 max(const uvec2& x, const uint y) {
+  return uvec2(GNM_MAX(x.x, y), GNM_MAX(x.y, y));
+}
+
+GNM_INLINE uvec3 max(const uvec3& x, const uvec3& y) {
+  return uvec3(GNM_MAX(x.x, y.x), GNM_MAX(x.y, y.y), GNM_MAX(x.z, y.z));
+}
+
+GNM_INLINE uvec3 max(const uvec3& x, const uint y) {
+  return uvec3(GNM_MAX(x.x, y), GNM_MAX(x.y, y), GNM_MAX(x.z, y));
+}
+
+GNM_INLINE uvec4 max(const uvec4& x, const uvec4& y) {
+  return uvec4(GNM_MAX(x.x, y.x), GNM_MAX(x.y, y.y), GNM_MAX(x.z, y.z), GNM_MAX(x.w, y.w));
+}
+
+GNM_INLINE uvec4 max(const uvec4& x, const uint y) {
+  return uvec4(GNM_MAX(x.x, y), GNM_MAX(x.y, y), GNM_MAX(x.z, y), GNM_MAX(x.w, y));
 }
 
 // ----------------------------------------------------------------------------------------------------
 
 template <typename T>
-GNM_INLINE T clamp(const T x, const T minVal, const T maxVal) {
-  static_assert(std::numeric_limits<T>::is_iec559 || std::numeric_limits<T>::is_integer, "Arguments must be floating-point or integer.");
+GNM_INLINE T clamp(const T x, const T minVal, const T maxVal){
   return GNM_CLAMP(x, minVal, maxVal);
 }
 
-template <typename T>
-GNM_INLINE vec2_t<T> clamp(const vec2_t<T>& x, const vec2_t<T>& minVal, const vec2_t<T>& maxVal) {
-  static_assert(std::numeric_limits<T>::is_iec559 || std::numeric_limits<T>::is_integer, "Arguments must be floating-point or integer.");
-  return vec2_t<T>(GNM_CLAMP(x.x, minVal.x, maxVal.x), GNM_CLAMP(x.y, minVal.y, maxVal.y));
+GNM_INLINE vec2 clamp(const vec2& x, const vec2& minVal, const vec2& maxVal) {
+  return vec2(GNM_CLAMP(x.x, minVal.x, maxVal.x), GNM_CLAMP(x.y, minVal.y, maxVal.y));
 }
 
-template <typename T>
-GNM_INLINE vec2_t<T> clamp(const vec2_t<T>& x, const T minVal, const T maxVal) {
-  static_assert(std::numeric_limits<T>::is_iec559 || std::numeric_limits<T>::is_integer, "Arguments must be floating-point or integer.");
-  return vec2_t<T>(GNM_CLAMP(x.x, minVal, maxVal), GNM_CLAMP(x.y, minVal, maxVal));
+GNM_INLINE vec2 clamp(const vec2& x, const float minVal, const float maxVal) {
+  return vec2(GNM_CLAMP(x.x, minVal, maxVal), GNM_CLAMP(x.y, minVal, maxVal));
 }
 
-template <typename T>
-GNM_INLINE vec3_t<T> clamp(const vec3_t<T>& x, const vec3_t<T>& minVal, const vec3_t<T>& maxVal) {
-  static_assert(std::numeric_limits<T>::is_iec559 || std::numeric_limits<T>::is_integer, "Arguments must be floating-point or integer.");
-  return vec3_t<T>(GNM_CLAMP(x.x, minVal.x, maxVal.x), GNM_CLAMP(x.y, minVal.y, maxVal.y), GNM_CLAMP(x.z, minVal.z, maxVal.z));
+GNM_INLINE vec3 clamp(const vec3& x, const vec3& minVal, const vec3& maxVal) {
+  return vec3(GNM_CLAMP(x.x, minVal.x, maxVal.x), GNM_CLAMP(x.y, minVal.y, maxVal.y), GNM_CLAMP(x.z, minVal.z, maxVal.z));
 }
 
-template <typename T>
-GNM_INLINE vec3_t<T> clamp(const vec3_t<T>& x, const T minVal, const T maxVal) {
-  static_assert(std::numeric_limits<T>::is_iec559 || std::numeric_limits<T>::is_integer, "Arguments must be floating-point or integer.");
-  return vec3_t<T>(GNM_CLAMP(x.x, minVal, maxVal), GNM_CLAMP(x.y, minVal, maxVal), GNM_CLAMP(x.z, minVal, maxVal));
+GNM_INLINE vec3 clamp(const vec3& x, const float minVal, const float maxVal) {
+  return vec3(GNM_CLAMP(x.x, minVal, maxVal), GNM_CLAMP(x.y, minVal, maxVal), GNM_CLAMP(x.z, minVal, maxVal));
 }
 
-template <typename T>
-GNM_INLINE vec4_t<T> clamp(const vec4_t<T>& x, const vec4_t<T>& minVal, const vec4_t<T>& maxVal) {
-  static_assert(std::numeric_limits<T>::is_iec559 || std::numeric_limits<T>::is_integer, "Arguments must be floating-point or integer.");
-  return vec4_t<T>(GNM_CLAMP(x.x, minVal.x, maxVal.x), GNM_CLAMP(x.y, minVal.y, maxVal.y), GNM_CLAMP(x.z, minVal.z, maxVal.z), GNM_CLAMP(x.w, minVal.w, maxVal.w));
+GNM_INLINE vec4 clamp(const vec4& x, const vec4& minVal, const vec4& maxVal) {
+  return vec4(GNM_CLAMP(x.x, minVal.x, maxVal.x), GNM_CLAMP(x.y, minVal.y, maxVal.y), GNM_CLAMP(x.z, minVal.z, maxVal.z), GNM_CLAMP(x.w, minVal.w, maxVal.w));
 }
 
-template <typename T>
-GNM_INLINE vec4_t<T> clamp(const vec4_t<T>& x, const T minVal, const T maxVal) {
-  static_assert(std::numeric_limits<T>::is_iec559 || std::numeric_limits<T>::is_integer, "Arguments must be floating-point or integer.");
-  return vec4_t<T>(GNM_CLAMP(x.x, minVal, maxVal), GNM_CLAMP(x.y, minVal, maxVal), GNM_CLAMP(x.z, minVal, maxVal), GNM_CLAMP(x.w, minVal, maxVal));
+GNM_INLINE vec4 clamp(const vec4& x, const float minVal, const float maxVal) {
+  return vec4(GNM_CLAMP(x.x, minVal, maxVal), GNM_CLAMP(x.y, minVal, maxVal), GNM_CLAMP(x.z, minVal, maxVal), GNM_CLAMP(x.w, minVal, maxVal));
 }
 
-template <typename T,
-  uint8 N, uint8 X, uint8 Y, uint8 Z, uint8 W,
-  uint8 _N, uint8 _X, uint8 _Y, uint8 _Z, uint8 _W,
-  uint8 _N1, uint8 _X1, uint8 _Y1, uint8 _Z1, uint8 _W1>
-GNM_INLINE vec2_t<T> clamp(const swizzle_2_t<T, N, X, Y, Z, W>& x, const swizzle_2_t<T, _N, _X, _Y, _Z, _W>& minVal, const swizzle_2_t<T, _N1, _X1, _Y1, _Z1, _W1>& maxVal) {
-  static_assert(std::numeric_limits<T>::is_iec559 || std::numeric_limits<T>::is_integer, "Arguments must be floating-point or integer.");
-  return vec2_t<T>(GNM_CLAMP(x._m[X], minVal._m[_X], maxVal._m[_X1]), GNM_CLAMP(x._m[Y], minVal._m[_Y], maxVal._m[_Y1]));
+GNM_INLINE ivec2 clamp(const ivec2& x, const ivec2& minVal, const ivec2& maxVal) {
+  return ivec2(GNM_CLAMP(x.x, minVal.x, maxVal.x), GNM_CLAMP(x.y, minVal.y, maxVal.y));
 }
 
-template <typename T, uint8 N, uint8 X, uint8 Y, uint8 Z, uint8 W>
-GNM_INLINE vec2_t<T> clamp(const swizzle_2_t<T, N, X, Y, Z, W>& x, const T minVal, const T maxVal) {
-  static_assert(std::numeric_limits<T>::is_iec559 || std::numeric_limits<T>::is_integer, "Arguments must be floating-point or integer.");
-  return vec2_t<T>(GNM_CLAMP(x._m[X], minVal, maxVal), GNM_CLAMP(x._m[Y], minVal, maxVal));
+GNM_INLINE ivec2 clamp(const ivec2& x, const int minVal, const int maxVal) {
+  return ivec2(GNM_CLAMP(x.x, minVal, maxVal), GNM_CLAMP(x.y, minVal, maxVal));
 }
 
-template <typename T,
-  uint8 N, uint8 X, uint8 Y, uint8 Z, uint8 W,
-  uint8 _N, uint8 _X, uint8 _Y, uint8 _Z, uint8 _W,
-  uint8 _N1, uint8 _X1, uint8 _Y1, uint8 _Z1, uint8 _W1>
-GNM_INLINE vec3_t<T> clamp(const swizzle_3_t<T, N, X, Y, Z, W>& x, const swizzle_3_t<T, _N, _X, _Y, _Z, _W>& minVal, const swizzle_3_t<T, _N1, _X1, _Y1, _Z1, _W1>& maxVal) {
-  static_assert(std::numeric_limits<T>::is_iec559 || std::numeric_limits<T>::is_integer, "Arguments must be floating-point or integer.");
-  return vec3_t<T>(GNM_CLAMP(x._m[X], minVal._m[_X], maxVal._m[_X1]), GNM_CLAMP(x._m[Y], minVal._m[_Y], maxVal._m[_Y1]), GNM_CLAMP(x._m[Z], minVal._m[_Z], maxVal._m[_Z1]));
+GNM_INLINE ivec3 clamp(const ivec3& x, const ivec3& minVal, const ivec3& maxVal) {
+  return ivec3(GNM_CLAMP(x.x, minVal.x, maxVal.x), GNM_CLAMP(x.y, minVal.y, maxVal.y), GNM_CLAMP(x.z, minVal.z, maxVal.z));
 }
 
-template <typename T, uint8 N, uint8 X, uint8 Y, uint8 Z, uint8 W>
-GNM_INLINE vec3_t<T> clamp(const swizzle_3_t<T, N, X, Y, Z, W>& x, const T minVal, const T maxVal) {
-  static_assert(std::numeric_limits<T>::is_iec559 || std::numeric_limits<T>::is_integer, "Arguments must be floating-point or integer.");
-  return vec3_t<T>(GNM_CLAMP(x._m[X], minVal, maxVal), GNM_CLAMP(x._m[Y], minVal, maxVal), GNM_CLAMP(x._m[Z], minVal, maxVal));
+GNM_INLINE ivec3 clamp(const ivec3& x, const int minVal, const int maxVal) {
+  return ivec3(GNM_CLAMP(x.x, minVal, maxVal), GNM_CLAMP(x.y, minVal, maxVal), GNM_CLAMP(x.z, minVal, maxVal));
 }
 
-template <typename T,
-  uint8 N, uint8 X, uint8 Y, uint8 Z, uint8 W,
-  uint8 _N, uint8 _X, uint8 _Y, uint8 _Z, uint8 _W,
-  uint8 _N1, uint8 _X1, uint8 _Y1, uint8 _Z1, uint8 _W1>
-GNM_INLINE vec4_t<T> clamp(const swizzle_4_t<T, N, X, Y, Z, W>& x, const swizzle_4_t<T, _N, _X, _Y, _Z, _W>& minVal, const swizzle_4_t<T, _N1, _X1, _Y1, _Z1, _W1>& maxVal) {
-  static_assert(std::numeric_limits<T>::is_iec559 || std::numeric_limits<T>::is_integer, "Arguments must be floating-point or integer.");
-  return vec4_t<T>(GNM_CLAMP(x._m[X], minVal._m[_X], maxVal._m[_X1]), GNM_CLAMP(x._m[Y], minVal._m[_Y], maxVal._m[_Y1]), GNM_CLAMP(x._m[Z], minVal._m[_Z], maxVal._m[_Z1]));
+GNM_INLINE ivec4 clamp(const ivec4& x, const ivec4& minVal, const ivec4& maxVal) {
+  return ivec4(GNM_CLAMP(x.x, minVal.x, maxVal.x), GNM_CLAMP(x.y, minVal.y, maxVal.y), GNM_CLAMP(x.z, minVal.z, maxVal.z), GNM_CLAMP(x.w, minVal.w, maxVal.w));
 }
 
-template <typename T, uint8 N, uint8 X, uint8 Y, uint8 Z, uint8 W>
-GNM_INLINE vec4_t<T> clamp(const swizzle_4_t<T, N, X, Y, Z, W>& x, const T minVal, const T maxVal) {
-  static_assert(std::numeric_limits<T>::is_iec559 || std::numeric_limits<T>::is_integer, "Arguments must be floating-point or integer.");
-  return vec4_t<T>(GNM_CLAMP(x._m[X], minVal, maxVal), GNM_CLAMP(x._m[Y], minVal, maxVal), GNM_CLAMP(x._m[Z], minVal, maxVal), GNM_CLAMP(x._m[W], minVal, maxVal));
+GNM_INLINE ivec4 clamp(const ivec4& x, const int minVal, const int maxVal) {
+  return ivec4(GNM_CLAMP(x.x, minVal, maxVal), GNM_CLAMP(x.y, minVal, maxVal), GNM_CLAMP(x.z, minVal, maxVal), GNM_CLAMP(x.w, minVal, maxVal));
+}
+
+GNM_INLINE uvec2 clamp(const uvec2& x, const uvec2& minVal, const uvec2& maxVal) {
+  return uvec2(GNM_CLAMP(x.x, minVal.x, maxVal.x), GNM_CLAMP(x.y, minVal.y, maxVal.y));
+}
+
+GNM_INLINE uvec2 clamp(const uvec2& x, const uint minVal, const uint maxVal) {
+  return uvec2(GNM_CLAMP(x.x, minVal, maxVal), GNM_CLAMP(x.y, minVal, maxVal));
+}
+
+GNM_INLINE uvec3 clamp(const uvec3& x, const uvec3& minVal, const uvec3& maxVal) {
+  return uvec3(GNM_CLAMP(x.x, minVal.x, maxVal.x), GNM_CLAMP(x.y, minVal.y, maxVal.y), GNM_CLAMP(x.z, minVal.z, maxVal.z));
+}
+
+GNM_INLINE uvec3 clamp(const uvec3& x, const uint minVal, const uint maxVal) {
+  return uvec3(GNM_CLAMP(x.x, minVal, maxVal), GNM_CLAMP(x.y, minVal, maxVal), GNM_CLAMP(x.z, minVal, maxVal));
+}
+
+GNM_INLINE uvec4 clamp(const uvec4& x, const uvec4& minVal, const uvec4& maxVal) {
+  return uvec4(GNM_CLAMP(x.x, minVal.x, maxVal.x), GNM_CLAMP(x.y, minVal.y, maxVal.y), GNM_CLAMP(x.z, minVal.z, maxVal.z), GNM_CLAMP(x.w, minVal.w, maxVal.w));
+}
+
+GNM_INLINE uvec4 clamp(const uvec4& x, const uint minVal, const uint maxVal) {
+  return uvec4(GNM_CLAMP(x.x, minVal, maxVal), GNM_CLAMP(x.y, minVal, maxVal), GNM_CLAMP(x.z, minVal, maxVal), GNM_CLAMP(x.w, minVal, maxVal));
 }
 
 // ----------------------------------------------------------------------------------------------------
-
 
 GNM_INLINE float mix(const float x, const float y, const float a) {
   return GNM_MIX_F(x, y, a);
@@ -551,53 +516,55 @@ GNM_INLINE vec4 mix(const vec4& x, const vec4& y, const float a) {
 
 template <typename T>
 GNM_INLINE T mix(const T x, const T y, const bool a) {
-  static_assert(std::numeric_limits<T>::is_iec559 || std::numeric_limits<T>::is_integer, "Arguments must be floating-point or integer.");
   return GNM_MIX_B(x, y, a);
 }
 
-template <typename T>
-GNM_INLINE vec2_t<T> mix(const vec2_t<T>& x, const vec2_t<T>& y, const bvec2& a) {
-  static_assert(std::numeric_limits<T>::is_iec559 || std::numeric_limits<T>::is_integer, "Arguments must be floating-point or integer.");
-  return vec2_t<T>(GNM_MIX_B(x.x, y.x, a.x), GNM_MIX_B(x.y, y.y, a.y));
+GNM_INLINE vec2 mix(const vec2& x, const vec2& y, const bvec2& a) {
+  return vec2(GNM_MIX_B(x.x, y.x, a.x), GNM_MIX_B(x.y, y.y, a.y));
 }
 
-template <typename T>
-GNM_INLINE vec3_t<T> mix(const vec3_t<T>& x, const vec3_t<T>& y, const bvec3& a) {
-  static_assert(std::numeric_limits<T>::is_iec559 || std::numeric_limits<T>::is_integer, "Arguments must be floating-point or integer.");
-  return vec3_t<T>(GNM_MIX_B(x.x, y.x, a.x), GNM_MIX_B(x.y, y.y, a.y), GNM_MIX_B(x.z, y.z, a.z));
+GNM_INLINE vec3 mix(const vec3& x, const vec3& y, const bvec3& a) {
+  return vec3(GNM_MIX_B(x.x, y.x, a.x), GNM_MIX_B(x.y, y.y, a.y), GNM_MIX_B(x.z, y.z, a.z));
 }
 
-template <typename T>
-GNM_INLINE vec4_t<T> mix(const vec4_t<T>& x, const vec4_t<T>& y, const bvec4& a) {
-  static_assert(std::numeric_limits<T>::is_iec559 || std::numeric_limits<T>::is_integer, "Arguments must be floating-point or integer.");
-  return vec4_t<T>(GNM_MIX_B(x.x, y.x, a.x), GNM_MIX_B(x.y, y.y, a.y), GNM_MIX_B(x.z, y.z, a.z), GNM_MIX_B(x.w, y.w, a.w));
+GNM_INLINE vec4 mix(const vec4& x, const vec4& y, const bvec4& a) {
+  return vec4(GNM_MIX_B(x.x, y.x, a.x), GNM_MIX_B(x.y, y.y, a.y), GNM_MIX_B(x.z, y.z, a.z), GNM_MIX_B(x.w, y.w, a.w));
 }
 
-template <typename T,
-  uint8 N, uint8 X, uint8 Y, uint8 Z, uint8 W,
-  uint8 _N, uint8 _X, uint8 _Y, uint8 _Z, uint8 _W,
-  uint8 _N1, uint8 _X1, uint8 _Y1, uint8 _Z1, uint8 _W1>
-GNM_INLINE vec2_t<T> mix(const swizzle_2_t<T, N, X, Y, Z, W>& x, const swizzle_2_t<T, _N, _X, _Y, _Z, _W>& y, const swizzle_2_t<bool, _N1, _X1, _Y1, _Z1, _W1>& a) {
-  static_assert(std::numeric_limits<T>::is_iec559 || std::numeric_limits<T>::is_integer, "Arguments must be floating-point or integer.");
-  return vec2_t<T>(GNM_MIX_B(x._m[X], y._m[_X], a._m[_X1]), GNM_MIX_B(x._m[Y], y._m[_Y], a._m[_Y1]));
+GNM_INLINE ivec2 mix(const ivec2& x, const ivec2& y, const bvec2& a) {
+  return ivec2(GNM_MIX_B(x.x, y.x, a.x), GNM_MIX_B(x.y, y.y, a.y));
 }
 
-template <typename T,
-  uint8 N, uint8 X, uint8 Y, uint8 Z, uint8 W,
-  uint8 _N, uint8 _X, uint8 _Y, uint8 _Z, uint8 _W,
-  uint8 _N1, uint8 _X1, uint8 _Y1, uint8 _Z1, uint8 _W1>
-GNM_INLINE vec3_t<T> mix(const swizzle_3_t<T, N, X, Y, Z, W>& x, const swizzle_3_t<T, _N, _X, _Y, _Z, _W>& y, const swizzle_3_t<bool, _N1, _X1, _Y1, _Z1, _W1>& a) {
-  static_assert(std::numeric_limits<T>::is_iec559 || std::numeric_limits<T>::is_integer, "Arguments must be floating-point or integer.");
-  return vec3_t<T>(GNM_MIX_B(x._m[X], y._m[_X], a._m[_X1]), GNM_MIX_B(x._m[Y], y._m[_Y], a._m[_Y1]), GNM_MIX_B(x._m[Z], y._m[_Z], a._m[_Z1]));
+GNM_INLINE ivec3 mix(const ivec3& x, const ivec3& y, const bvec3& a) {
+  return ivec3(GNM_MIX_B(x.x, y.x, a.x), GNM_MIX_B(x.y, y.y, a.y), GNM_MIX_B(x.z, y.z, a.z));
 }
 
-template <typename T,
-  uint8 N, uint8 X, uint8 Y, uint8 Z, uint8 W,
-  uint8 _N, uint8 _X, uint8 _Y, uint8 _Z, uint8 _W,
-  uint8 _N1, uint8 _X1, uint8 _Y1, uint8 _Z1, uint8 _W1>
-GNM_INLINE vec4_t<T> mix(const swizzle_4_t<T, N, X, Y, Z, W>& x, const swizzle_4_t<T, _N, _X, _Y, _Z, _W>& y, const swizzle_4_t<bool, _N1, _X1, _Y1, _Z1, _W1>& a) {
-  static_assert(std::numeric_limits<T>::is_iec559 || std::numeric_limits<T>::is_integer, "Arguments must be floating-point or integer.");
-  return vec4_t<T>(GNM_MIX_B(x._m[X], y._m[_X], a._m[_X1]), GNM_MIX_B(x._m[Y], y._m[_Y], a._m[_Y1]), GNM_MIX_B(x._m[Z], y._m[_Z], a._m[_Z1]), GNM_MIX_B(x._m[W], y._m[_W], a._m[_W1]));
+GNM_INLINE ivec4 mix(const ivec4& x, const ivec4& y, const bvec4& a) {
+  return ivec4(GNM_MIX_B(x.x, y.x, a.x), GNM_MIX_B(x.y, y.y, a.y), GNM_MIX_B(x.z, y.z, a.z), GNM_MIX_B(x.w, y.w, a.w));
+}
+
+GNM_INLINE uvec2 mix(const uvec2& x, const uvec2& y, const bvec2& a) {
+  return uvec2(GNM_MIX_B(x.x, y.x, a.x), GNM_MIX_B(x.y, y.y, a.y));
+}
+
+GNM_INLINE uvec3 mix(const uvec3& x, const uvec3& y, const bvec3& a) {
+  return uvec3(GNM_MIX_B(x.x, y.x, a.x), GNM_MIX_B(x.y, y.y, a.y), GNM_MIX_B(x.z, y.z, a.z));
+}
+
+GNM_INLINE uvec4 mix(const uvec4& x, const uvec4& y, const bvec4& a) {
+  return uvec4(GNM_MIX_B(x.x, y.x, a.x), GNM_MIX_B(x.y, y.y, a.y), GNM_MIX_B(x.z, y.z, a.z), GNM_MIX_B(x.w, y.w, a.w));
+}
+
+GNM_INLINE bvec2 mix(const bvec2& x, const bvec2& y, const bvec2& a) {
+  return bvec2(GNM_MIX_B(x.x, y.x, a.x), GNM_MIX_B(x.y, y.y, a.y));
+}
+
+GNM_INLINE bvec3 mix(const bvec3& x, const bvec3& y, const bvec3& a) {
+  return bvec3(GNM_MIX_B(x.x, y.x, a.x), GNM_MIX_B(x.y, y.y, a.y), GNM_MIX_B(x.z, y.z, a.z));
+}
+
+GNM_INLINE bvec4 mix(const bvec4& x, const bvec4& y, const bvec4& a) {
+  return bvec4(GNM_MIX_B(x.x, y.x, a.x), GNM_MIX_B(x.y, y.y, a.y), GNM_MIX_B(x.z, y.z, a.z), GNM_MIX_B(x.w, y.w, a.w));
 }
 
 // ----------------------------------------------------------------------------------------------------

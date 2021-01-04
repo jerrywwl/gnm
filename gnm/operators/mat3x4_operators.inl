@@ -1,11 +1,15 @@
 GNM_NAMESPACE_BEGIN
 
 GNM_INLINE bool operator == (const mat3x4& a, const mat3x4& b) {
-	return memcmp(a._m, b._m, sizeof(mat3x4)) == 0;
+	return a._m00 == b._m00 && a._m10 == b._m10 && a._m20 == b._m20 && a._m30 == b._m30 &&
+				a._m01 == b._m01 && a._m11 == b._m11 && a._m21 == b._m21 && a._m31 == b._m31 &&
+				a._m02 == b._m02 && a._m12 == b._m12 && a._m22 == b._m22 && a._m32 == b._m32;
 }
 
 GNM_INLINE bool operator != (const mat3x4& a, const mat3x4& b) {
-	return memcmp(a._m, b._m, sizeof(mat3x4)) != 0;
+	return a._m00 != b._m00 || a._m10 != b._m10 || a._m20 != b._m20 || a._m30 != b._m30 ||
+				a._m01 != b._m01 || a._m11 != b._m11 || a._m21 != b._m21 || a._m31 != b._m31 ||
+				a._m02 != b._m02 || a._m12 != b._m12 || a._m22 != b._m22 || a._m32 != b._m32;
 }
 
 GNM_INLINE mat3x4 operator + (const mat3x4& a, const mat3x4& b) {

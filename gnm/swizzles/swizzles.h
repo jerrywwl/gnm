@@ -1,7 +1,7 @@
 #ifndef GNM_SWIZZLES_SWIZZLES_H_
 #define GNM_SWIZZLES_SWIZZLES_H_
 
-#include "common.h"
+#include "../common.h"
 
 GNM_NAMESPACE_BEGIN
 

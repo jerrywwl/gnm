@@ -12,20 +12,20 @@ struct mat2x2_t {
 	
 	mat2x2_t(const T f)
 		: _m00(f), _m10(f),
-		_m01(f), _m11(f) {}
+			_m01(f), _m11(f) {}
 
 	mat2x2_t(const T f00, const T f10,
 				const T f01, const T f11)
 		: _m00(f00), _m10(f10),
-		_m01(f01), _m11(f11) {}
+			_m01(f01), _m11(f11) {}
 
-	mat2x2_t(const mat2x2_t& mat) {
-		memcpy(_m, mat._m, sizeof(mat2x2_t));
-	}
+	mat2x2_t(const mat2x2_t& mat)
+		: _m00(mat._m00), _m10(mat._m10),
+			_m01(mat._m01), _m11(mat._m11) {}
 
 	mat2x2_t(const vec2_t<T>& v0, const vec2_t<T>& v1)
 		: _m00(v0.x), _m10(v0.y),
-		_m01(v1.x), _m11(v1.y) {}
+			_m01(v1.x), _m11(v1.y) {}
 
 	GNM_INLINE vec2_t<T>& operator [] (int index) {
 		assert(index >= 0 && index < 2 && "Index out of bounds.");

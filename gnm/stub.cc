@@ -1,1 +1,1 @@
-#include "math.h"
+#include "gnm.h"
