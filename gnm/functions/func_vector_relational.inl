@@ -280,15 +280,15 @@ GNM_INLINE bool all(const bvec4& x) {
 
 // ----------------------------------------------------------------------------------------------------
 
-GNM_INLINE bvec2 not(const bvec2& x) {
+GNM_INLINE bvec2 none(const bvec2& x) {
   return bvec2(!x.x, !x.y);
 }
 
-GNM_INLINE bvec3 not(const bvec3& x) {
+GNM_INLINE bvec3 none(const bvec3& x) {
   return bvec3(!x.x, !x.y, !x.z);
 }
 
-GNM_INLINE bvec4 not(const bvec4& x) {
+GNM_INLINE bvec4 none(const bvec4& x) {
   return bvec4(!x.x, !x.y, !x.z, !x.w);
 }
 

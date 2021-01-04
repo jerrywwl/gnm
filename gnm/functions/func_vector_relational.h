@@ -83,9 +83,9 @@ bool all(const bvec2& x);
 bool all(const bvec3& x);
 bool all(const bvec4& x);
 
-bvec2 not(const bvec2& x);
-bvec3 not(const bvec3& x);
-bvec4 not(const bvec4& x);
+bvec2 none(const bvec2& x);
+bvec3 none(const bvec3& x);
+bvec4 none(const bvec4& x);
 
 GNM_NAMESPACE_END
 
