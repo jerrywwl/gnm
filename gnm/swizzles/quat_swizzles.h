@@ -3,11 +3,21 @@
 
 #include "swizzles.h"
 
+#if (GNM_SIMD)
+# define SWIZZLE_QUAT_2_T swizzle_2_simd_t
+# define SWIZZLE_QUAT_3_T swizzle_3_simd_t
+# define SWIZZLE_QUAT_4_T swizzle_4_simd_t
+#else
+# define SWIZZLE_QUAT_2_T swizzle_2_t
+# define SWIZZLE_QUAT_3_T swizzle_3_t
+# define SWIZZLE_QUAT_4_T swizzle_4_t
+#endif
+
 #define GNM_SWIZZLE_QUAT_T_2_X(T, X, P0) \
-  swizzle_2_t<T, 4, X, 0, 0xFF, 0xFF> P0##x; \
-  swizzle_2_t<T, 4, X, 1, 0xFF, 0xFF> P0##y; \
-  swizzle_2_t<T, 4, X, 2, 0xFF, 0xFF> P0##z; \
-  swizzle_2_t<T, 4, X, 3, 0xFF, 0xFF> P0##w;
+  SWIZZLE_QUAT_2_T<T, 4, X, 0, 0xFF, 0xFF> P0##x; \
+  SWIZZLE_QUAT_2_T<T, 4, X, 1, 0xFF, 0xFF> P0##y; \
+  SWIZZLE_QUAT_2_T<T, 4, X, 2, 0xFF, 0xFF> P0##z; \
+  SWIZZLE_QUAT_2_T<T, 4, X, 3, 0xFF, 0xFF> P0##w;
 
 #define GNM_QUAT_T_2_SWIZZLES(T) \
   GNM_SWIZZLE_QUAT_T_2_X(T, 0, x) \
@@ -18,10 +28,10 @@
 // ----------------------------------------------------------------------------------------------------
 
 #define GNM_SWIZZLE_QUAT_T_3_XY(T, X, Y, P0, P1) \
-  swizzle_3_t<T, 4, X, Y, 0, 0xFF> P0##P1##x; \
-  swizzle_3_t<T, 4, X, Y, 1, 0xFF> P0##P1##y; \
-  swizzle_3_t<T, 4, X, Y, 2, 0xFF> P0##P1##z; \
-  swizzle_3_t<T, 4, X, Y, 3, 0xFF> P0##P1##w;
+  SWIZZLE_QUAT_3_T<T, 4, X, Y, 0, 0xFF> P0##P1##x; \
+  SWIZZLE_QUAT_3_T<T, 4, X, Y, 1, 0xFF> P0##P1##y; \
+  SWIZZLE_QUAT_3_T<T, 4, X, Y, 2, 0xFF> P0##P1##z; \
+  SWIZZLE_QUAT_3_T<T, 4, X, Y, 3, 0xFF> P0##P1##w;
 
 #define GNM_SWIZZLE_QUAT_T_3_X(T, X, P0) \
   GNM_SWIZZLE_QUAT_T_3_XY(T, X, 0, P0, x) \
@@ -38,10 +48,10 @@
 // ----------------------------------------------------------------------------------------------------
 
 #define GNM_SWIZZLE_QUAT_T_4_XYZ(T, X, Y, Z, P0, P1, P2) \
-  swizzle_4_t<T, 4, X, Y, Z, 0> P0##P1##P2##x; \
-  swizzle_4_t<T, 4, X, Y, Z, 1> P0##P1##P2##y; \
-  swizzle_4_t<T, 4, X, Y, Z, 2> P0##P1##P2##z; \
-  swizzle_4_t<T, 4, X, Y, Z, 3> P0##P1##P2##w;
+  SWIZZLE_QUAT_4_T<T, 4, X, Y, Z, 0> P0##P1##P2##x; \
+  SWIZZLE_QUAT_4_T<T, 4, X, Y, Z, 1> P0##P1##P2##y; \
+  SWIZZLE_QUAT_4_T<T, 4, X, Y, Z, 2> P0##P1##P2##z; \
+  SWIZZLE_QUAT_4_T<T, 4, X, Y, Z, 3> P0##P1##P2##w;
 
 #define GNM_SWIZZLE_QUAT_T_4_XY(T, X, Y, P0, P1) \
   GNM_SWIZZLE_QUAT_T_4_XYZ(T, X, Y, 0, P0, P1, x) \

@@ -1,11 +1,19 @@
 GNM_NAMESPACE_BEGIN
 
 GNM_INLINE quat operator + (const quat& a, const quat& b) {
+#if (GNM_SIMD)
+	return vec4(_mm_add_ps(a._v, b._v));
+#else
 	return quat(a.x + b.x, a.y + b.y, a.z + b.z, a.w + b.w);
+#endif
 }
 
 GNM_INLINE quat operator - (const quat& a, const quat& b) {
+#if (GNM_SIMD)
+	return vec4(_mm_sub_ps(a._v, b._v));
+#else
 	return quat(a.x - b.x, a.y - b.y, a.z - b.z, a.w - b.w);
+#endif
 }
 
 GNM_INLINE quat operator * (const quat& a, const quat& b) {
@@ -18,19 +26,35 @@ GNM_INLINE quat operator * (const quat& a, const quat& b) {
 }
 
 GNM_INLINE quat operator * (const quat& a, const float b) {
+#if (GNM_SIMD)
+	return vec4(_mm_mul_ps(a._v, _mm_set_ps1(b)));
+#else
 	return quat(a.x * b, a.y * b, a.z * b, a.w * b);
+#endif
 }
 
 GNM_INLINE quat operator * (const float a, const quat& b) {
+#if (GNM_SIMD)
+	return quat(_mm_mul_ps(_mm_set_ps1(a), b._v));
+#else
 	return quat(a * b.x, a * b.y, a * b.z, a * b.w);
+#endif
 }
 
 GNM_INLINE quat operator / (const quat& a, const float b) {
+#if (GNM_SIMD)
+	return quat(_mm_div_ps(a._v, _mm_set_ps1(b)));
+#else
 	return quat(a.x / b, a.y / b, a.z / b, a.w / b);
+#endif
 }
 
 GNM_INLINE quat operator / (const float a, const quat& b) {
+#if (GNM_SIMD)
+	return quat(_mm_div_ps(_mm_set_ps1(a), b._v));
+#else
 	return quat(a / b.x, a / b.y, a / b.z, a / b.w);
+#endif
 }
 
 GNM_INLINE quat operator + (const quat& a) {
@@ -38,7 +62,11 @@ GNM_INLINE quat operator + (const quat& a) {
 }
 
 GNM_INLINE quat operator - (const quat& a) {
+#if (GNM_SIMD)
+	return quat(_mm_set_ps(-a.w, -a.z, -a.y, -a.x));
+#else
 	return quat(-a.x, -a.y, -a.z, -a.w);
+#endif
 }
 
 GNM_INLINE bool operator == (const quat& a, const quat& b) {
@@ -50,18 +78,26 @@ GNM_INLINE bool operator != (const quat& a, const quat& b) {
 }
 
 GNM_INLINE quat& operator += (quat& a, const quat& b) {
+#if (GNM_SIMD)
+	a._v = _mm_add_ps(a._v, b._v);
+#else
 	a.x += b.x;
 	a.y += b.y;
 	a.z += b.z;
 	a.w += b.w;
+#endif
 	return a;
 }
 
 GNM_INLINE quat& operator -= (quat& a, const quat& b) {
+#if (GNM_SIMD)
+	a._v = _mm_sub_ps(a._v, b._v);
+#else
 	a.x -= b.x;
 	a.y -= b.y;
 	a.z -= b.z;
 	a.w -= b.w;
+#endif
 	return a;
 }
 
@@ -79,18 +115,26 @@ GNM_INLINE quat& operator *= (quat& a, const quat& b) {
 }
 
 GNM_INLINE quat& operator *= (quat& a, const float b) {
+#if (GNM_SIMD)
+	a._v = _mm_add_ps(a._v, _mm_set_ps1(b));
+#else
 	a.x *= b;
 	a.y *= b;
 	a.z *= b;
 	a.w *= b;
+#endif
 	return a;
 }
 
 GNM_INLINE quat& operator /= (quat& a, const float b) {
+#if (GNM_SIMD)
+	a._v = _mm_div_ps(a._v, _mm_set_ps1(b));
+#else
 	a.x /= b;
 	a.y /= b;
 	a.z /= b;
 	a.w /= b;
+#endif
 	return a;
 }
 

@@ -11,6 +11,34 @@
 
 #define GNM_USING_NAMESPACE	using namespace gnm;
 
+// Platform definition
+#define GNM_PLATFORM_WINDOWS 1
+#define GNM_PLATFORM_LINUX 2
+#define GNM_PLATFORM_MAC_OSX 3
+#define GNM_PLATFORM_MAC_IOS 4
+#define GNM_PLATFORM_ANDROID 5
+#define GNM_PLATFORM_NACL 6
+
+// Platform recognition
+#if defined(_WIN32) || defined(__WIN32__) || defined(WIN32) || defined(_WIN64) || defined(__WIN64__) || defined(WIN64)
+#	define GNM_PLATFORM GNM_PLATFORM_WINDOWS
+#elif defined(__APPLE_CC__)
+# if __ENVIRONMENT_IPHONE_OS_VERSION_MIN_REQUIRED__ >= 40000 || __IPHONE_OS_VERSION_MIN_REQUIRED >= 40000
+#   define GNM_PLATFORM GNM_PLATFORM_MAC_IOS
+# else
+#   define GNM_PLATFORM GNM_PLATFORM_MAC_OSX
+# endif
+#elif defined(__ANDROID__)
+#	define GNM_PLATFORM GNM_PLATFORM_ANDROID
+#elif defined(linux) || defined(__linux) || defined(__linux__)
+#	define GNM_PLATFORM GNM_PLATFORM_LINUX
+#elif defined(__native_client__)
+# define GNM_PLATFORM GNM_PLATFORM_NACL
+#else
+#	error "Couldn't recognize platform"
+#endif
+
+
 #if defined( __clang__ ) || defined( __GNUC__ ) 
 # define GNM_INLINE inline __attribute__((always_inline))
 #elif defined(_MSC_VER)
@@ -21,30 +49,34 @@
 # define GNM_INLINE __inline
 #endif
 
-#define GNM_SIMD_NATIVE 1 
-#define GNM_SIMD_AVX 2
-#define GNM_SIMD_NEON 3
+#define GNM_SIMD_NATIVE 0 
 
-#define ENABLE_GNM_SIMD
+#define GNM_SIMD_L1 1
+#define GNM_SIMD_L2 2
 
-#if defined(ENABLE_GNM_SIMD)
+#if (GNM_PLATFORM == GNM_PLATFORM_WINDOWS)
 # if defined(__AVX__) || defined(__AVX2__)
-#   define GNM_SIMD GNM_SIMD_AVX
+#   include <immintrin.h>
+#   define GNM_SIMD GNM_SIMD_L2
 # else
 #   define GNM_SIMD GNM_SIMD_NATIVE
 # endif
+#elif (GNM_PLATFORM == GNM_PLATFORM_MAC_IOS || GNM_PLATFORM == GNM_PLATFORM_ANDROID)
+//#include <arm_neon.h>
+//#define GNM_SIMD GNM_SIMD_NEON
+#define GNM_SIMD GNM_SIMD_NATIVE
 #else
-# define GNM_SIMD GNM_SIMD_NATIVE
+#define GNM_SIMD GNM_SIMD_NATIVE
 #endif
 
-typedef signed char        int8;
-typedef short              int16;
-typedef int                int32;
-typedef long long          int64;
-typedef unsigned char      uint8;
-typedef unsigned short     uint16;
-typedef unsigned int       uint32;
-typedef unsigned long long uint64;
+using int8 = signed char;
+using int16 = short;
+using int32 = int;
+using int64 = long long;
+using uint8 = unsigned char;
+using uint16 = unsigned short;
+using uint32 = unsigned int;
+using uint64 = unsigned long long;
 
 using uint = uint32;
 

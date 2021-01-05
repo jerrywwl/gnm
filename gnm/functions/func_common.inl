@@ -31,7 +31,11 @@ GNM_INLINE vec3 abs(const vec3& x) {
 }
 
 GNM_INLINE vec4 abs(const vec4& x) {
+#if (GNM_SIMD)
+  return vec4(_mm_and_ps(x._v, _mm_castsi128_ps(_mm_set1_epi32(0x7FFFFFFF))));
+#else
   return vec4(GNM_ABS_F(x.x), GNM_ABS_F(x.y), GNM_ABS_F(x.z), GNM_ABS_F(x.w));
+#endif
 }
 
 GNM_INLINE ivec2 abs(const ivec2& x) {
@@ -43,7 +47,11 @@ GNM_INLINE ivec3 abs(const ivec3& x) {
 }
 
 GNM_INLINE ivec4 abs(const ivec4& x) {
+#if (GNM_SIMD)
+  return ivec4(_mm_sign_epi32(x._vi, x._vi));
+#else
   return ivec4(GNM_ABS_I(x.x), GNM_ABS_I(x.y), GNM_ABS_I(x.z), GNM_ABS_I(x.w));
+#endif
 }
 
 // ----------------------------------------------------------------------------------------------------
@@ -62,7 +70,12 @@ GNM_INLINE vec3 sign(const vec3& x) {
 }
 
 GNM_INLINE vec4 sign(const vec4& x) {
+#if (GNM_SIMD)
+  return vec4(_mm_or_ps(_mm_and_ps(_mm_cmplt_ps(x._v, VEC4_ZERO._v), VEC4_NEG_ONE._v),
+                        _mm_and_ps(_mm_cmpgt_ps(x._v, VEC4_ZERO._v), VEC4_ONE._v)));
+#else
   return vec4(GNM_SIGN_F(x.x), GNM_SIGN_F(x.y), GNM_SIGN_F(x.z), GNM_SIGN_F(x.w));
+#endif
 }
 
 GNM_INLINE ivec2 sign(const ivec2& x) {
@@ -74,7 +87,12 @@ GNM_INLINE ivec3 sign(const ivec3& x) {
 }
 
 GNM_INLINE ivec4 sign(const ivec4& x) {
+#if (GNM_SIMD)
+  return ivec4(_mm_or_si128(_mm_and_si128(_mm_cmplt_epi32(x._vi, IVEC4_ZERO._vi), IVEC4_NEG_ONE._vi),
+                            _mm_and_si128(_mm_cmpgt_epi32(x._vi, IVEC4_ZERO._vi), IVEC4_ONE._vi)));
+#else
   return ivec4(GNM_SIGN_I(x.x), GNM_SIGN_I(x.y), GNM_SIGN_I(x.z), GNM_SIGN_I(x.w));
+#endif
 }
 
 // ----------------------------------------------------------------------------------------------------
@@ -92,7 +110,11 @@ GNM_INLINE vec3 floor(const vec3& x) {
 }
 
 GNM_INLINE vec4 floor(const vec4& x) {
+#if (GNM_SIMD)
+  return vec4(_mm_floor_ps(x._v));
+#else
   return vec4(std::floor(x.x), std::floor(x.y), std::floor(x.z), std::floor(x.w));
+#endif
 }
 
 // ----------------------------------------------------------------------------------------------------
@@ -110,7 +132,11 @@ GNM_INLINE vec3 trunc(const vec3& x) {
 }
 
 GNM_INLINE vec4 trunc(const vec4& x) {
+#if (GNM_SIMD)
+  return vec4(_mm_trunc_ps(x._v));
+#else
   return vec4(std::trunc(x.x), std::trunc(x.y), std::trunc(x.z), std::trunc(x.w));
+#endif
 }
 
 // ----------------------------------------------------------------------------------------------------
@@ -128,12 +154,17 @@ GNM_INLINE vec3 round(const vec3& x) {
 }
 
 GNM_INLINE vec4 round(const vec4& x) {
+#if (GNM_SIMD)
+  return vec4(_mm_round_ps(x._v, _MM_FROUND_TO_NEAREST_INT));
+#else
   return vec4(std::round(x.x), std::round(x.y), std::round(x.z), std::round(x.w));
+#endif
 }
 
 // ----------------------------------------------------------------------------------------------------
 
 GNM_INLINE float roundEven(const float x) {
+
   int i = static_cast<int>(x);
   float int_part = static_cast<float>(i);
   float fract_part = x - std::floor(x);
@@ -158,7 +189,13 @@ GNM_INLINE vec3 roundEven(const vec3& x) {
 }
 
 GNM_INLINE vec4 roundEven(const vec4& x) {
+#if (GNM_SIMD)
+  __m128 sgn0 = _mm_castsi128_ps(_mm_set1_epi32(int(0x80000000)));
+  __m128 or0 = _mm_or_ps(_mm_and_ps(sgn0, x._v), _mm_set_ps1(8388608.0f));
+  return vec4(_mm_sub_ps(_mm_add_ps(x._v, or0), or0));
+#else
   return vec4(roundEven(x.x), roundEven(x.y), roundEven(x.z), roundEven(x.w));
+#endif
 }
 
 // ----------------------------------------------------------------------------------------------------
@@ -176,7 +213,11 @@ GNM_INLINE vec3 ceil(const vec3& x) {
 }
 
 GNM_INLINE vec4 ceil(const vec4& x) {
+#if (GNM_SIMD)
+  return vec4(_mm_ceil_ps(x._v));
+#else
   return vec4(std::ceil(x.x), std::ceil(x.y), std::ceil(x.z), std::ceil(x.w));
+#endif
 }
 
 // ----------------------------------------------------------------------------------------------------
@@ -269,11 +310,19 @@ GNM_INLINE vec3 min(const vec3& x, const float y) {
 }
 
 GNM_INLINE vec4 min(const vec4& x, const vec4& y) {
+#if (GNM_SIMD)
+  return vec4(_mm_min_ps(x._v, y._v));
+#else
   return vec4(GNM_MIN(x.x, y.x), GNM_MIN(x.y, y.y), GNM_MIN(x.z, y.z), GNM_MIN(x.w, y.w));
+#endif
 }
 
 GNM_INLINE vec4 min(const vec4& x, const float y) {
+#if (GNM_SIMD)
+  return vec4(_mm_min_ps(x._v, _mm_set_ps1(y)));
+#else
   return vec4(GNM_MIN(x.x, y), GNM_MIN(x.y, y), GNM_MIN(x.z, y), GNM_MIN(x.w, y));
+#endif
 }
 
 GNM_INLINE ivec2 min(const ivec2& x, const ivec2& y) {
@@ -348,11 +397,19 @@ GNM_INLINE vec3 max(const vec3& x, const float y) {
 }
 
 GNM_INLINE vec4 max(const vec4& x, const vec4& y) {
+#if (GNM_SIMD)
+  return vec4(_mm_max_ps(x._v, y._v));
+#else
   return vec4(GNM_MAX(x.x, y.x), GNM_MAX(x.y, y.y), GNM_MAX(x.z, y.z), GNM_MAX(x.w, y.w));
+#endif
 }
 
 GNM_INLINE vec4 max(const vec4& x, const float y) {
+#if (GNM_SIMD)
+  return vec4(_mm_max_ps(x._v, _mm_set_ps1(y)));
+#else
   return vec4(GNM_MAX(x.x, y), GNM_MAX(x.y, y), GNM_MAX(x.z, y), GNM_MAX(x.w, y));
+#endif
 }
 
 GNM_INLINE ivec2 max(const ivec2& x, const ivec2& y) {
@@ -427,11 +484,19 @@ GNM_INLINE vec3 clamp(const vec3& x, const float minVal, const float maxVal) {
 }
 
 GNM_INLINE vec4 clamp(const vec4& x, const vec4& minVal, const vec4& maxVal) {
+#if (GNM_SIMD)
+  return vec4(_mm_min_ps(_mm_max_ps(x._v, minVal._v), maxVal._v));
+#else
   return vec4(GNM_CLAMP(x.x, minVal.x, maxVal.x), GNM_CLAMP(x.y, minVal.y, maxVal.y), GNM_CLAMP(x.z, minVal.z, maxVal.z), GNM_CLAMP(x.w, minVal.w, maxVal.w));
+#endif
 }
 
 GNM_INLINE vec4 clamp(const vec4& x, const float minVal, const float maxVal) {
+#if (GNM_SIMD)
+  return vec4(_mm_min_ps(_mm_max_ps(x._v, _mm_set_ps1(minVal)), _mm_set_ps1(maxVal)));
+#else
   return vec4(GNM_CLAMP(x.x, minVal, maxVal), GNM_CLAMP(x.y, minVal, maxVal), GNM_CLAMP(x.z, minVal, maxVal), GNM_CLAMP(x.w, minVal, maxVal));
+#endif
 }
 
 GNM_INLINE ivec2 clamp(const ivec2& x, const ivec2& minVal, const ivec2& maxVal) {
@@ -497,7 +562,11 @@ GNM_INLINE vec3 mix(const vec3& x, const vec3& y, const vec3& a) {
 }
 
 GNM_INLINE vec4 mix(const vec4& x, const vec4& y, const vec4& a) {
+#if (GNM_SIMD)
+  return vec4(_mm_add_ps(x._v, _mm_scalef_ps(_mm_sub_ps(y._v, x._v), a._v)));
+#else
   return vec4(GNM_MIX_F(x.x, y.x, a.x), GNM_MIX_F(x.y, y.y, a.y), GNM_MIX_F(x.z, y.z, a.z), GNM_MIX_F(x.w, y.w, a.w));
+#endif
 }
 
 GNM_INLINE vec2 mix(const vec2& x, const vec2& y, const float a) {
@@ -509,7 +578,11 @@ GNM_INLINE vec3 mix(const vec3& x, const vec3& y, const float a) {
 }
 
 GNM_INLINE vec4 mix(const vec4& x, const vec4& y, const float a) {
+#if (GNM_SIMD)
+  return vec4(_mm_add_ps(x._v, _mm_scalef_ps(_mm_sub_ps(y._v, x._v), _mm_set_ps1(a))));
+#else
   return vec4(GNM_MIX_F(x.x, y.x, a), GNM_MIX_F(x.y, y.y, a), GNM_MIX_F(x.z, y.z, a), GNM_MIX_F(x.w, y.w, a));
+#endif
 }
 
 // ----------------------------------------------------------------------------------------------------
@@ -582,7 +655,11 @@ GNM_INLINE vec3 step(const vec3& edge, const vec3& x) {
 }
 
 GNM_INLINE vec4 step(const vec4& edge, const vec4& x) {
+#if (GNM_SIMD)
+  return _mm_movemask_ps(_mm_cmple_ps(x._v, edge._v)) == 0 ? VEC4_ONE._v : VEC4_ZERO._v;
+#else
   return vec4(GNM_STEP_F(edge.x, x.x), GNM_STEP_F(edge.y, x.y), GNM_STEP_F(edge.z, x.z), GNM_STEP_F(edge.w, x.w));
+#endif
 }
 
 GNM_INLINE vec2 step(const float edge, const vec2& x) {
@@ -594,7 +671,11 @@ GNM_INLINE vec3 step(const float edge, const vec3& x) {
 }
 
 GNM_INLINE vec4 step(const float edge, const vec4& x) {
+#if (GNM_SIMD)
+  return _mm_movemask_ps(_mm_cmple_ps(x._v, _mm_set_ps1(edge))) == 0 ? VEC4_ONE._v : VEC4_ZERO._v;
+#else
   return vec4(GNM_STEP_F(edge, x.x), GNM_STEP_F(edge, x.y), GNM_STEP_F(edge, x.z), GNM_STEP_F(edge, x.w));
+#endif
 }
 
 // ----------------------------------------------------------------------------------------------------
@@ -613,7 +694,18 @@ GNM_INLINE vec3 smoothstep(const vec3& edge0, const vec3& edge1, const vec3& x) 
 }
 
 GNM_INLINE vec4 smoothstep(const vec4& edge0, const vec4& edge1, const vec4& x) {
+#if (GNM_SIMD)
+  __m128 div0 = _mm_sub_ps(_mm_sub_ps(x._v, edge0._v), _mm_sub_ps(edge1._v, edge0._v));
+
+  // clamp
+  __m128 min0 = _mm_min_ps(div0, VEC4_ONE._v);
+  __m128 clp0 = _mm_max_ps(min0, VEC4_ZERO._v);
+
+  __m128 sub0 = _mm_sub_ps(_mm_set_ps1(3.0f), _mm_mul_ps(_mm_set_ps1(2.0f), clp0));
+  return vec4(_mm_mul_ps(_mm_mul_ps(clp0, clp0), sub0));
+#else
   return vec4(smoothstep(edge0.x, edge1.x, x.x), smoothstep(edge0.y, edge1.y, x.y), smoothstep(edge0.z, edge1.z, x.z), smoothstep(edge0.w, edge1.w, x.w));
+#endif
 }
 
 GNM_INLINE vec2 smoothstep(const float edge0, const float edge1, const vec2& x) {
@@ -625,7 +717,19 @@ GNM_INLINE vec3 smoothstep(const float edge0, const float edge1, const vec3& x) 
 }
 
 GNM_INLINE vec4 smoothstep(const float edge0, const float edge1, const vec4& x) {
+#if (GNM_SIMD)
+  __m128 ev0 = _mm_set_ps1(edge0);
+  __m128 div0 = _mm_sub_ps(_mm_sub_ps(x._v, ev0), _mm_sub_ps(_mm_set_ps1(edge1), ev0));
+
+  // clamp
+  __m128 min0 = _mm_min_ps(div0, VEC4_ONE._v);
+  __m128 clp0 = _mm_max_ps(min0, VEC4_ZERO._v);
+
+  __m128 sub0 = _mm_sub_ps(_mm_set_ps1(3.0f), _mm_mul_ps(_mm_set_ps1(2.0f), clp0));
+  return vec4(_mm_mul_ps(_mm_mul_ps(clp0, clp0), sub0));
+#else
   return vec4(smoothstep(edge0, edge1, x.x), smoothstep(edge0, edge1, x.y), smoothstep(edge0, edge1, x.z), smoothstep(edge0, edge1, x.w));
+#endif
 }
 
 // ----------------------------------------------------------------------------------------------------
@@ -702,6 +806,9 @@ GNM_INLINE ivec3 floatBitsToInt(const vec3& x) {
 }
 
 GNM_INLINE ivec4 floatBitsToInt(const vec4& x) {
+#if (GNM_SIMD)
+  return ivec4(x._vi);
+#else
   union {
     float in[4];
     int out[4];
@@ -713,6 +820,7 @@ GNM_INLINE ivec4 floatBitsToInt(const vec4& x) {
   u.in[3] = x.w;
 
   return ivec4(u.out[0], u.out[1], u.out[2], u.out[3]);
+#endif
 }
 
 // ----------------------------------------------------------------------------------------------------
@@ -753,6 +861,9 @@ GNM_INLINE uvec3 floatBitsToUint(const vec3& x) {
 }
 
 GNM_INLINE uvec4 floatBitsToUint(const vec4& x) {
+#if (GNM_SIMD)
+  return uvec4(x._vi);
+#else
   union {
     float in[4];
     uint out[4];
@@ -764,6 +875,7 @@ GNM_INLINE uvec4 floatBitsToUint(const vec4& x) {
   u.in[3] = x.w;
 
   return uvec4(u.out[0], u.out[1], u.out[2], u.out[3]);
+#endif
 }
 
 // ----------------------------------------------------------------------------------------------------
@@ -804,6 +916,9 @@ GNM_INLINE vec3 intBitsToFloat(const ivec3& x) {
 }
 
 GNM_INLINE vec4 intBitsToFloat(const ivec4& x) {
+#if (GNM_SIMD)
+  return vec4(x._v);
+#else
   union {
     int in[4];
     float out[4];
@@ -815,6 +930,7 @@ GNM_INLINE vec4 intBitsToFloat(const ivec4& x) {
   u.in[3] = x.w;
 
   return vec4(u.out[0], u.out[1], u.out[2], u.out[3]);
+#endif
 }
 
 // ----------------------------------------------------------------------------------------------------
@@ -855,6 +971,9 @@ GNM_INLINE vec3 uintBitsToFloat(const uvec3& x) {
 }
 
 GNM_INLINE vec4 uintBitsToFloat(const uvec4& x) {
+#if (GNM_SIMD)
+  return vec4(x._v);
+#else
   union {
     uint in[4];
     float out[4];
@@ -866,6 +985,7 @@ GNM_INLINE vec4 uintBitsToFloat(const uvec4& x) {
   u.in[3] = x.w;
 
   return vec4(u.out[0], u.out[1], u.out[2], u.out[3]);
+#endif
 }
 
 // ----------------------------------------------------------------------------------------------------

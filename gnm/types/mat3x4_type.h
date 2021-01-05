@@ -6,57 +6,58 @@
 
 GNM_NAMESPACE_BEGIN
 
-template <typename T>
-struct mat3x4_t {
+struct mat3x4 {
 
-	mat3x4_t() {}
+	mat3x4() {}
 	
-	mat3x4_t(const T f)
-		: _m00(f), _m10(f), _m20(f), _m30(f),
-			_m01(f), _m11(f), _m21(f), _m31(f),
-			_m02(f), _m12(f), _m22(f), _m32(f) {}
+	mat3x4(const float f) {
+		_r[0] = f;
+		_r[1] = f;
+		_r[2] = f;
+	}
 
-	mat3x4_t(const T f00, const T f10, const T f20, const T f30,
-		const T f01, const T f11, const T f21, const T f31,
-		const T f02, const T f12, const T f22, const T f32)
-		: _m00(f00), _m10(f10), _m20(f20), _m30(f30),
-			_m01(f01), _m11(f11), _m21(f21), _m31(f31),
-			_m02(f02), _m12(f12), _m22(f22), _m32(f32) {}
+	mat3x4(const float f00, const float f10, const float f20, const float f30,
+				const float f01, const float f11, const float f21, const float f31,
+				const float f02, const float f12, const float f22, const float f32) {
+		_r[0] = vec4(f00, f10, f20, f30);
+		_r[1] = vec4(f01, f11, f21, f31);
+		_r[2] = vec4(f02, f12, f22, f32);
+	}
 
-	mat3x4_t(const mat3x4_t& mat)
-		: _m00(mat._m00), _m10(mat._m10), _m20(mat._m20), _m30(mat._m30),
-			_m01(mat._m01), _m11(mat._m11), _m21(mat._m21), _m31(mat._m31),
-			_m02(mat._m02), _m12(mat._m12), _m22(mat._m22), _m32(mat._m32) {}
+	mat3x4(const mat3x4& mat) {
+		_r[0] = mat._r[0];
+		_r[1] = mat._r[1];
+		_r[2] = mat._r[2];
+	}
 
-	mat3x4_t(const vec4_t<T>& v0, const vec4_t<T>& v1, const vec4_t<T>& v2)
-		: _m00(v0.x), _m10(v0.y), _m20(v0.z), _m30(v0.w),
-			_m01(v1.x), _m11(v1.y), _m21(v1.z), _m31(v1.w),
-			_m02(v2.x), _m12(v2.y), _m22(v2.z), _m32(v2.w) {}
+	mat3x4(const vec4& v0, const vec4& v1, const vec4& v2) {
+		_r[0] = v0;
+		_r[1] = v1;
+		_r[2] = v2;
+	}
 
-	GNM_INLINE vec4_t<T>& operator [] (int index) {
+	GNM_INLINE vec4& operator [] (int index) {
 		assert(index >= 0 && index < 3 && "Index out of bounds.");
 		return _r[index];
 	}
 
-	GNM_INLINE const vec4_t<T>& operator [] (int index) const {
+	GNM_INLINE const vec4& operator [] (int index) const {
 		assert(index >= 0 && index < 3 && "Index out of bounds.");
 		return _r[index];
 	}
 
 	union {
-		T _m[12];
+		float _m[12];
 
 		struct {
-			T _m00, _m10, _m20, _m30;
-			T _m01, _m11, _m21, _m31;
-			T _m02, _m12, _m22, _m32;
+			float _m00, _m10, _m20, _m30;
+			float _m01, _m11, _m21, _m31;
+			float _m02, _m12, _m22, _m32;
 		};
 
-		vec4_t<T> _r[3];
+		vec4 _r[3];
 	};
 };
-
-using mat3x4 = mat3x4_t<float>;
 
 GNM_NAMESPACE_END
 

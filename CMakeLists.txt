@@ -60,7 +60,7 @@ if(WIN32)
 		# compiler building setting
 
 		# Flags used by the compiler during all build types.
-		set(CMAKE_CXX_FLAGS "/DWIN32 /D_WINDOWS /EHsc /W3 /fp:fast")
+		set(CMAKE_CXX_FLAGS "/DWIN32 /D_WINDOWS /EHsc /W3 /fp:fast /arch:AVX")
 		# Flags used by the compiler during debug builds.
 		set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS} /D_DEBUG /MDd /Zi /Ob0 /Od /RTC1 /Oi")
 		# Flags used by the compiler during release minsize builds.

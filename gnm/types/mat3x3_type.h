@@ -5,58 +5,60 @@
 
 GNM_NAMESPACE_BEGIN
 
-template <typename T>
-struct mat3x3_t {
+struct mat3x3 {
 
-	mat3x3_t() {}
+	mat3x3() {}
 	
-	mat3x3_t(const T f)
-		: _m00(f), _m10(f), _m20(f),
-			_m01(f), _m11(f), _m21(f),
-			_m02(f), _m12(f), _m22(f) {}
+	mat3x3(const float f) {
+		_r[0] = f;
+		_r[1] = f;
+		_r[2] = f;
+	}
 
-	mat3x3_t(const T f00, const T f10, const T f20,
-				const T f01, const T f11, const T f21,
-				const T f02, const T f12, const T f22)
-		: _m00(f00), _m10(f10), _m20(f20),
-			_m01(f01), _m11(f11), _m21(f21),
-			_m02(f02), _m12(f12), _m22(f22) {}
+	mat3x3(const float f00, const float f10, const float f20,
+				const float f01, const float f11, const float f21,
+				const float f02, const float f12, const float f22) {
+		_r[0] = vec3(f00, f10, f20);
+		_r[1] = vec3(f01, f11, f21);
+		_r[2] = vec3(f02, f12, f22);
+	}
 
-	mat3x3_t(const mat3x3_t& mat)
-		: _m00(mat._m00), _m10(mat._m10), _m20(mat._m20),
-			_m01(mat._m01), _m11(mat._m11), _m21(mat._m21),
-			_m02(mat._m02), _m12(mat._m12), _m22(mat._m22) {}
+	mat3x3(const mat3x3& mat) {
+		_r[0] = mat._r[0];
+		_r[1] = mat._r[1];
+		_r[2] = mat._r[2];
+	}
 
-	mat3x3_t(const vec3_t<T>& v0, const vec3_t<T>& v1, const vec3_t<T>& v2)
-		: _m00(v0.x), _m10(v0.y), _m20(v0.z),
-			_m01(v1.x), _m11(v1.y), _m21(v1.z),
-			_m02(v2.x), _m12(v2.y), _m22(v2.z) {}
+	mat3x3(const vec3& v0, const vec3& v1, const vec3& v2) {
+		_r[0] = v0;
+		_r[1] = v1;
+		_r[2] = v2;
+	}
 
-	GNM_INLINE vec3_t<T>& operator [] (int index) {
+	GNM_INLINE vec3& operator [] (int index) {
 		assert(index >= 0 && index < 3 && "Index out of bounds.");
 		return _r[index];
 	}
 
-	GNM_INLINE const vec3_t<T>& operator [] (int index) const {
+	GNM_INLINE const vec3& operator [] (int index) const {
 		assert(index >= 0 && index < 3 && "Index out of bounds.");
 		return _r[index];
 	}
 
 	union {
-		T _m[9];
+		float _m[9];
 
 		struct {
-			T _m00, _m10, _m20;
-			T _m01, _m11, _m21;
-			T _m02, _m12, _m22;
+			float _m00, _m10, _m20;
+			float _m01, _m11, _m21;
+			float _m02, _m12, _m22;
 		};
 
-		vec3_t<T> _r[3];
+		vec3 _r[3];
 	};
 };
 
-using mat3 = mat3x3_t<float>;
-using mat3x3 = mat3x3_t<float>;
+using mat3 = mat3x3;
 
 static const mat3 MAT3_IDENTITY = mat3(
 	1.0f, 0.0f, 0.0f,

@@ -15,7 +15,11 @@ GNM_INLINE vec3 pow(const vec3& x, const vec3& y) {
 }
 
 GNM_INLINE vec4 pow(const vec4& x, const vec4& y) {
+#if (GNM_SIMD)
+  return vec4(_mm_pow_ps(x._v, y._v));
+#else
   return vec4(std::pow(x.x, y.x), std::pow(x.y, y.y), std::pow(x.z, y.z), std::pow(x.w, y.w));
+#endif
 }
 
 // ----------------------------------------------------------------------------------------------------
@@ -33,7 +37,11 @@ GNM_INLINE vec3 exp(const vec3& x) {
 }
 
 GNM_INLINE vec4 exp(const vec4& x) {
+#if (GNM_SIMD)
+  return vec4(_mm_exp_ps(x._v));
+#else
   return vec4(std::exp(x.x), std::exp(x.y), std::exp(x.z), std::exp(x.w));
+#endif
 }
 
 // ----------------------------------------------------------------------------------------------------
@@ -51,7 +59,11 @@ GNM_INLINE vec3 log(const vec3& x) {
 }
 
 GNM_INLINE vec4 log(const vec4& x) {
+#if (GNM_SIMD)
+  return vec4(_mm_log_ps(x._v));
+#else
   return vec4(std::log(x.x), std::log(x.y), std::log(x.z), std::log(x.w));
+#endif
 }
 
 // ----------------------------------------------------------------------------------------------------
@@ -69,7 +81,11 @@ GNM_INLINE vec3 exp2(const vec3& x) {
 }
 
 GNM_INLINE vec4 exp2(const vec4& x) {
+#if (GNM_SIMD)
+  return vec4(_mm_exp2_ps(x._v));
+#else
   return vec4(std::exp2(x.x), std::exp2(x.y), std::exp2(x.z), std::exp2(x.w));
+#endif
 }
 
 // ----------------------------------------------------------------------------------------------------
@@ -87,7 +103,11 @@ GNM_INLINE vec3 log2(const vec3& x) {
 }
 
 GNM_INLINE vec4 log2(const vec4& x) {
+#if (GNM_SIMD)
+  return vec4(_mm_log2_ps(x._v));
+#else
   return vec4(std::log2(x.x), std::log2(x.y), std::log2(x.z), std::log2(x.w));
+#endif
 }
 
 // ----------------------------------------------------------------------------------------------------
@@ -105,7 +125,11 @@ GNM_INLINE vec3 sqrt(const vec3& x) {
 }
 
 GNM_INLINE vec4 sqrt(const vec4& x) {
+#if (GNM_SIMD)
+  return vec4(_mm_sqrt_ps(x._v));
+#else
   return vec4(std::sqrt(x.x), std::sqrt(x.y), std::sqrt(x.z), std::sqrt(x.w));
+#endif
 }
 
 // ----------------------------------------------------------------------------------------------------
@@ -123,7 +147,11 @@ GNM_INLINE vec3 inversesqrt(const vec3& x) {
 }
 
 GNM_INLINE vec4 inversesqrt(const vec4& x) {
+#if (GNM_SIMD)
+  return vec4(_mm_rsqrt_ps(x._v));
+#else
   return vec4(1.0f / std::sqrt(x.x), 1.0f / std::sqrt(x.y), 1.0f / std::sqrt(x.z), 1.0f / std::sqrt(x.w));
+#endif
 }
 
 // ----------------------------------------------------------------------------------------------------

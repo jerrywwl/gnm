@@ -23,5 +23,6 @@
 #include "functions/func_matrix.h"
 #include "functions/func_vector_relational.h"
 #include "functions/func_integer.h"
+#include "functions/func_quat.h"
 
 #endif // GNM_GNM_H_

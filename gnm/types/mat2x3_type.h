@@ -6,51 +6,52 @@
 
 GNM_NAMESPACE_BEGIN
 
-template <typename T>
-struct mat2x3_t {
+struct mat2x3 {
 
-	mat2x3_t() {}
+	mat2x3() {}
 	
-	mat2x3_t(const T f)
-		: _m00(f), _m10(f), _m20(f),
-			_m01(f), _m11(f), _m21(f) {}
+	mat2x3(const float f) {
+		_r[0] = f;
+		_r[1] = f;
+	}
 
-	mat2x3_t(const T f00, const T f10, const T f20,
-					const T f01, const T f11, const T f21)
-		: _m00(f00), _m10(f01), _m20(f20),
-			_m01(f01), _m11(f11), _m21(f21) {}
+	mat2x3(const float f00, const float f10, const float f20,
+					const float f01, const float f11, const float f21) {
+		_r[0] = vec3(f00, f10, f20);
+		_r[1] = vec3(f01, f11, f21);
+	}
 
-	mat2x3_t(const mat2x3_t& mat)
-		: _m00(mat._m00), _m10(mat._m10), _m20(mat._m20),
-			_m01(mat._m01), _m11(mat._m11), _m21(mat._m21) {}
+	mat2x3(const mat2x3& mat) {
+		_r[0] = mat._r[0];
+		_r[1] = mat._r[1];
+	}
 
-	mat2x3_t(const vec3_t<T>& v0, const vec3_t<T>& v1)
-		: _m00(v0.x), _m10(v0.y), _m20(v0.z),
-			_m01(v1.x), _m11(v1.y), _m21(v1.z) {}
+	mat2x3(const vec3& v0, const vec3& v1) {
+		_r[0] = v0;
+		_r[1] = v1;
+	}
 
-	GNM_INLINE vec3_t<T>& operator [] (int index) {
+	GNM_INLINE vec3& operator [] (int index) {
 		assert(index >= 0 && index < 2 && "Index out of bounds.");
 		return _r[index];
 	}
 
-	GNM_INLINE const vec3_t<T>& operator [] (int index) const {
+	GNM_INLINE const vec3& operator [] (int index) const {
 		assert(index >= 0 && index < 2 && "Index out of bounds.");
 		return _r[index];
 	}
 
 	union {
-		T _m[6];
+		float _m[6];
 
 		struct {
-			T _m00, _m10, _m20;
-			T _m01, _m11, _m21;
+			float _m00, _m10, _m20;
+			float _m01, _m11, _m21;
 		};
 
-		vec3_t<T> _r[2];
+		vec3 _r[2];
 	};
 };
-
-using mat2x3 = mat2x3_t<float>;
 
 GNM_NAMESPACE_END
 

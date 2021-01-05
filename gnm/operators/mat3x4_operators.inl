@@ -13,15 +13,27 @@ GNM_INLINE bool operator != (const mat3x4& a, const mat3x4& b) {
 }
 
 GNM_INLINE mat3x4 operator + (const mat3x4& a, const mat3x4& b) {
+#if (GNM_SIMD)
+	return mat3x4(_mm_add_ps(a[0]._v, b[0]._v),
+								_mm_add_ps(a[1]._v, b[1]._v),
+								_mm_add_ps(a[2]._v, b[2]._v));
+#else
 	return mat3x4(a._m00 + b._m00, a._m10 + b._m10, a._m20 + b._m20, a._m30 + b._m30,
 								a._m01 + b._m01, a._m11 + b._m11, a._m12 + b._m12, a._m31 + b._m31,
 								a._m02 + b._m02, a._m12 + b._m12, a._m22 + b._m22, a._m32 + b._m32);
+#endif
 }
 
 GNM_INLINE mat3x4 operator - (const mat3x4& a, const mat3x4& b) {
+#if (GNM_SIMD)
+	return mat3x4(_mm_sub_ps(a[0]._v, b[0]._v),
+								_mm_sub_ps(a[1]._v, b[1]._v),
+								_mm_sub_ps(a[2]._v, b[2]._v));
+#else
 	return mat3x4(a._m00 - b._m00, a._m10 - b._m10, a._m20 - b._m20, a._m30 - b._m30,
 								a._m01 - b._m01, a._m11 - b._m11, a._m12 - b._m12, a._m31 - b._m31,
 								a._m02 - b._m02, a._m12 - b._m12, a._m22 - b._m22, a._m32 - b._m32);
+#endif
 }
 
 GNM_INLINE mat3x4 operator * (const mat4x4& a, const mat3x4& b) {
@@ -88,27 +100,55 @@ GNM_INLINE vec3 operator * (const vec4& a, const mat3x4& b) {
 }
 
 GNM_INLINE mat3x4 operator * (const float a, const mat3x4& b) {
+#if (GNM_SIMD)
+	const __m128 f = _mm_set_ps1(a);
+	return mat3x4(_mm_mul_ps(f, b[0]._v),
+								_mm_mul_ps(f, b[1]._v),
+								_mm_mul_ps(f, b[2]._v));
+#else
 	return mat3x4(a * b._m00, a * b._m10, a * b._m20, a * b._m30,
 								a * b._m01, a * b._m11, a * b._m21, a * b._m31,
 								a * b._m02, a * b._m12, a * b._m22, a * b._m32);
+#endif
 }
 
 GNM_INLINE mat3x4 operator * (const mat3x4& a, const float b) {
+#if (GNM_SIMD)
+	const __m128 f = _mm_set_ps1(b);
+	return mat3x4(_mm_mul_ps(a[0]._v, f),
+								_mm_mul_ps(a[1]._v, f),
+								_mm_mul_ps(a[2]._v, f));
+#else
 	return mat3x4(a._m00 * b, a._m10 * b, a._m20 * b, a._m30 * b,
 								a._m01 * b, a._m11 * b, a._m21 * b, a._m31 * b,
 								a._m02 * b, a._m12 * b, a._m22 * b, a._m32 * b);
+#endif
 }
 
 GNM_INLINE mat3x4 operator / (const float a, const mat3x4& b) {
+#if (GNM_SIMD)
+	const __m128 f = _mm_set_ps1(a);
+	return mat3x4(_mm_div_ps(f, b[0]._v),
+								_mm_div_ps(f, b[1]._v),
+								_mm_div_ps(f, b[2]._v));
+#else
 	return mat3x4(a / b._m00, a / b._m10, a / b._m20, a / b._m30,
 								a / b._m01, a / b._m11, a / b._m21, a / b._m31,
 								a / b._m02, a / b._m12, a / b._m22, a / b._m32);
+#endif
 }
 
 GNM_INLINE mat3x4 operator / (const mat3x4& a, const float b) {
+#if (GNM_SIMD)
+	const __m128 f = _mm_set_ps1(b);
+	return mat3x4(_mm_div_ps(a[0]._v, f),
+								_mm_div_ps(a[1]._v, f),
+								_mm_div_ps(a[2]._v, f));
+#else
 	return mat3x4(a._m00 / b, a._m10 / b, a._m20 / b, a._m30 / b,
 								a._m01 / b, a._m11 / b, a._m21 / b, a._m31 / b,
 								a._m02 / b, a._m12 / b, a._m22 / b, a._m32 / b);
+#endif
 }
 
 GNM_INLINE mat3x4 operator + (const mat3x4& mat) {
@@ -116,22 +156,40 @@ GNM_INLINE mat3x4 operator + (const mat3x4& mat) {
 }
 
 GNM_INLINE mat3x4 operator - (const mat3x4& mat) {
+#if (GNM_SIMD)
+	return mat3x4(_mm_set_ps(-mat._m30, -mat._m20, -mat._m10, -mat._m00),
+								_mm_set_ps(-mat._m31, -mat._m21, -mat._m11, -mat._m01),
+								_mm_set_ps(-mat._m32, -mat._m22, -mat._m12, -mat._m02));
+#else
 	return mat3x4(-mat._m00, -mat._m10, -mat._m20, -mat._m30,
 								-mat._m01, -mat._m11, -mat._m21, -mat._m31,
 								-mat._m02, -mat._m12, -mat._m22, -mat._m32);
+#endif
 }
 
 GNM_INLINE mat3x4& operator += (mat3x4& a, const mat3x4& b) {
+#if (GNM_SIMD)
+	a[0]._v = _mm_add_ps(a[0]._v, b[0]._v);
+	a[1]._v = _mm_add_ps(a[1]._v, b[1]._v);
+	a[2]._v = _mm_add_ps(a[2]._v, b[2]._v);
+#else
 	a._m00 += b._m00; a._m10 += b._m10; a._m20 += b._m20; a._m30 += b._m30;
 	a._m01 += b._m01; a._m11 += b._m11; a._m21 += b._m21; a._m31 += b._m31;
 	a._m02 += b._m02; a._m12 += b._m12; a._m22 += b._m22; a._m32 += b._m32;
+#endif
 	return a;
 }
 
 GNM_INLINE mat3x4& operator -= (mat3x4& a, const mat3x4& b) {
+#if (GNM_SIMD)
+	a[0]._v = _mm_sub_ps(a[0]._v, b[0]._v);
+	a[1]._v = _mm_sub_ps(a[1]._v, b[1]._v);
+	a[2]._v = _mm_sub_ps(a[2]._v, b[2]._v);
+#else
 	a._m00 -= b._m00; a._m10 -= b._m10; a._m20 -= b._m20; a._m30 -= b._m30;
 	a._m01 -= b._m01; a._m11 -= b._m11; a._m21 -= b._m21; a._m31 -= b._m31;
 	a._m02 -= b._m02; a._m12 -= b._m12; a._m22 -= b._m22; a._m32 -= b._m32;
+#endif
 	return a;
 }
 
@@ -170,16 +228,30 @@ GNM_INLINE mat3x4& operator *= (mat3x4& a, const mat3x3& b) {
 }
 
 GNM_INLINE mat3x4& operator *= (mat3x4& a, const float b) {
+#if (GNM_SIMD)
+	const __m128 f = _mm_set_ps1(b);
+	a[0]._v = _mm_mul_ps(a[0]._v, f);
+	a[1]._v = _mm_mul_ps(a[1]._v, f);
+	a[2]._v = _mm_mul_ps(a[2]._v, f);
+#else
 	a._m00 *= b; a._m10 *= b; a._m20 *= b; a._m30 *= b;
 	a._m01 *= b; a._m11 *= b; a._m21 *= b; a._m31 *= b;
 	a._m02 *= b; a._m12 *= b; a._m22 *= b; a._m32 *= b;
+#endif
 	return a;
 }
 
 GNM_INLINE mat3x4& operator /= (mat3x4& a, const float b) {
+#if (GNM_SIMD)
+	const __m128 f = _mm_set_ps1(b);
+	a[0]._v = _mm_div_ps(a[0]._v, f);
+	a[1]._v = _mm_div_ps(a[1]._v, f);
+	a[2]._v = _mm_div_ps(a[2]._v, f);
+#else
 	a._m00 /= b; a._m10 /= b; a._m20 /= b; a._m30 /= b;
 	a._m01 /= b; a._m11 /= b; a._m21 /= b; a._m31 /= b;
 	a._m02 /= b; a._m12 /= b; a._m22 /= b; a._m32 /= b;
+#endif
 	return a;
 }
 

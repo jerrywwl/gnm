@@ -19,5 +19,10 @@ int main() {
 
   float n_dot_v = clamp(abs(dot(normal, v)), 0.001f, 1.0f);
 
+  vec4 v0 = vec4(10.0f, 20.0f, 30.0f, 40.0f);
+  vec4 v1 = vec4(10.0f, 20.0f, 30.0f, 40.0f);
+
+  float d = distance(v0.xyz, VEC3_ZERO);
+
   return 0;
 }
