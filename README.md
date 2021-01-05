@@ -7,6 +7,7 @@ Features:
 - Usages are in complete accord with GLSL
 - Supports all types and operations for mathematics part of GLSL 
 - Supports swizzle operation as GLSL
+- Supports Intel instruction (SSE2/SSE4/AVX...)
 - Supports quaternion
 - Any C++11 compiler
 - Other features are in progress...
