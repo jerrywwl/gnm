@@ -1,11 +1,5 @@
 GNM_NAMESPACE_BEGIN
 
-#define GNM_PI (float)(3.141592653589793f)
-#define GNM_D2R (float)(0.017453292519943f)
-#define GNM_R2D (float)(57.29577951308233f)
-
-// ----------------------------------------------------------------------------------------------------
-
 GNM_INLINE float radians(const float x) {
   return GNM_D2R * x;
 }

@@ -19,6 +19,14 @@ quat conjugate(const quat& x);
 
 quat inverse(const quat& x);
 
+float angle(const quat& x);
+
+vec3 axis(const quat& x);
+
+quat axis_angle(const vec3& axis, const float angle);
+
+quat rotate(const quat& x, const vec3& axis, const float angle);
+
 GNM_NAMESPACE_END
 
 #include "func_quat.inl"

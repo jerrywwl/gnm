@@ -45,4 +45,44 @@ GNM_INLINE quat inverse(const quat& x) {
 #endif
 }
 
+GNM_INLINE float angle(const quat& x) {
+	if (abs(x.w) > 0.87758256f) {
+		const float a = asin(sqrt(x.x * x.x + x.y * x.y + x.z * x.z)) * 2.0f;
+		if (x.w < 0.0f) {
+			return GNM_PI * 2.0f - a;
+		}
+		return a;
+	}
+	return acos(x.w) * 2.0f;
+}
+
+GNM_INLINE vec3 axis(const quat& x) {
+	const float tmp1 = 1.0f - x.w * x.w;
+	if (tmp1 <= 0.0f) {
+		return vec3(0, 0, 1);
+	}
+	const float tmp2 = 1.0f / sqrt(tmp1);
+	return vec3(x.x * tmp2, x.y * tmp2, x.z * tmp2);
+}
+
+GNM_INLINE quat axis_angle(const vec3& axis, const float angle) {
+	return quat(cos(angle * 0.5f), axis * (sin(angle) * 0.5f));
+}
+
+GNM_INLINE quat rotate(const quat& x, const vec3& axis, const float angle) {
+	vec3 tmp = axis;
+
+	// Axis of rotation must be normalised
+	float len = length(tmp);
+	if (abs(len - 1.0f) > 0.001f) {
+		float oneOverLen = 1.0f / len;
+		tmp.x *= oneOverLen;
+		tmp.y *= oneOverLen;
+		tmp.z *= oneOverLen;
+	}
+
+	const float Sin = sin(angle * 0.5f);
+	return x * quat(tmp.x * Sin, tmp.y * Sin, tmp.z * Sin, cos(angle * 0.5f));
+}
+
 GNM_NAMESPACE_END

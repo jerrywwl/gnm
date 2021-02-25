@@ -64,11 +64,19 @@ using uvec2 = vec2_t<uint>;
 static const vec2 VEC2_ZERO = vec2(0.0f);
 static const vec2 VEC2_ONE = vec2(1.0f);
 static const vec2 VEC2_NEG_ONE = vec2(-1.0f);
+static const vec2 VEC2_UNIT_X = vec2(1.0f, 0.0f);
+static const vec2 VEC2_UNIT_Y = vec2(0.0f, 1.0f);
+
 static const ivec2 IVEC2_ZERO = ivec2(0);
 static const ivec2 IVEC2_ONE = ivec2(1);
 static const ivec2 IVEC2_NEG_ONE = ivec2(-1);
+static const ivec2 IVEC2_UNIT_X = ivec2(1, 0);
+static const ivec2 IVEC2_UNIT_Y = ivec2(0, 1);
+
 static const uvec2 UVEC2_ZERO = uvec2(0);
 static const uvec2 UVEC2_ONE = uvec2(1);
+static const uvec2 UVEC2_UNIT_X = uvec2(1, 0);
+static const uvec2 UVEC2_UNIT_Y = uvec2(0, 1);
 
 GNM_NAMESPACE_END
 

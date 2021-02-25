@@ -50,7 +50,6 @@
 #endif
 
 #define GNM_SIMD_NATIVE 0 
-
 #define GNM_SIMD_L1 1
 #define GNM_SIMD_L2 2
 
@@ -79,5 +78,15 @@ using uint32 = unsigned int;
 using uint64 = unsigned long long;
 
 using uint = uint32;
+
+#define GNM_PI (float)(3.141592653589793f)
+#define GNM_D2R (float)(0.017453292519943f)
+#define GNM_R2D (float)(57.29577951308233f)
+#define GNM_EPSILON (float)(1.1920929e-007)
+
+#define GNM_PI_D (double)(3.141592653589793f)
+#define GNM_D2R_D (double)(0.017453292519943f)
+#define GNM_R2D_D (double)(57.29577951308233f)
+#define GNM_EPSILON_D (double)(2.2204460492503131e-016)
 
 #endif // GNM_COMMON_H_

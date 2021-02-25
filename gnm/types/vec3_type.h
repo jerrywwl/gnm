@@ -69,11 +69,22 @@ using uvec3 = vec3_t<uint>;
 static const vec3 VEC3_ZERO = vec3(0.0f);
 static const vec3 VEC3_ONE = vec3(1.0f);
 static const vec3 VEC3_NEG_ONE = vec3(-1.0f);
+static const vec3 VEC3_UNIT_X = vec3(1.0f, 0.0f, 0.0f);
+static const vec3 VEC3_UNIT_Y = vec3(0.0f, 1.0f, 0.0f);
+static const vec3 VEC3_UNIT_Z = vec3(0.0f, 0.0f, 1.0f);
+
 static const ivec3 IVEC3_ZERO = ivec3(0);
 static const ivec3 IVEC3_ONE = ivec3(1);
 static const ivec3 IVEC3_NEG_ONE = ivec3(-1);
+static const ivec3 IVEC3_UNIT_X = ivec3(1, 0, 0);
+static const ivec3 IVEC3_UNIT_Y = ivec3(0, 1, 0);
+static const ivec3 IVEC3_UNIT_Z = ivec3(0, 0, 1);
+
 static const uvec3 UVEC3_ZERO = uvec3(0);
 static const uvec3 UVEC3_ONE = uvec3(1);
+static const uvec3 UVEC3_UNIT_X = uvec3(1, 0, 0);
+static const uvec3 UVEC3_UNIT_Y = uvec3(0, 1, 0);
+static const uvec3 UVEC3_UNIT_Z = uvec3(0, 0, 1);
 
 GNM_NAMESPACE_END
 

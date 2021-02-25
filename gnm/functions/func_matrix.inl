@@ -348,4 +348,281 @@ GNM_INLINE mat4 inverse(const mat4& m) {
 
 // ----------------------------------------------------------------------------------------------------
 
+GNM_INLINE mat4 mat4Translation(const vec3& t) {
+  return mat4(1.0f, 0.0f, 0.0f, 0.0f,
+              0.0f, 1.0f, 0.0f, 0.0f,
+              0.0f, 0.0f, 1.0f, 0.0f,
+              t.x, t.y, t.z, 1.0f);
+}
+
+GNM_INLINE mat3 mat3Rotation(const quat& r) {
+
+  float qxx(r.x * r.x);
+  float qyy(r.y * r.y);
+  float qzz(r.z * r.z);
+  float qxz(r.x * r.z);
+  float qxy(r.x * r.y);
+  float qyz(r.y * r.z);
+  float qwx(r.w * r.x);
+  float qwy(r.w * r.y);
+  float qwz(r.w * r.z);
+
+  return mat3(1.0f - 2.0f * (qyy + qzz), 2.0f * (qxy + qwz), 2.0f * (qxz - qwy),
+              2.0f * (qxy - qwz), 1.0f - 2.0f * (qxx + qzz), 2.0f * (qyz + qwx),
+              2.0f * (qxz + qwy), 2.0f * (qyz - qwx), 1.0f - 2.0f * (qxx + qyy));
+}
+
+GNM_INLINE mat4 mat4Rotation(const quat& r) {
+
+  float qxx(r.x * r.x);
+  float qyy(r.y * r.y);
+  float qzz(r.z * r.z);
+  float qxz(r.x * r.z);
+  float qxy(r.x * r.y);
+  float qyz(r.y * r.z);
+  float qwx(r.w * r.x);
+  float qwy(r.w * r.y);
+  float qwz(r.w * r.z);
+
+  return mat4(1.0f - 2.0f * (qyy + qzz), 2.0f * (qxy + qwz), 2.0f * (qxz - qwy), 0.0f,
+              2.0f * (qxy - qwz), 1.0f - 2.0f * (qxx + qzz), 2.0f * (qyz + qwx), 0.0f,
+              2.0f * (qxz + qwy), 2.0f * (qyz - qwx), 1.0f - 2.0f * (qxx + qyy), 0.0f, 
+              0.0f, 0.0f, 0.0f, 1.0f);
+}
+
+GNM_INLINE mat3 mat3Scale(const vec3& s) {
+  return mat3(s.x, s.x, s.x,
+              s.y, s.y, s.y,
+              s.z, s.z, s.z);
+}
+
+GNM_INLINE mat4 mat4Scale(const vec3& s) {
+  return mat4(s.x, s.x, s.x, 0.0f,
+              s.y, s.y, s.y, 0.0f,
+              s.z, s.z, s.z, 0.0f,
+              0.0f, 0.0f, 0.0f, 1.0f);
+}
+
+GNM_INLINE mat4 translate(const mat4& m, const vec3& t) {
+  mat4 mat = m;
+  mat[3] = m[0] * t.x + m[1] * t.y + m[2] * t.z + m[3];
+  return mat;
+}
+
+GNM_INLINE mat4 rotate(const mat4& m, const vec3& axis, float angle) {
+  const float c = cos(angle);
+  const float s = sin(angle);
+
+  vec3 v(normalize(axis));
+  vec3 temp((1.0f - c) * v);
+
+  mat4 rotate;
+  rotate._m00 = c + temp.x * v.x;
+  rotate._m01 = temp.x * v.y + s * v.z;
+  rotate._m02 = temp.x * v.z - s * v.y;
+
+  rotate._m10 = temp.y * v.x - s * v.z;
+  rotate._m11 = c + temp.y * v.y;
+  rotate._m12 = temp.y * v.z + s * v.x;
+
+  rotate._m20 = temp.z * v.x + s * v.y;
+  rotate._m21 = temp.z * v.y - s * v.x;
+  rotate._m22 = c + temp.z * v.z;
+
+  mat4 mat;
+  mat[0] = m[0] * rotate._m00 + m[1] * rotate._m10 + m[2] * rotate._m20;
+  mat[1] = m[0] * rotate._m01 + m[1] * rotate._m11 + m[2] * rotate._m21;
+  mat[2] = m[0] * rotate._m02 + m[1] * rotate._m12 + m[2] * rotate._m22;
+  mat[3] = m[3];
+  return mat;
+}
+
+GNM_INLINE mat4 scale(const mat4& m, const vec3& s) {
+  mat4 mat;
+  mat[0] = m[0] * s.x;
+  mat[1] = m[1] * s.y;
+  mat[2] = m[2] * s.z;
+  mat[3] = m[3];
+  return mat;
+}
+
+GNM_INLINE mat4 compose(const vec3& t, const quat& r, const vec3& s) {
+  mat4 mat = mat4Rotation(r);
+  mat = scale(mat, s);
+  mat = translate(mat, t);
+  return mat;
+}
+
+GNM_INLINE vec3 decomposeTranslation(const mat4& m) {
+  return vec3(m._m03, m._m13, m._m23);
+}
+
+GNM_INLINE quat decomposeRotation(const mat3& m) {
+  float fourXSquaredMinus1 = m._m00 - m._m11 - m._m22;
+  float fourYSquaredMinus1 = m._m11 - m._m00 - m._m22;
+  float fourZSquaredMinus1 = m._m22 - m._m00 - m._m11;
+  float fourWSquaredMinus1 = m._m00 + m._m11 + m._m22;
+
+  int biggestIndex = 0;
+  float fourBiggestSquaredMinus1 = fourWSquaredMinus1;
+  if (fourXSquaredMinus1 > fourBiggestSquaredMinus1) {
+    fourBiggestSquaredMinus1 = fourXSquaredMinus1;
+    biggestIndex = 1;
+  }
+  if (fourYSquaredMinus1 > fourBiggestSquaredMinus1) {
+    fourBiggestSquaredMinus1 = fourYSquaredMinus1;
+    biggestIndex = 2;
+  }
+  if (fourZSquaredMinus1 > fourBiggestSquaredMinus1) {
+    fourBiggestSquaredMinus1 = fourZSquaredMinus1;
+    biggestIndex = 3;
+  }
+
+  float biggestVal = sqrt(fourBiggestSquaredMinus1 + 1.0f) * 0.5f;
+  float mult = 0.25f / biggestVal;
+
+  switch (biggestIndex) {
+  case 0: return quat(biggestVal, (m._m21 - m._m12) * mult, (m._m02 - m._m20) * mult, (m._m10 - m._m01) * mult);
+  case 1: return quat((m._m21 - m._m12) * mult, biggestVal, (m._m10 + m._m01) * mult, (m._m02 + m._m20) * mult);
+  case 2: return quat((m._m02 - m._m20) * mult, (m._m10 + m._m01) * mult, biggestVal, (m._m21 + m._m12) * mult);
+  case 3: return quat((m._m10 - m._m01) * mult, (m._m02 + m._m20) * mult, (m._m21 + m._m12) * mult, biggestVal);
+  default: // Silence a -Wswitch-default warning in GCC. Should never actually get here. Assert is just for sanity.
+    assert(false);
+    return QUAT_IDENTITY;
+  }
+}
+
+GNM_INLINE quat decomposeRotation(const mat4& m) {
+  float fourXSquaredMinus1 = m._m00 - m._m11 - m._m22;
+  float fourYSquaredMinus1 = m._m11 - m._m00 - m._m22;
+  float fourZSquaredMinus1 = m._m22 - m._m00 - m._m11;
+  float fourWSquaredMinus1 = m._m00 + m._m11 + m._m22;
+
+  int biggestIndex = 0;
+  float fourBiggestSquaredMinus1 = fourWSquaredMinus1;
+  if (fourXSquaredMinus1 > fourBiggestSquaredMinus1) {
+    fourBiggestSquaredMinus1 = fourXSquaredMinus1;
+    biggestIndex = 1;
+  }
+  if (fourYSquaredMinus1 > fourBiggestSquaredMinus1) {
+    fourBiggestSquaredMinus1 = fourYSquaredMinus1;
+    biggestIndex = 2;
+  }
+  if (fourZSquaredMinus1 > fourBiggestSquaredMinus1) {
+    fourBiggestSquaredMinus1 = fourZSquaredMinus1;
+    biggestIndex = 3;
+  }
+
+  float biggestVal = sqrt(fourBiggestSquaredMinus1 + 1.0f) * 0.5f;
+  float mult = 0.25f / biggestVal;
+
+  switch (biggestIndex) {
+  case 0: return quat(biggestVal, (m._m21 - m._m12) * mult, (m._m02 - m._m20) * mult, (m._m10 - m._m01) * mult);
+  case 1: return quat((m._m21 - m._m12) * mult, biggestVal, (m._m10 + m._m01) * mult, (m._m02 + m._m20) * mult);
+  case 2: return quat((m._m02 - m._m20) * mult, (m._m10 + m._m01) * mult, biggestVal, (m._m21 + m._m12) * mult);
+  case 3: return quat((m._m10 - m._m01) * mult, (m._m02 + m._m20) * mult, (m._m21 + m._m12) * mult, biggestVal);
+  default: // Silence a -Wswitch-default warning in GCC. Should never actually get here. Assert is just for sanity.
+    assert(false);
+    return QUAT_IDENTITY;
+  }
+}
+
+GNM_INLINE vec3 decomposeScale(const mat4& m) {
+  return vec3(sqrt(m._m00 * m._m00 + m._m10 * m._m10 + m._m20 * m._m20),
+              sqrt(m._m01 * m._m01 + m._m11 * m._m11 + m._m21 * m._m21),
+              sqrt(m._m02 * m._m02 + m._m12 * m._m12 + m._m22 * m._m22));
+}
+
+GNM_INLINE void decompose(const mat4& m, vec3& t, quat& r, vec3& s) {
+  t = decomposeTranslation(m);
+  r = decomposeRotation(m);
+  s = decomposeScale(m);
+}
+
+GNM_INLINE mat4 lookAtRH(const vec3& eye, const vec3& center, const vec3& up) {
+  const vec3 f(normalize(center - eye));
+  const vec3 s(normalize(cross(f, up)));
+  const vec3 u(cross(s, f));
+
+  return mat4(s.x, u.x, -f.x, 0,
+              s.y, u.y, -f.y, 0,
+              s.z, u.z, -f.z, 0,
+              -dot(s, eye), -dot(u, eye), dot(f, eye), 1);
+}
+
+GNM_INLINE mat4 lookAtLH(const vec3& eye, const vec3& center, const vec3& up) {
+  const vec3 f(normalize(center - eye));
+  const vec3 s(normalize(cross(up, f)));
+  const vec3 u(cross(f, s));
+
+  return mat4(s.x, u.x, f.x, 0,
+              s.y, u.y, f.y, 0,
+              s.z, u.z, f.z, 0,
+              -dot(s, eye), -dot(u, eye), dot(f, eye), 1);
+}
+
+GNM_INLINE mat4 orthoRH_ZO(float left, float right, float bottom, float top, float near, float far) {
+  return mat4(2.0f / (right - left), 0, 0, 0,
+              0, 2.0f / (top - bottom), 0, 0,
+              0, 0, -1.0f / (far - near), 0,
+              -(right + left) / (right - left), -(top + bottom) / (top - bottom), -near / (far - near), 1);
+}
+
+GNM_INLINE mat4 orthoRH_NO(float left, float right, float bottom, float top, float near, float far) {
+  return mat4(2.0f / (right - left), 0, 0, 0,
+              0, 2.0f / (top - bottom), 0, 0,
+              0, 0, -2.0f / (far - near), 0,
+              -(right + left) / (right - left), -(top + bottom) / (top - bottom), -(far + near) / (far - near), 1);
+}
+
+GNM_INLINE mat4 orthoLH_ZO(float left, float right, float bottom, float top, float near, float far) {
+  return mat4(2.0f / (right - left), 0, 0, 0,
+              0, 2.0f / (top - bottom), 0, 0,
+              0, 0, 1.0f / (far - near), 0,
+              -(right + left) / (right - left), -(top + bottom) / (top - bottom), -near / (far - near), 1);
+}
+
+GNM_INLINE mat4 orthoLH_NO(float left, float right, float bottom, float top, float near, float far) {
+  return mat4(2.0f / (right - left), 0, 0, 0,
+              0, 2.0f / (top - bottom), 0, 0,
+              0, 0, 2.0f / (far - near), 0,
+              -(right + left) / (right - left), -(top + bottom) / (top - bottom), -(far + near) / (far - near), 1);
+}
+
+GNM_INLINE mat4 perspectiveRH_ZO(float fovy, float aspect, float near, float far) {
+  assert(abs(aspect - GNM_EPSILON) > 0.0f);
+  const float tanHalfFovy = tan(fovy * 0.5f);
+  return mat4(1.0f / (aspect * tanHalfFovy), 0, 0, 0,
+              0, 1.0f / (tanHalfFovy), 0, 0,
+              0, 0, far / (near - far), -1,
+              0, 0, -(far * near) / (far - near), 0);
+}
+
+GNM_INLINE mat4 perspectiveRH_NO(float fovy, float aspect, float near, float far) {
+  assert(abs(aspect - GNM_EPSILON) > 0.0f);
+  const float tanHalfFovy = tan(fovy * 0.5f);
+  return mat4(1.0f / (aspect * tanHalfFovy), 0, 0, 0,
+              0, 1.0f / (tanHalfFovy), 0, 0,
+              0, 0,  - (far + near) / (near - far), -1,
+              0, 0, -(2.0f * far * near) / (far - near), 0);
+}
+
+GNM_INLINE mat4 perspectiveLH_ZO(float fovy, float aspect, float near, float far) {
+  assert(abs(aspect - GNM_EPSILON) > 0.0f);
+  const float tanHalfFovy = tan(fovy * 0.5f);
+  return mat4(1.0f / (aspect * tanHalfFovy), 0, 0, 0,
+              0, 1.0f / (tanHalfFovy), 0, 0,
+              0, 0, far / (far - near), 1,
+              0, 0, -(far * near) / (far - near), 0);
+}
+
+GNM_INLINE mat4 perspectiveLH_NO(float fovy, float aspect, float near, float far) {
+  assert(abs(aspect - GNM_EPSILON) > 0.0f);
+  const float tanHalfFovy = tan(fovy * 0.5f);
+  return mat4(1.0f / (aspect * tanHalfFovy), 0, 0, 0,
+              0, 1.0f / (tanHalfFovy), 0, 0,
+              0, 0, (far + near) / (near - far), 1,
+              0, 0, -(2.0f * far * near) / (far - near), 0);
+}
+
 GNM_NAMESPACE_END

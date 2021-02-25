@@ -342,11 +342,25 @@ using uvec4 = vec4_t<uint>;
 static const vec4 VEC4_ZERO = vec4(0.0f);
 static const vec4 VEC4_ONE = vec4(1.0f);
 static const vec4 VEC4_NEG_ONE = vec4(-1.0f);
+static const vec4 VEC4_UNIT_X = vec4(1, 0, 0, 0);
+static const vec4 VEC4_UNIT_Y = vec4(0, 1, 0, 0);
+static const vec4 VEC4_UNIT_Z = vec4(0, 0, 1, 0);
+static const vec4 VEC4_UNIT_W = vec4(0, 0, 0, 1);
+
 static const ivec4 IVEC4_ZERO = ivec4(0);
 static const ivec4 IVEC4_ONE = ivec4(1);
 static const ivec4 IVEC4_NEG_ONE = ivec4(-1);
+static const ivec4 IVEC4_UNIT_X = ivec4(1, 0, 0, 0);
+static const ivec4 IVEC4_UNIT_Y = ivec4(0, 1, 0, 0);
+static const ivec4 IVEC4_UNIT_Z = ivec4(0, 0, 1, 0);
+static const ivec4 IVEC4_UNIT_W = ivec4(0, 0, 0, 1);
+
 static const uvec4 UVEC4_ZERO = uvec4(0);
 static const uvec4 UVEC4_ONE = uvec4(1);
+static const uvec4 UVEC4_UNIT_X = uvec4(1, 0, 0, 0);
+static const uvec4 UVEC4_UNIT_Y = uvec4(0, 1, 0, 0);
+static const uvec4 UVEC4_UNIT_Z = uvec4(0, 0, 1, 0);
+static const uvec4 UVEC4_UNIT_W = uvec4(0, 0, 0, 1);
 
 GNM_NAMESPACE_END
 

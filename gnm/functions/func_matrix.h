@@ -45,6 +45,34 @@ mat2 inverse(const mat2& m);
 mat3 inverse(const mat3& m);
 mat4 inverse(const mat4& m);
 
+// ----------------------------------------------------------------------------------------------------
+// GNM_EXT_MATRIX_FUNCTIONS
+
+mat4 mat4Translation(const vec3& t);
+mat3 mat3Rotation(const quat& r);
+mat4 mat4Rotation(const quat& r);
+mat3 mat3Scale(const vec3& s);
+mat4 mat4Scale(const vec3& s);
+
+mat4 translate(const mat4& m, const vec3& t);
+mat4 rotate(const mat4& m, const vec3& axis, float angle);
+mat4 scale(const mat4& m, const vec3& s);
+mat4 compose(const vec3& t, const quat& r, const vec3& s);
+vec3 decomposeTranslation(const mat4& m);
+quat decomposeRotation(const mat4& m);
+vec3 decomposeScale(const mat4& m);
+
+mat4 lookAtRH(const vec3& eye, const vec3& center, const vec3& up);
+mat4 lookAtLH(const vec3& eye, const vec3& center, const vec3& up);
+mat4 orthoRH_ZO(float left, float right, float bottom, float top, float near, float far);
+mat4 orthoRH_NO(float left, float right, float bottom, float top, float near, float far);
+mat4 orthoLH_ZO(float left, float right, float bottom, float top, float near, float far);
+mat4 orthoLH_NO(float left, float right, float bottom, float top, float near, float far);
+mat4 perspectiveRH_ZO(float fovy, float aspect, float near, float far);
+mat4 perspectiveRH_NO(float fovy, float aspect, float near, float far);
+mat4 perspectiveLH_ZO(float fovy, float aspect, float near, float far);
+mat4 perspectiveLH_NO(float fovy, float aspect, float near, float far);
+
 GNM_NAMESPACE_END
 
 #include "func_matrix.inl"
