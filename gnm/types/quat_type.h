@@ -142,7 +142,7 @@ struct quat {
 
 static const quat QUAT_ZERO = quat(0.0f);
 static const quat QUAT_ONE = quat(1.0f);
-static const quat QUAT_IDENTITY = quat(1.0f, 0.0f, 0.0f, 0.0f);
+static const quat QUAT_IDENTITY = quat(0.0f, 0.0f, 0.0f, 1.0f);
 
 GNM_NAMESPACE_END
 
