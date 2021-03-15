@@ -1,3 +1,6 @@
+#include "../functions/func_geometric.h"
+#include "../functions/func_quat.h"
+
 GNM_NAMESPACE_BEGIN
 
 GNM_INLINE quat operator + (const quat& a, const quat& b) {
@@ -39,6 +42,24 @@ GNM_INLINE quat operator * (const float a, const quat& b) {
 #else
 	return quat(a * b.x, a * b.y, a * b.z, a * b.w);
 #endif
+}
+
+GNM_INLINE vec3 operator * (const quat& a, const vec3& b) {
+	vec3 uv = cross(a.xyz, b);
+	vec3 uvv = cross(a.xyz, uv);
+	return b + ((uv * a.w) + uvv) * 2.0f;
+}
+
+GNM_INLINE vec3 operator * (const vec3& a, const quat& b) {
+	return inverse(b) * a;
+}
+
+GNM_INLINE vec4 operator * (const quat& a, const vec4& b) {
+	return vec4(a * b.xyz, b.w);
+}
+
+GNM_INLINE vec4 operator * (const vec4& a, const quat& b) {
+	return inverse(b) * a;
 }
 
 GNM_INLINE quat operator / (const quat& a, const float b) {

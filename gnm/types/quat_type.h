@@ -20,10 +20,6 @@ struct quat {
 			float x, y, z, w;
 		};
 
-		struct {
-			float s, t, p, q;
-		};
-
 		GNM_QUAT_T_2_SWIZZLES(float)
 		GNM_QUAT_T_3_SWIZZLES(float)
 		GNM_QUAT_T_4_SWIZZLES(float)

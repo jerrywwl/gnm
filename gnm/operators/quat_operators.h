@@ -15,6 +15,10 @@ quat operator - (const quat& a, const quat& b);
 quat operator * (const quat& a, const quat& b);
 quat operator * (const quat& a, const float b);
 quat operator * (const float a, const quat& b);
+vec3 operator * (const quat& a, const vec3& b);
+vec3 operator * (const vec3& a, const quat& b);
+vec4 operator * (const quat& a, const vec4& b);
+vec4 operator * (const vec4& a, const quat& b);
 
 quat operator / (const quat& a, const float b);
 quat operator / (const float a, const quat& b);
