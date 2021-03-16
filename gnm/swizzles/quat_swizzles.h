@@ -40,10 +40,10 @@
   GNM_SWIZZLE_QUAT_T_3_XY(T, X, 3, P0, z)
 
 #define GNM_QUAT_T_3_SWIZZLES(T) \
-  GNM_SWIZZLE_QUAT_T_3_X(T, 0, x) \
-  GNM_SWIZZLE_QUAT_T_3_X(T, 1, y) \
-  GNM_SWIZZLE_QUAT_T_3_X(T, 2, z) \
-  GNM_SWIZZLE_QUAT_T_3_X(T, 3, w)
+  GNM_SWIZZLE_QUAT_T_3_X(T, 0, w) \
+  GNM_SWIZZLE_QUAT_T_3_X(T, 1, x) \
+  GNM_SWIZZLE_QUAT_T_3_X(T, 2, y) \
+  GNM_SWIZZLE_QUAT_T_3_X(T, 3, z)
 
 // ----------------------------------------------------------------------------------------------------
 
