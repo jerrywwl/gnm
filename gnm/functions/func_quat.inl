@@ -65,7 +65,7 @@ GNM_INLINE vec3 axis(const quat& x) {
 	return vec3(x.x * tmp2, x.y * tmp2, x.z * tmp2);
 }
 
-GNM_INLINE quat axis_angle(const vec3& axis, const float angle) {
+GNM_INLINE quat axisAngle(const vec3& axis, const float angle) {
 	return quat(cos(angle * 0.5f), axis * (sin(angle) * 0.5f));
 }
 
@@ -83,6 +83,53 @@ GNM_INLINE quat rotate(const quat& x, const vec3& axis, const float angle) {
 
 	const float Sin = sin(angle * 0.5f);
 	return x * quat(cos(angle * 0.5f), tmp.x * Sin, tmp.y * Sin, tmp.z * Sin);
+}
+
+// http://lolengine.net/blog/2013/09/18/beautiful-maths-quaternion-from-vectors
+GNM_INLINE quat fromNormalizedAxis(const vec3& a, const vec3& b) {
+	float norm_u_norm_v = sqrt(dot(a, a) * dot(b, b));
+	float real_part = norm_u_norm_v + dot(a, b);
+	vec3 t;
+	if (real_part < static_cast<float>(1.e-6f) * norm_u_norm_v) {
+		// If u and v are exactly opposite, rotate 180 degrees
+		// around an arbitrary orthogonal axis. Axis normalisation
+		// can happen later, when we normalise the quaternion.
+		real_part = 0.0f;
+		t = abs(a.x) > abs(a.z) ? vec3(-a.y, a.x, 0.0f) : vec3(0.0f, -a.z, a.y);
+	} else {
+		// Otherwise, build quaternion the standard way.
+		t = cross(a, b);
+	}
+
+	return normalize(quat(real_part, t));
+}
+
+GNM_INLINE float roll(const quat& q) {
+	const float y = 2.0f * (q.x * q.y + q.w * q.z);
+	const float x = q.w * q.w + q.x * q.x - q.y * q.y - q.z * q.z;
+
+	if (all(equal(vec2(x, y), VEC2_ZERO, GNM_EPSILON))) 
+		return 0.0f;
+
+	return atan(y, x);
+}
+
+GNM_INLINE float pitch(const quat& q) {
+	const float y = 2.0f * (q.y * q.z + q.w * q.x);
+	const float x = q.w * q.w - q.x * q.x - q.y * q.y + q.z * q.z;
+
+	if (all(equal(vec2(x, y), VEC2_ZERO, GNM_EPSILON)))
+		return 2.0f * atan(q.x, q.w);
+
+	return atan(y, x);
+}
+
+GNM_INLINE float yaw(const quat& q) {
+	return asin(clamp(-2.0f * (q.x * q.z - q.w * q.y), -1.0f, 1.0f));
+}
+
+GNM_INLINE vec3 eulerAngles(const quat& q) {
+	return vec3(pitch(q), yaw(q), roll(q));
 }
 
 GNM_NAMESPACE_END

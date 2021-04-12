@@ -23,9 +23,19 @@ float angle(const quat& x);
 
 vec3 axis(const quat& x);
 
-quat axis_angle(const vec3& axis, const float angle);
+quat axisAngle(const vec3& axis, const float angle);
 
 quat rotate(const quat& x, const vec3& axis, const float angle);
+
+quat fromNormalizedAxis(const vec3& x, const vec3& y);
+
+float roll(const quat& q);
+
+float pitch(const quat& q);
+
+float yaw(const quat& q);
+
+vec3 eulerAngles(const quat& q);
 
 GNM_NAMESPACE_END
 

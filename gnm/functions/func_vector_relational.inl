@@ -202,6 +202,24 @@ GNM_INLINE bvec4 equal(const bvec4& x, const bvec4& y) {
 
 // ----------------------------------------------------------------------------------------------------
 
+GNM_INLINE bool equal(const float x, const float y, float epsilon) {
+  return (abs(x - y) <= epsilon);
+}
+
+GNM_INLINE bvec2 equal(const vec2& x, const vec2& y, float epsilon) {
+  return bvec2((abs(x.x - y.x) <= epsilon), (abs(x.y - y.y) <= epsilon));
+}
+
+GNM_INLINE bvec3 equal(const vec3& x, const vec3& y, float epsilon) {
+  return bvec3((abs(x.x - y.x) <= epsilon), (abs(x.y - y.y) <= epsilon), (abs(x.z - y.z) <= epsilon));
+}
+
+GNM_INLINE bvec4 equal(const vec4& x, const vec4& y, float epsilon) {
+  return bvec4((abs(x.x - y.x) <= epsilon), (abs(x.y - y.y) <= epsilon), (abs(x.z - y.z) <= epsilon), (abs(x.w - y.w) <= epsilon));
+}
+
+// ----------------------------------------------------------------------------------------------------
+
 GNM_INLINE bvec2 notEqual(const vec2& x, const vec2& y) {
   return bvec2(x.x != y.x, x.y != y.y);
 }
@@ -248,6 +266,24 @@ GNM_INLINE bvec3 notEqual(const bvec3& x, const bvec3& y) {
 
 GNM_INLINE bvec4 notEqual(const bvec4& x, const bvec4& y) {
   return bvec4(x.x != y.x, x.y != y.y, x.z != y.z, x.w != y.w);
+}
+
+// ----------------------------------------------------------------------------------------------------
+
+GNM_INLINE bool notEqual(const float x, const float y, float epsilon) {
+  return (abs(x - y) > epsilon);
+}
+
+GNM_INLINE bvec2 notEqual(const vec2& x, const vec2& y, float epsilon) {
+  return bvec2((abs(x.x - y.x) > epsilon), (abs(x.y - y.y) > epsilon));
+}
+
+GNM_INLINE bvec3 notEqual(const vec3& x, const vec3& y, float epsilon) {
+  return bvec3((abs(x.x - y.x) > epsilon), (abs(x.y - y.y) > epsilon), (abs(x.z - y.z) > epsilon));
+}
+
+GNM_INLINE bvec4 notEqual(const vec4& x, const vec4& y, float epsilon) {
+  return bvec4((abs(x.x - y.x) > epsilon), (abs(x.y - y.y) > epsilon), (abs(x.z - y.z) > epsilon), (abs(x.w - y.w) > epsilon));
 }
 
 // ----------------------------------------------------------------------------------------------------

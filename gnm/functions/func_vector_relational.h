@@ -62,6 +62,11 @@ bvec2 equal(const bvec2& x, const bvec2& y);
 bvec3 equal(const bvec3& x, const bvec3& y);
 bvec4 equal(const bvec4& x, const bvec4& y);
 
+bool equal(const float x, const float y, float epsilon);
+bvec2 equal(const vec2& x, const vec2& y, float epsilon);
+bvec3 equal(const vec3& x, const vec3& y, float epsilon);
+bvec4 equal(const vec4& x, const vec4& y, float epsilon);
+
 bvec2 notEqual(const vec2& x, const vec2& y);
 bvec3 notEqual(const vec3& x, const vec3& y);
 bvec4 notEqual(const vec4& x, const vec4& y);
@@ -74,6 +79,11 @@ bvec4 notEqual(const uvec4& x, const uvec4& y);
 bvec2 notEqual(const bvec2& x, const bvec2& y);
 bvec3 notEqual(const bvec3& x, const bvec3& y);
 bvec4 notEqual(const bvec4& x, const bvec4& y);
+
+bool notEqual(const float x, const float y, float epsilon);
+bvec2 notEqual(const vec2& x, const vec2& y, float epsilon);
+bvec3 notEqual(const vec3& x, const vec3& y, float epsilon);
+bvec4 notEqual(const vec4& x, const vec4& y, float epsilon);
 
 bool any(const bvec2& x);
 bool any(const bvec3& x);
