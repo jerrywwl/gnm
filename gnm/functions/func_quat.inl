@@ -1,3 +1,6 @@
+#include "func_vector_relational.h"
+#include "func_trigonometric.h"
+
 GNM_NAMESPACE_BEGIN
 
 GNM_INLINE float dot(const quat& x, const quat& y) {
