@@ -253,71 +253,80 @@ GNM_INLINE mat4x3 transpose(const mat3x4& m) {
 // ----------------------------------------------------------------------------------------------------
 
 GNM_INLINE float determinant(const mat2& m) {
-  return m._m00 * m._m11 - m._m10 * m._m01;
+  return m._m00 * m._m11 - m._m01 * m._m10;
 }
 
 GNM_INLINE float determinant(const mat3& m) {
-  return m._m00 * m._m11 * m._m22 - m._m21 * m._m12 -
-        m._m10 * m._m01 * m._m22 - m._m21 * m._m02 +
-        m._m20 * m._m01 * m._m12 - m._m11 * m._m02;
+  return m._m00 * (m._m11 * m._m22 - m._m12 * m._m21) -
+        m._m01 * (m._m10 * m._m22 - m._m12 * m._m20) +
+        m._m02 * (m._m10 * m._m21 - m._m11 * m._m20);
 }
 
 GNM_INLINE float determinant(const mat4& m) {
 
-  float f00 = m._m22 * m._m33 - m._m32 * m._m23;
-  float f01 = m._m21 * m._m33 - m._m31 * m._m23;
-  float f02 = m._m21 * m._m32 - m._m31 * m._m22;
-  float f03 = m._m20 * m._m33 - m._m30 * m._m23;
-  float f04 = m._m20 * m._m32 - m._m30 * m._m22;
-  float f05 = m._m20 * m._m31 - m._m30 * m._m21;
+  float f00 = m._m22 * m._m33 - m._m23 * m._m32;
+  float f01 = m._m12 * m._m33 - m._m13 * m._m32;
+  float f02 = m._m12 * m._m23 - m._m13 * m._m22;
+  float f03 = m._m02 * m._m33 - m._m03 * m._m32;
+  float f04 = m._m02 * m._m23 - m._m03 * m._m22;
+  float f05 = m._m02 * m._m13 - m._m03 * m._m12;
 
-  return m._m00 * (m._m11 * f00 - m._m12 * f01 + m._m13 * f02) +
-        m._m01 * -(m._m10 * f00 - m._m12 * f03 + m._m13 * f04) +
-        m._m02 * (m._m10 * f01 - m._m11 * f03 + m._m13 * f05) +
-        m._m03 * -(m._m10 * f02 - m._m11 * f04 + m._m12 * f05);
+  return m._m00 * (m._m11 * f00 - m._m21 * f01 + m._m31 * f02) + 
+        m._m10 * -(m._m01 * f00 - m._m21 * f03 + m._m31 * f04) + 
+        m._m20 * (m._m01 * f01 - m._m11 * f03 + m._m31 * f05) + 
+        m._m30 * -(m._m01 * f02 - m._m11 * f04 + m._m21 * f05);
 }
 
 // ----------------------------------------------------------------------------------------------------
 
 GNM_INLINE mat2 inverse(const mat2& m) {
   float d = 1.0f / determinant(m);
-  return mat2(m._m11 * d, -m._m01 * d,
-              -m._m10 * d, m._m00 * d);
+  return mat2(m._m11 * d, -m._m10 * d,
+              -m._m01 * d, m._m00 * d);
 }
 
 GNM_INLINE mat3 inverse(const mat3& m) {
   float d = 1.0f / determinant(m);
 
-  return mat3((m._m11 * m._m22 - m._m21 * m._m12) * d, -(m._m10 * m._m22 - m._m20 * m._m12) * d, (m._m10 * m._m21 - m._m20 * m._m11) * d,
-              -(m._m01 * m._m22 - m._m21 * m._m02) * d, (m._m00 * m._m22 - m._m20 * m._m02) * d, -(m._m00 * m._m21 - m._m20 * m._m01) * d,
-              (m._m01 * m._m12 - m._m11 * m._m02) * d, -(m._m00 * m._m12 - m._m10 * m._m02) * d, (m._m00 * m._m11 - m._m10 * m._m01) * d);
+  mat3 mat;
+  mat._m00 = (m._m11 * m._m22 - m._m12 * m._m21) * d;
+  mat._m01 = -(m._m01 * m._m22 - m._m02 * m._m21) * d;
+  mat._m02 = (m._m01 * m._m12 - m._m02 * m._m11) * d;
+  mat._m10 = -(m._m10 * m._m22 - m._m12 * m._m20) * d;
+  mat._m11 = (m._m00 * m._m22 - m._m02 * m._m20) * d;
+  mat._m12 = -(m._m00 * m._m12 - m._m02 * m._m10) * d;
+  mat._m20 = (m._m10 * m._m21 - m._m11 * m._m20) * d;
+  mat._m21 = -(m._m00 * m._m21 - m._m01 * m._m20) * d;
+  mat._m22 = (m._m00 * m._m11 - m._m01 * m._m10) * d;
+
+  return mat;
 }
 
 GNM_INLINE mat4 inverse(const mat4& m) {
 
-  const float f00 = m._m22 * m._m33 - m._m32 * m._m23;
-  const float f02 = m._m12 * m._m33 - m._m32 * m._m13;
-  const float f03 = m._m12 * m._m23 - m._m22 * m._m13;
+  const float f00 = m._m22 * m._m33 - m._m23 * m._m32;
+  const float f02 = m._m21 * m._m33 - m._m23 * m._m31;
+  const float f03 = m._m21 * m._m32 - m._m22 * m._m31;
 
-  const float f04 = m._m21 * m._m33 - m._m31 * m._m23;
-  const float f06 = m._m11 * m._m33 - m._m31 * m._m13;
-  const float f07 = m._m11 * m._m23 - m._m21 * m._m13;
+  const float f04 = m._m12 * m._m33 - m._m13 * m._m32;
+  const float f06 = m._m11 * m._m33 - m._m13 * m._m31;
+  const float f07 = m._m11 * m._m32 - m._m12 * m._m31;
 
-  const float f08 = m._m21 * m._m32 - m._m31 * m._m22;
-  const float f10 = m._m11 * m._m32 - m._m31 * m._m12;
-  const float f11 = m._m11 * m._m22 - m._m21 * m._m12;
+  const float f08 = m._m12 * m._m23 - m._m13 * m._m22;
+  const float f10 = m._m11 * m._m23 - m._m13 * m._m21;
+  const float f11 = m._m11 * m._m22 - m._m12 * m._m21;
 
-  const float f12 = m._m20 * m._m33 - m._m30 * m._m23;
-  const float f14 = m._m10 * m._m33 - m._m30 * m._m13;
-  const float f15 = m._m10 * m._m23 - m._m20 * m._m13;
+  const float f12 = m._m02 * m._m33 - m._m03 * m._m32;
+  const float f14 = m._m01 * m._m33 - m._m03 * m._m31;
+  const float f15 = m._m01 * m._m32 - m._m02 * m._m31;
 
-  const float f16 = m._m20 * m._m32 - m._m30 * m._m22;
-  const float f18 = m._m10 * m._m32 - m._m30 * m._m12;
-  const float f19 = m._m10 * m._m22 - m._m20 * m._m12;
+  const float f16 = m._m02 * m._m23 - m._m03 * m._m22;
+  const float f18 = m._m01 * m._m23 - m._m03 * m._m21;
+  const float f19 = m._m01 * m._m22 - m._m02 * m._m21;
 
-  const float f20 = m._m20 * m._m31 - m._m30 * m._m21;
-  const float f22 = m._m10 * m._m31 - m._m30 * m._m11;
-  const float f23 = m._m10 * m._m21 - m._m20 * m._m11;
+  const float f20 = m._m02 * m._m13 - m._m03 * m._m12;
+  const float f22 = m._m01 * m._m13 - m._m03 * m._m11;
+  const float f23 = m._m01 * m._m12 - m._m02 * m._m11;
 
   const vec4 fac0(f00, f00, f02, f03);
   const vec4 fac1(f04, f04, f06, f07);
@@ -326,20 +335,20 @@ GNM_INLINE mat4 inverse(const mat4& m) {
   const vec4 fac4(f16, f16, f18, f19);
   const vec4 fac5(f20, f20, f22, f23);
 
-  const vec4 v0(m._m10, m._m00, m._m00, m._m00);
-  const vec4 v1(m._m11, m._m01, m._m01, m._m01);
-  const vec4 v2(m._m12, m._m02, m._m02, m._m02);
-  const vec4 v3(m._m13, m._m03, m._m03, m._m03);
+  const vec4 v0(m._m01, m._m00, m._m00, m._m00);
+  const vec4 v1(m._m11, m._m10, m._m10, m._m10);
+  const vec4 v2(m._m21, m._m20, m._m20, m._m20);
+  const vec4 v3(m._m31, m._m30, m._m30, m._m30);
   
   const vec4 inv0 = v1 * fac0 - v2 * fac1 + v3 * fac2;
   const vec4 inv1 = v0 * fac0 - v2 * fac3 + v3 * fac4;
   const vec4 inv2 = v0 * fac1 - v1 * fac3 + v3 * fac5;
   const vec4 inv3 = v0 * fac2 - v1 * fac4 + v2 * fac5;
 
-  const vec4 sign_a(1, -1, 1, -1);
-  const vec4 sign_b(-1, 1, -1, 1);
+  const vec4 sign_a(+1, -1, +1, -1);
+  const vec4 sign_b(-1, +1, -1, +1);
   const mat4 mat_inv(inv0 * sign_a, inv1 * sign_b, inv2 * sign_a, inv3 * sign_b);
-  const vec4 vr(mat_inv._m00, mat_inv._m10, mat_inv._m20, mat_inv._m30);
+  const vec4 vr(mat_inv._m00, mat_inv._m01, mat_inv._m02, mat_inv._m03);
   const vec4& r0 = m[0];
   float d = 1.0f / (r0.x * vr.x + r0.y * vr.y + r0.z * vr.z + r0.w * vr.w);
 
@@ -418,15 +427,15 @@ GNM_INLINE mat4 rotate(const mat4& m, const vec3& axis, float angle) {
 
   mat4 rotate;
   rotate._m00 = c + temp.x * v.x;
-  rotate._m01 = temp.x * v.y + s * v.z;
-  rotate._m02 = temp.x * v.z - s * v.y;
+  rotate._m10 = temp.x * v.y + s * v.z;
+  rotate._m20 = temp.x * v.z - s * v.y;
 
-  rotate._m10 = temp.y * v.x - s * v.z;
+  rotate._m01 = temp.y * v.x - s * v.z;
   rotate._m11 = c + temp.y * v.y;
-  rotate._m12 = temp.y * v.z + s * v.x;
+  rotate._m21 = temp.y * v.z + s * v.x;
 
-  rotate._m20 = temp.z * v.x + s * v.y;
-  rotate._m21 = temp.z * v.y - s * v.x;
+  rotate._m02 = temp.z * v.x + s * v.y;
+  rotate._m12 = temp.z * v.y - s * v.x;
   rotate._m22 = c + temp.z * v.z;
 
   mat4 mat;
