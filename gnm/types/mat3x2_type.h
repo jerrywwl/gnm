@@ -47,6 +47,8 @@ struct mat3x2 {
 	}
 
 	union {
+		vec2 _r[3];
+
 		float _m[6];
 
 		struct {
@@ -54,8 +56,6 @@ struct mat3x2 {
 			float _m01, _m11;
 			float _m02, _m12;
 		};
-
-		vec2 _r[3];
 	};
 };
 

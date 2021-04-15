@@ -41,14 +41,14 @@ struct mat2x2 {
 	}
 
 	union {
+		vec2 _r[3];
+
 		float _m[4];
 
 		struct {
 			float _m00, _m10;
 			float _m01, _m11;
 		};
-
-		vec2 _r[3];
 	};
 };
 
