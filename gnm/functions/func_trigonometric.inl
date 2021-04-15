@@ -1,7 +1,6 @@
 GNM_NAMESPACE_BEGIN
 
-template <typename T>
-GNM_INLINE T radians(const T x) {
+GNM_INLINE float radians(const float x) {
   return GNM_D2R * x;
 }
 
@@ -23,8 +22,7 @@ GNM_INLINE vec4 radians(const vec4& x) {
 
 // ----------------------------------------------------------------------------------------------------
 
-template <typename T>
-GNM_INLINE T degrees(const T x) {
+GNM_INLINE float degrees(const float x) {
   return GNM_R2D * x;
 }
 
@@ -46,8 +44,7 @@ GNM_INLINE vec4 degrees(const vec4& x) {
 
 // ----------------------------------------------------------------------------------------------------
 
-template <typename T>
-GNM_INLINE T sin(const T x) {
+GNM_INLINE float sin(const float x) {
   return std::sin(x);
 }
 
@@ -69,8 +66,7 @@ GNM_INLINE vec4 sin(const vec4& x) {
 
 // ----------------------------------------------------------------------------------------------------
 
-template <typename T>
-GNM_INLINE T cos(const T x) {
+GNM_INLINE float cos(const float x) {
   return std::cos(x);
 }
 
@@ -92,8 +88,7 @@ GNM_INLINE vec4 cos(const vec4& x) {
 
 // ----------------------------------------------------------------------------------------------------
 
-template <typename T>
-GNM_INLINE T tan(const T x) {
+GNM_INLINE float tan(const float x) {
   return std::tan(x);
 }
 
@@ -115,8 +110,7 @@ GNM_INLINE vec4 tan(const vec4& x) {
 
 // ----------------------------------------------------------------------------------------------------
 
-template <typename T>
-GNM_INLINE T asin(const T x) {
+GNM_INLINE float asin(const float x) {
   return std::asin(x);
 }
 
@@ -138,8 +132,7 @@ GNM_INLINE vec4 asin(const vec4& x) {
 
 // ----------------------------------------------------------------------------------------------------
 
-template <typename T>
-GNM_INLINE T acos(const T x) {
+GNM_INLINE float acos(const float x) {
   return std::acos(x);
 }
 
@@ -161,8 +154,7 @@ GNM_INLINE vec4 acos(const vec4& x) {
 
 // ----------------------------------------------------------------------------------------------------
 
-template <typename T>
-GNM_INLINE T atan(const T x, const T y) {
+GNM_INLINE float atan(const float y, const float x) {
   return std::atan2(y, x);
 }
 
@@ -184,8 +176,7 @@ GNM_INLINE vec4 atan(const vec4& y, const vec4& x) {
 
 // ----------------------------------------------------------------------------------------------------
 
-template <typename T>
-GNM_INLINE T atan(const T x) {
+GNM_INLINE float atan(const float x) {
   return std::atan(x);
 }
 
@@ -207,8 +198,7 @@ GNM_INLINE vec4 atan(const vec4& x) {
 
 // ----------------------------------------------------------------------------------------------------
 
-template <typename T>
-GNM_INLINE T sinh(const T x) {
+GNM_INLINE float sinh(const float x) {
   return std::sinh(x);
 }
 
@@ -230,8 +220,7 @@ GNM_INLINE vec4 sinh(const vec4& x) {
 
 // ----------------------------------------------------------------------------------------------------
 
-template <typename T>
-GNM_INLINE T cosh(const T x) {
+GNM_INLINE float cosh(const float x) {
   return std::cosh(x);
 }
 
@@ -253,8 +242,7 @@ GNM_INLINE vec4 cosh(const vec4& x) {
 
 // ----------------------------------------------------------------------------------------------------
 
-template <typename T>
-GNM_INLINE T tanh(const T x) {
+GNM_INLINE float tanh(const float x) {
   return std::tanh(x);
 }
 
@@ -276,8 +264,7 @@ GNM_INLINE vec4 tanh(const vec4& x) {
 
 // ----------------------------------------------------------------------------------------------------
 
-template <typename T>
-GNM_INLINE T asinh(const T x) {
+GNM_INLINE float asinh(const float x) {
   return std::asinh(x);
 }
 
@@ -299,8 +286,7 @@ GNM_INLINE vec4 asinh(const vec4& x) {
 
 // ----------------------------------------------------------------------------------------------------
 
-template <typename T>
-GNM_INLINE T acosh(const T x) {
+GNM_INLINE float acosh(const float x) {
   return std::acosh(x);
 }
 
@@ -322,8 +308,7 @@ GNM_INLINE vec4 acosh(const vec4& x) {
 
 // ----------------------------------------------------------------------------------------------------
 
-template <typename T>
-GNM_INLINE T atanh(const T x) {
+GNM_INLINE float atanh(const float x) {
   return std::atanh(x);
 }
 
