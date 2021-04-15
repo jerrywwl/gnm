@@ -2,7 +2,8 @@ GNM_NAMESPACE_BEGIN
 
 // ----------------------------------------------------------------------------------------------------
 
-GNM_INLINE float pow(const float x, const float y) {
+template <typename T>
+GNM_INLINE T pow(const T x, const T y) {
   return std::pow(x, y);
 }
 
@@ -24,7 +25,8 @@ GNM_INLINE vec4 pow(const vec4& x, const vec4& y) {
 
 // ----------------------------------------------------------------------------------------------------
 
-GNM_INLINE float exp(const float x) {
+template <typename T>
+GNM_INLINE T exp(const T x) {
   return std::exp(x);
 }
 
@@ -46,7 +48,8 @@ GNM_INLINE vec4 exp(const vec4& x) {
 
 // ----------------------------------------------------------------------------------------------------
 
-GNM_INLINE float log(const float x) {
+template <typename T>
+GNM_INLINE T log(const T x) {
   return std::log(x);
 }
 
@@ -68,7 +71,8 @@ GNM_INLINE vec4 log(const vec4& x) {
 
 // ----------------------------------------------------------------------------------------------------
 
-GNM_INLINE float exp2(const float x) {
+template <typename T>
+GNM_INLINE T exp2(const T x) {
   return std::exp2(x);
 }
 
@@ -90,7 +94,8 @@ GNM_INLINE vec4 exp2(const vec4& x) {
 
 // ----------------------------------------------------------------------------------------------------
 
-GNM_INLINE float log2(const float x) {
+template <typename T>
+GNM_INLINE T log2(const T x) {
   return std::log2(x);
 }
 
@@ -112,7 +117,8 @@ GNM_INLINE vec4 log2(const vec4& x) {
 
 // ----------------------------------------------------------------------------------------------------
 
-GNM_INLINE float sqrt(const float x) {
+template <typename T>
+GNM_INLINE T sqrt(const T x) {
   return std::sqrt(x);
 }
 
@@ -134,7 +140,8 @@ GNM_INLINE vec4 sqrt(const vec4& x) {
 
 // ----------------------------------------------------------------------------------------------------
 
-GNM_INLINE float inversesqrt(const float x) {
+template <typename T>
+GNM_INLINE T inversesqrt(const T x) {
   return 1.0f / std::sqrt(x);
 }
 

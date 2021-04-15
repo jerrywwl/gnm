@@ -1,6 +1,7 @@
 GNM_NAMESPACE_BEGIN
 
-GNM_INLINE float length(const float x) {
+template <typename T>
+GNM_INLINE T length(const T x) {
   return x;
 }
 
@@ -27,7 +28,8 @@ GNM_INLINE float length(const vec4& x) {
 
 // ----------------------------------------------------------------------------------------------------
 
-GNM_INLINE float distance(const float p0, const float p1) {
+template <typename T>
+GNM_INLINE T distance(const T p0, const T p1) {
   return GNM_ABS_F(p0 - p1);
 }
 
@@ -64,7 +66,8 @@ GNM_INLINE float distance(const vec4& p0, const vec4& p1) {
 
 // ----------------------------------------------------------------------------------------------------
 
-GNM_INLINE float dot(const float x, const float y) {
+template <typename T>
+GNM_INLINE T dot(const T x, const T y) {
   return x * y;
 }
 
@@ -94,7 +97,8 @@ GNM_INLINE vec3 cross(const vec3& x, const vec3& y) {
 
 // ----------------------------------------------------------------------------------------------------
 
-GNM_INLINE float normalize(const float x) {
+template <typename T>
+GNM_INLINE T normalize(const T x) {
   return x;
 }
 
@@ -119,7 +123,8 @@ GNM_INLINE vec4 normalize(const vec4& x) {
 
 // ----------------------------------------------------------------------------------------------------
 
-GNM_INLINE float faceforward(const float N, const float I, const float Nref) {
+template <typename T>
+GNM_INLINE T faceforward(const T N, const T I, const T Nref) {
   return (Nref * I < 0.0f) ? N : -N;
 }
 
@@ -145,7 +150,8 @@ GNM_INLINE vec4 faceforward(const vec4& N, const vec4& I, const vec4& Nref) {
 
 // ----------------------------------------------------------------------------------------------------
 
-GNM_INLINE float reflect(const float I, const float N) {
+template <typename T>
+GNM_INLINE T reflect(const T I, const T N) {
   return (I - N * N * I * 2.0f);
 }
 
@@ -171,7 +177,8 @@ GNM_INLINE vec4 reflect(const vec4& I, const vec4& N) {
 
 // ----------------------------------------------------------------------------------------------------
 
-GNM_INLINE float refract(const float I, const float N, const float eta) {
+template <typename T>
+GNM_INLINE T refract(const T I, const T N, const T eta) {
   const float d = N * I;
   const float k = 1.0f - eta * eta * (1.0f - d * d);
   return (k < 0.0f ? 0.0f : eta * I - (eta * d + std::sqrt(k)) * N);
