@@ -64,14 +64,14 @@ vec3 decomposeScale(const mat4& m);
 
 mat4 lookAtRH(const vec3& eye, const vec3& center, const vec3& up);
 mat4 lookAtLH(const vec3& eye, const vec3& center, const vec3& up);
-mat4 orthoRH_ZO(float left, float right, float bottom, float top, float near, float far);
-mat4 orthoRH_NO(float left, float right, float bottom, float top, float near, float far);
-mat4 orthoLH_ZO(float left, float right, float bottom, float top, float near, float far);
-mat4 orthoLH_NO(float left, float right, float bottom, float top, float near, float far);
-mat4 perspectiveRH_ZO(float fovy, float aspect, float near, float far);
-mat4 perspectiveRH_NO(float fovy, float aspect, float near, float far);
-mat4 perspectiveLH_ZO(float fovy, float aspect, float near, float far);
-mat4 perspectiveLH_NO(float fovy, float aspect, float near, float far);
+mat4 orthoRH_ZO(float left, float right, float bottom, float top, float znear, float zfar);
+mat4 orthoRH_NO(float left, float right, float bottom, float top, float znear, float zfar);
+mat4 orthoLH_ZO(float left, float right, float bottom, float top, float znear, float zfar);
+mat4 orthoLH_NO(float left, float right, float bottom, float top, float znear, float zfar);
+mat4 perspectiveRH_ZO(float fovy, float aspect, float znear, float zfar);
+mat4 perspectiveRH_NO(float fovy, float aspect, float znear, float zfar);
+mat4 perspectiveLH_ZO(float fovy, float aspect, float znear, float zfar);
+mat4 perspectiveLH_NO(float fovy, float aspect, float znear, float zfar);
 
 GNM_NAMESPACE_END
 

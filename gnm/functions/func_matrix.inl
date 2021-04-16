@@ -570,68 +570,68 @@ GNM_INLINE mat4 lookAtLH(const vec3& eye, const vec3& center, const vec3& up) {
               -dot(s, eye), -dot(u, eye), dot(f, eye), 1);
 }
 
-GNM_INLINE mat4 orthoRH_ZO(float left, float right, float bottom, float top, float near, float far) {
+GNM_INLINE mat4 orthoRH_ZO(float left, float right, float bottom, float top, float znear, float zfar) {
   return mat4(2.0f / (right - left), 0, 0, 0,
               0, 2.0f / (top - bottom), 0, 0,
-              0, 0, -1.0f / (far - near), 0,
-              -(right + left) / (right - left), -(top + bottom) / (top - bottom), -near / (far - near), 1);
+              0, 0, -1.0f / (zfar - znear), 0,
+              -(right + left) / (right - left), -(top + bottom) / (top - bottom), -znear / (zfar - znear), 1);
 }
 
-GNM_INLINE mat4 orthoRH_NO(float left, float right, float bottom, float top, float near, float far) {
+GNM_INLINE mat4 orthoRH_NO(float left, float right, float bottom, float top, float znear, float zfar) {
   return mat4(2.0f / (right - left), 0, 0, 0,
               0, 2.0f / (top - bottom), 0, 0,
-              0, 0, -2.0f / (far - near), 0,
-              -(right + left) / (right - left), -(top + bottom) / (top - bottom), -(far + near) / (far - near), 1);
+              0, 0, -2.0f / (zfar - znear), 0,
+              -(right + left) / (right - left), -(top + bottom) / (top - bottom), -(zfar + znear) / (zfar - znear), 1);
 }
 
-GNM_INLINE mat4 orthoLH_ZO(float left, float right, float bottom, float top, float near, float far) {
+GNM_INLINE mat4 orthoLH_ZO(float left, float right, float bottom, float top, float znear, float zfar) {
   return mat4(2.0f / (right - left), 0, 0, 0,
               0, 2.0f / (top - bottom), 0, 0,
-              0, 0, 1.0f / (far - near), 0,
-              -(right + left) / (right - left), -(top + bottom) / (top - bottom), -near / (far - near), 1);
+              0, 0, 1.0f / (zfar - znear), 0,
+              -(right + left) / (right - left), -(top + bottom) / (top - bottom), -znear / (zfar - znear), 1);
 }
 
-GNM_INLINE mat4 orthoLH_NO(float left, float right, float bottom, float top, float near, float far) {
+GNM_INLINE mat4 orthoLH_NO(float left, float right, float bottom, float top, float znear, float zfar) {
   return mat4(2.0f / (right - left), 0, 0, 0,
               0, 2.0f / (top - bottom), 0, 0,
-              0, 0, 2.0f / (far - near), 0,
-              -(right + left) / (right - left), -(top + bottom) / (top - bottom), -(far + near) / (far - near), 1);
+              0, 0, 2.0f / (zfar - znear), 0,
+              -(right + left) / (right - left), -(top + bottom) / (top - bottom), -(zfar + znear) / (zfar - znear), 1);
 }
 
-GNM_INLINE mat4 perspectiveRH_ZO(float fovy, float aspect, float near, float far) {
+GNM_INLINE mat4 perspectiveRH_ZO(float fovy, float aspect, float znear, float zfar) {
   assert(abs(aspect - GNM_EPSILON) > 0.0f);
   const float tanHalfFovy = tan(fovy * 0.5f);
   return mat4(1.0f / (aspect * tanHalfFovy), 0, 0, 0,
               0, 1.0f / (tanHalfFovy), 0, 0,
-              0, 0, far / (near - far), -1,
-              0, 0, -(far * near) / (far - near), 0);
+              0, 0, zfar / (znear - zfar), -1,
+              0, 0, -(zfar * znear) / (zfar - znear), 0);
 }
 
-GNM_INLINE mat4 perspectiveRH_NO(float fovy, float aspect, float near, float far) {
+GNM_INLINE mat4 perspectiveRH_NO(float fovy, float aspect, float znear, float zfar) {
   assert(abs(aspect - GNM_EPSILON) > 0.0f);
   const float tanHalfFovy = tan(fovy * 0.5f);
   return mat4(1.0f / (aspect * tanHalfFovy), 0, 0, 0,
               0, 1.0f / (tanHalfFovy), 0, 0,
-              0, 0,  - (far + near) / (near - far), -1,
-              0, 0, -(2.0f * far * near) / (far - near), 0);
+              0, 0,  - (zfar + znear) / (znear - zfar), -1,
+              0, 0, -(2.0f * zfar * znear) / (zfar - znear), 0);
 }
 
-GNM_INLINE mat4 perspectiveLH_ZO(float fovy, float aspect, float near, float far) {
+GNM_INLINE mat4 perspectiveLH_ZO(float fovy, float aspect, float znear, float zfar) {
   assert(abs(aspect - GNM_EPSILON) > 0.0f);
   const float tanHalfFovy = tan(fovy * 0.5f);
   return mat4(1.0f / (aspect * tanHalfFovy), 0, 0, 0,
               0, 1.0f / (tanHalfFovy), 0, 0,
-              0, 0, far / (far - near), 1,
-              0, 0, -(far * near) / (far - near), 0);
+              0, 0, zfar / (zfar - znear), 1,
+              0, 0, -(zfar * znear) / (zfar - znear), 0);
 }
 
-GNM_INLINE mat4 perspectiveLH_NO(float fovy, float aspect, float near, float far) {
+GNM_INLINE mat4 perspectiveLH_NO(float fovy, float aspect, float znear, float zfar) {
   assert(abs(aspect - GNM_EPSILON) > 0.0f);
   const float tanHalfFovy = tan(fovy * 0.5f);
   return mat4(1.0f / (aspect * tanHalfFovy), 0, 0, 0,
               0, 1.0f / (tanHalfFovy), 0, 0,
-              0, 0, (far + near) / (near - far), 1,
-              0, 0, -(2.0f * far * near) / (far - near), 0);
+              0, 0, (zfar + znear) / (znear - zfar), 1,
+              0, 0, -(2.0f * zfar * znear) / (zfar - znear), 0);
 }
 
 GNM_NAMESPACE_END
