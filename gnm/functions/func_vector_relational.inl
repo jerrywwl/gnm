@@ -152,16 +152,20 @@ GNM_INLINE bvec4 greaterThanEqual(const uvec4& x, const uvec4& y) {
 
 // ----------------------------------------------------------------------------------------------------
 
+GNM_INLINE bool equal(const float x, const float y) {
+  return (abs(x - y) <= GNM_EPSILON);
+}
+
 GNM_INLINE bvec2 equal(const vec2& x, const vec2& y) {
-  return bvec2(x.x == y.x, x.y == y.y);
+  return bvec2((abs(x.x - y.x) <= GNM_EPSILON), (abs(x.y - y.y) <= GNM_EPSILON));
 }
 
 GNM_INLINE bvec3 equal(const vec3& x, const vec3& y) {
-  return bvec3(x.x == y.x, x.y == y.y, x.z == y.z);
+  return bvec3((abs(x.x - y.x) <= GNM_EPSILON), (abs(x.y - y.y) <= GNM_EPSILON), (abs(x.z - y.z) <= GNM_EPSILON));
 }
 
 GNM_INLINE bvec4 equal(const vec4& x, const vec4& y) {
-  return bvec4(x.x == y.x, x.y == y.y, x.z == y.z, x.w == y.w);
+  return bvec4((abs(x.x - y.x) <= GNM_EPSILON), (abs(x.y - y.y) <= GNM_EPSILON), (abs(x.z - y.z) <= GNM_EPSILON), (abs(x.w - y.w) <= GNM_EPSILON));
 }
 
 GNM_INLINE bvec2 equal(const ivec2& x, const ivec2& y) {

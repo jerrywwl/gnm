@@ -3,6 +3,10 @@
 
 GNM_NAMESPACE_BEGIN
 
+GNM_INLINE bvec4 equal(const quat& x, const quat& y) {
+	return bvec4((abs(x.w - y.w) <= GNM_EPSILON), (abs(x.x - y.x) <= GNM_EPSILON), (abs(x.y - y.y) <= GNM_EPSILON), (abs(x.z - y.z) <= GNM_EPSILON));
+}
+
 GNM_INLINE float dot(const quat& x, const quat& y) {
 #if (GNM_SIMD)
 	return _mm_cvtss_f32(_mm_dp_ps(x._v, y._v, 0xff));

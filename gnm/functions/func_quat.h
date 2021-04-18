@@ -7,6 +7,8 @@
 
 GNM_NAMESPACE_BEGIN
 
+bvec4 equal(const quat& x, const quat& y);
+
 float dot(const quat& x, const quat& y);
 
 quat cross(const quat& x, const quat& y);

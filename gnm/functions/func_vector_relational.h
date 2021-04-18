@@ -49,6 +49,7 @@ bvec2 greaterThanEqual(const uvec2& x, const uvec2& y);
 bvec3 greaterThanEqual(const uvec3& x, const uvec3& y);
 bvec4 greaterThanEqual(const uvec4& x, const uvec4& y);
 
+bool equal(const float x, const float y);
 bvec2 equal(const vec2& x, const vec2& y);
 bvec3 equal(const vec3& x, const vec3& y);
 bvec4 equal(const vec4& x, const vec4& y);

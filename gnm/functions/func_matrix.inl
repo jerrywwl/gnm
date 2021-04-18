@@ -543,9 +543,95 @@ GNM_INLINE vec3 decomposeScale(const mat4& m) {
 }
 
 GNM_INLINE void decompose(const mat4& m, vec3& t, quat& r, vec3& s) {
-  t = decomposeTranslation(m);
-  r = decomposeRotation(m);
-  s = decomposeScale(m);
+  mat4 mat(m);
+
+  // Next take care of translation (easy).
+  t = mat[3].xyz;
+
+  mat[3] = vec4(0, 0, 0, mat[3].w);
+
+  vec3 rows[3];
+
+  // Now get scale and shear.
+  for (int i = 0; i < 3; ++i) {
+    for (int j = 0; j < 3; ++j) {
+      rows[i][j] = mat[i][j];
+    }
+  }
+
+  // Compute X scale factor and normalize first row.
+  s.x = length(rows[0]);
+
+  rows[0] /= length(rows[0]);
+
+  // Compute XY shear factor and make 2nd row orthogonal to 1st.
+  rows[1] = rows[1] - rows[0] * dot(rows[0], rows[1]);
+
+  // Now, compute Y scale and normalize 2nd row.
+  s.y = length(rows[1]);
+  rows[1] /= length(rows[1]);
+
+  // Compute XZ and YZ shears, orthogonalize 3rd row.
+  rows[2] = rows[2] - rows[0] * dot(rows[0], rows[2]);
+  rows[2] = rows[2] - rows[1] * dot(rows[1], rows[2]);
+
+  // Next, get Z scale and normalize 3rd row.
+  s.z = length(rows[2]);
+  rows[2] /= length(rows[2]);
+
+  // At this point, the matrix (in rows[]) is orthonormal.
+  // Check for a coordinate system flip.  If the determinant
+  // is -1, then negate the matrix and the scaling factors.
+  vec3 pdum3 = cross(rows[1], rows[2]); // v3Cross(row[1], row[2], Pdum3);
+  if (dot(rows[0], pdum3) < 0) {
+    s = -s;
+    rows[0] = -rows[0];
+    rows[1] = -rows[1];
+    rows[2] = -rows[2];
+  }
+
+  // Now, get the rotations out, as described in the gem.
+
+  // FIXME - Add the ability to return either quaternions (which are
+  // easier to recompose with) or Euler angles (rx, ry, rz), which
+  // are easier for authors to deal with. The latter will only be useful
+  // when we fix https://bugs.webkit.org/show_bug.cgi?id=23799, so I
+  // will leave the Euler angle code here for now.
+
+  // ret.rotateY = asin(-Row[0][2]);
+  // if (cos(ret.rotateY) != 0) {
+  //     ret.rotateX = atan2(Row[1][2], Row[2][2]);
+  //     ret.rotateZ = atan2(Row[0][1], Row[0][0]);
+  // } else {
+  //     ret.rotateX = atan2(-Row[2][0], Row[1][1]);
+  //     ret.rotateZ = 0;
+  // }
+
+ 
+  float trace = rows[0].x + rows[1].y + rows[2].z;
+  if (trace > 0.0f)  {
+    float root = sqrt(trace + 1.0f);
+    r.w = 0.5f * root;
+    root = 0.5f / root;
+    r.x = root * (rows[1].z - rows[2].y);
+    r.y = root * (rows[2].x - rows[0].z);
+    r.z = root * (rows[0].y - rows[1].x);
+  } else {
+    static int Next[3] = { 1, 2, 0 };
+    int i = 0;
+    if (rows[1].y > rows[0].x) i = 1;
+    if (rows[2].z > rows[i][i]) i = 2;
+    int j = Next[i];
+    int k = Next[j];
+
+    float root = sqrt(rows[i][i] - rows[j][j] - rows[k][k] + 1.0f);
+
+    r[i] = 0.5f * root;
+    root = 0.5f / root;
+    r[j] = root * (rows[i][j] + rows[j][i]);
+    r[k] = root * (rows[i][k] + rows[k][i]);
+    r.w = root * (rows[j][k] - rows[k][j]);
+  }
 }
 
 GNM_INLINE mat4 lookAtRH(const vec3& eye, const vec3& center, const vec3& up) {
