@@ -72,10 +72,6 @@ GNM_INLINE vec3 axis(const quat& x) {
 	return vec3(x.x * tmp2, x.y * tmp2, x.z * tmp2);
 }
 
-GNM_INLINE quat axisAngle(const vec3& axis, const float angle) {
-	return quat(cos(angle * 0.5f), axis * (sin(angle) * 0.5f));
-}
-
 GNM_INLINE quat rotate(const quat& x, const vec3& axis, const float angle) {
 	vec3 tmp = axis;
 
@@ -137,6 +133,20 @@ GNM_INLINE float yaw(const quat& q) {
 
 GNM_INLINE vec3 eulerAngles(const quat& q) {
 	return vec3(pitch(q), yaw(q), roll(q));
+}
+
+GNM_INLINE quat quatAxisAngle(const vec3& axis, const float angle) {
+	return quat(cos(angle * 0.5f), axis * (sin(angle) * 0.5f));
+}
+
+GNM_INLINE quat quatEulerAngles(const vec3& angles) {
+	vec3 c = cos(angles * 0.5f);
+	vec3 s = sin(angles * 0.5f);
+
+	return quat(c.x * c.y * c.z + s.x * s.y * s.z,
+							s.x * c.y * c.z - c.x * s.y * s.z,
+							c.x * s.y * c.z + s.x * c.y * s.z,
+							c.x * c.y * s.z - s.x * s.y * c.z)
 }
 
 GNM_NAMESPACE_END
