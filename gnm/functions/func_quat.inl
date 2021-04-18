@@ -146,7 +146,7 @@ GNM_INLINE quat quatEulerAngles(const vec3& angles) {
 	return quat(c.x * c.y * c.z + s.x * s.y * s.z,
 							s.x * c.y * c.z - c.x * s.y * s.z,
 							c.x * s.y * c.z + s.x * c.y * s.z,
-							c.x * c.y * s.z - s.x * s.y * c.z)
+							c.x * c.y * s.z - s.x * s.y * c.z);
 }
 
 GNM_NAMESPACE_END
