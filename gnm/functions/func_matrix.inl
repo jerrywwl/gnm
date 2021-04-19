@@ -457,8 +457,12 @@ GNM_INLINE mat4 scale(const mat4& m, const vec3& s) {
 
 GNM_INLINE mat4 compose(const vec3& t, const quat& r, const vec3& s) {
   mat4 mat = mat4Rotation(r);
-  mat = scale(mat, s);
-  mat = translate(mat, t);
+  mat[0] *= s.x;
+  mat[1] *= s.y;
+  mat[2] *= s.z;
+  mat._m03 += t.x;
+  mat._m13 += t.y;
+  mat._m23 += t.z;
   return mat;
 }
 
