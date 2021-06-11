@@ -194,7 +194,7 @@ GNM_INLINE vec4 RoundEven(const vec4& x) {
   __m128 or0 = _mm_or_ps(_mm_and_ps(sgn0, x._v), _mm_set_ps1(8388608.0f));
   return vec4(_mm_sub_ps(_mm_add_ps(x._v, or0), or0));
 #else
-  return vec4(roundEven(x.x), roundEven(x.y), roundEven(x.z), roundEven(x.w));
+  return vec4(RoundEven(x.x), RoundEven(x.y), RoundEven(x.z), RoundEven(x.w));
 #endif
 }
 
@@ -704,7 +704,7 @@ GNM_INLINE vec4 Smoothstep(const vec4& edge0, const vec4& edge1, const vec4& x) 
   __m128 sub0 = _mm_sub_ps(_mm_set_ps1(3.0f), _mm_mul_ps(_mm_set_ps1(2.0f), clp0));
   return vec4(_mm_mul_ps(_mm_mul_ps(clp0, clp0), sub0));
 #else
-  return vec4(smoothstep(edge0.x, edge1.x, x.x), smoothstep(edge0.y, edge1.y, x.y), smoothstep(edge0.z, edge1.z, x.z), smoothstep(edge0.w, edge1.w, x.w));
+  return vec4(Smoothstep(edge0.x, edge1.x, x.x), Smoothstep(edge0.y, edge1.y, x.y), Smoothstep(edge0.z, edge1.z, x.z), Smoothstep(edge0.w, edge1.w, x.w));
 #endif
 }
 
@@ -728,7 +728,7 @@ GNM_INLINE vec4 Smoothstep(const float edge0, const float edge1, const vec4& x) 
   __m128 sub0 = _mm_sub_ps(_mm_set_ps1(3.0f), _mm_mul_ps(_mm_set_ps1(2.0f), clp0));
   return vec4(_mm_mul_ps(_mm_mul_ps(clp0, clp0), sub0));
 #else
-  return vec4(smoothstep(edge0, edge1, x.x), smoothstep(edge0, edge1, x.y), smoothstep(edge0, edge1, x.z), smoothstep(edge0, edge1, x.w));
+  return vec4(Smoothstep(edge0, edge1, x.x), Smoothstep(edge0, edge1, x.y), Smoothstep(edge0, edge1, x.z), Smoothstep(edge0, edge1, x.w));
 #endif
 }
 
