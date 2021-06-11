@@ -9,80 +9,80 @@
 
 GNM_NAMESPACE_BEGIN
 
-float radians(const float x);
-vec2 radians(const vec2& x);
-vec3 radians(const vec3& x);
-vec4 radians(const vec4& x);
+float Radians(const float x);
+vec2 Radians(const vec2& x);
+vec3 Radians(const vec3& x);
+vec4 Radians(const vec4& x);
 
-float degrees(const float x);
-vec2 degrees(const vec2& x);
-vec3 degrees(const vec3& x);
-vec4 degrees(const vec4& x);
+float Degrees(const float x);
+vec2 Degrees(const vec2& x);
+vec3 Degrees(const vec3& x);
+vec4 Degrees(const vec4& x);
 
-float sin(const float x);
-vec2 sin(const vec2& x);
-vec3 sin(const vec3& x);
-vec4 sin(const vec4& x);
+float Sin(const float x);
+vec2 Sin(const vec2& x);
+vec3 Sin(const vec3& x);
+vec4 Sin(const vec4& x);
 
-float cos(const float x);
-vec2 cos(const vec2& x);
-vec3 cos(const vec3& x);
-vec4 cos(const vec4& x);
+float Cos(const float x);
+vec2 Cos(const vec2& x);
+vec3 Cos(const vec3& x);
+vec4 Cos(const vec4& x);
 
-float tan(const float x);
-vec2 tan(const vec2& x);
-vec3 tan(const vec3& x);
-vec4 tan(const vec4& x);
+float Tan(const float x);
+vec2 Tan(const vec2& x);
+vec3 Tan(const vec3& x);
+vec4 Tan(const vec4& x);
 
-float asin(const float x);
-vec2 asin(const vec2& x);
-vec3 asin(const vec3& x);
-vec4 asin(const vec4& x);
+float Asin(const float x);
+vec2 Asin(const vec2& x);
+vec3 Asin(const vec3& x);
+vec4 Asin(const vec4& x);
 
-float acos(const float x);
-vec2 acos(const vec2& x);
-vec3 acos(const vec3& x);
-vec4 acos(const vec4& x);
+float Acos(const float x);
+vec2 Acos(const vec2& x);
+vec3 Acos(const vec3& x);
+vec4 Acos(const vec4& x);
 
-float atan(const float y, const float x);
-vec2 atan(const vec2& y, const vec2& x);
-vec3 atan(const vec3& y, const vec3& x);
-vec4 atan(const vec4& y, const vec4& x);
+float Atan(const float y, const float x);
+vec2 Atan(const vec2& y, const vec2& x);
+vec3 Atan(const vec3& y, const vec3& x);
+vec4 Atan(const vec4& y, const vec4& x);
 
-float atan(const float x);
-vec2 atan(const vec2& x);
-vec3 atan(const vec3& x);
-vec4 atan(const vec4& x);
+float Atan(const float x);
+vec2 Atan(const vec2& x);
+vec3 Atan(const vec3& x);
+vec4 Atan(const vec4& x);
 
-float sinh(const float x);
-vec2 sinh(const vec2& x);
-vec3 sinh(const vec3& x);
-vec4 sinh(const vec4& x);
+float Sinh(const float x);
+vec2 Sinh(const vec2& x);
+vec3 Sinh(const vec3& x);
+vec4 Sinh(const vec4& x);
 
-float cosh(const float x);
-vec2 cosh(const vec2& x);
-vec3 cosh(const vec3& x);
-vec4 cosh(const vec4& x);
+float Cosh(const float x);
+vec2 Cosh(const vec2& x);
+vec3 Cosh(const vec3& x);
+vec4 Cosh(const vec4& x);
 
-float tanh(const float x);
-vec2 tanh(const vec2& x);
-vec3 tanh(const vec3& x);
-vec4 tanh(const vec4& x);
+float Tanh(const float x);
+vec2 Tanh(const vec2& x);
+vec3 Tanh(const vec3& x);
+vec4 Tanh(const vec4& x);
 
-float asinh(const float x);
-vec2 asinh(const vec2& x);
-vec3 asinh(const vec3& x);
-vec4 asinh(const vec4& x);
+float Asinh(const float x);
+vec2 Asinh(const vec2& x);
+vec3 Asinh(const vec3& x);
+vec4 Asinh(const vec4& x);
 
-float acosh(const float x);
-vec2 acosh(const vec2& x);
-vec3 acosh(const vec3& x);
-vec4 acosh(const vec4& x);
+float Acosh(const float x);
+vec2 Acosh(const vec2& x);
+vec3 Acosh(const vec3& x);
+vec4 Acosh(const vec4& x);
 
-float atanh(const float x);
-vec2 atanh(const vec2& x);
-vec3 atanh(const vec3& x);
-vec4 atanh(const vec4& x);
+float Atanh(const float x);
+vec2 Atanh(const vec2& x);
+vec3 Atanh(const vec3& x);
+vec4 Atanh(const vec4& x);
 
 GNM_NAMESPACE_END
 

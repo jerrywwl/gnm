@@ -1,14 +1,14 @@
 GNM_NAMESPACE_BEGIN
 
-GNM_INLINE float length(const float x) {
+GNM_INLINE float Length(const float x) {
   return x;
 }
 
-GNM_INLINE float length(const vec2& x) {
+GNM_INLINE float Length(const vec2& x) {
   return std::sqrt(x.x * x.x + x.y * x.y);
 }
 
-GNM_INLINE float length(const vec3& x) {
+GNM_INLINE float Length(const vec3& x) {
 #if (GNM_SIMD)
   __m128 v = _mm_set_ps(0.0f, x.z, x.y, x.x);
   return _mm_cvtss_f32(_mm_sqrt_ps(_mm_dp_ps(v, v, 0xFF)));
@@ -17,7 +17,7 @@ GNM_INLINE float length(const vec3& x) {
 #endif
 }
 
-GNM_INLINE float length(const vec4& x) {
+GNM_INLINE float Length(const vec4& x) {
 #if (GNM_SIMD)
   return _mm_cvtss_f32(_mm_sqrt_ps(_mm_dp_ps(x._v, x._v, 0xFF)));
 #else
@@ -27,17 +27,17 @@ GNM_INLINE float length(const vec4& x) {
 
 // ----------------------------------------------------------------------------------------------------
 
-GNM_INLINE float distance(const float p0, const float p1) {
+GNM_INLINE float Distance(const float p0, const float p1) {
   return GNM_ABS_F(p0 - p1);
 }
 
-GNM_INLINE float distance(const vec2& p0, const vec2& p1) {
+GNM_INLINE float Distance(const vec2& p0, const vec2& p1) {
   float d0 = p0.x - p1.x;
   float d1 = p0.y - p1.y;
   return std::sqrt(d0 * d0 + d1 * d1);
 }
 
-GNM_INLINE float distance(const vec3& p0, const vec3& p1) {
+GNM_INLINE float Distance(const vec3& p0, const vec3& p1) {
 #if (GNM_SIMD)
   __m128 v = _mm_sub_ps(_mm_set_ps(0.0f, p0.z, p0.y, p0.x), _mm_set_ps(0.0f, p1.z, p1.y, p1.x));
   return _mm_cvtss_f32(_mm_sqrt_ps(_mm_dp_ps(v, v, 0xFF)));
@@ -49,7 +49,7 @@ GNM_INLINE float distance(const vec3& p0, const vec3& p1) {
 #endif
 }
 
-GNM_INLINE float distance(const vec4& p0, const vec4& p1) {
+GNM_INLINE float Distance(const vec4& p0, const vec4& p1) {
 #if (GNM_SIMD)
   __m128 v = _mm_sub_ps(p0._v, p1._v);
   return _mm_cvtss_f32(_mm_sqrt_ps(_mm_dp_ps(v, v, 0xFF)));
@@ -64,19 +64,19 @@ GNM_INLINE float distance(const vec4& p0, const vec4& p1) {
 
 // ----------------------------------------------------------------------------------------------------
 
-GNM_INLINE float dot(const float x, const float y) {
+GNM_INLINE float Dot(const float x, const float y) {
   return x * y;
 }
 
-GNM_INLINE float dot(const vec2& x, const vec2& y) {
+GNM_INLINE float Dot(const vec2& x, const vec2& y) {
   return x.x * y.x + x.y * y.y;
 }
 
-GNM_INLINE float dot(const vec3& x, const vec3& y) {
+GNM_INLINE float Dot(const vec3& x, const vec3& y) {
   return x.x * y.x + x.y * y.y + x.z * y.z;
 }
 
-GNM_INLINE float dot(const vec4& x, const vec4& y) {
+GNM_INLINE float Dot(const vec4& x, const vec4& y) {
 #if (GNM_SIMD)
   return _mm_cvtss_f32(_mm_dp_ps(x._v, y._v, 0xff));
 #else
@@ -86,7 +86,7 @@ GNM_INLINE float dot(const vec4& x, const vec4& y) {
 
 // ----------------------------------------------------------------------------------------------------
 
-GNM_INLINE vec3 cross(const vec3& x, const vec3& y) {
+GNM_INLINE vec3 Cross(const vec3& x, const vec3& y) {
   return vec3(x.y * y.z - y.y * x.z,
               x.z * y.x - y.z * x.x,
               x.x * y.y - y.x * x.y);
@@ -94,21 +94,21 @@ GNM_INLINE vec3 cross(const vec3& x, const vec3& y) {
 
 // ----------------------------------------------------------------------------------------------------
 
-GNM_INLINE float normalize(const float x) {
+GNM_INLINE float Normalize(const float x) {
   return x;
 }
 
-GNM_INLINE vec2 normalize(const vec2& x) {
+GNM_INLINE vec2 Normalize(const vec2& x) {
   float f = 1.0f / std::sqrt(x.x * x.x + x.y * x.y);
   return vec2(x.x * f, x.y * f);
 }
 
-GNM_INLINE vec3 normalize(const vec3& x) {
+GNM_INLINE vec3 Normalize(const vec3& x) {
   float f = 1.0f / std::sqrt(x.x * x.x + x.y * x.y + x.z * x.z);
   return vec3(x.x * f, x.y * f, x.z * f);
 }
 
-GNM_INLINE vec4 normalize(const vec4& x) {
+GNM_INLINE vec4 Normalize(const vec4& x) {
 #if (GNM_SIMD)
   return vec4(_mm_mul_ps(x._v, _mm_rsqrt_ps(_mm_dp_ps(x._v, x._v, 0xFF))));
 #else
@@ -119,19 +119,19 @@ GNM_INLINE vec4 normalize(const vec4& x) {
 
 // ----------------------------------------------------------------------------------------------------
 
-GNM_INLINE float faceforward(const float N, const float I, const float Nref) {
+GNM_INLINE float Faceforward(const float N, const float I, const float Nref) {
   return (Nref * I < 0.0f) ? N : -N;
 }
 
-GNM_INLINE vec2 faceforward(const vec2& N, const vec2& I, const vec2& Nref) {
+GNM_INLINE vec2 Faceforward(const vec2& N, const vec2& I, const vec2& Nref) {
   return (Nref.x * I.x + Nref.y * I.y < 0.0f) ? N : -N;
 }
 
-GNM_INLINE vec3 faceforward(const vec3& N, const vec3& I, const vec3& Nref) {
+GNM_INLINE vec3 Faceforward(const vec3& N, const vec3& I, const vec3& Nref) {
   return (Nref.x * I.x + Nref.y * I.y + Nref.z * I.z < 0.0f) ? N : -N;
 }
 
-GNM_INLINE vec4 faceforward(const vec4& N, const vec4& I, const vec4& Nref) {
+GNM_INLINE vec4 Faceforward(const vec4& N, const vec4& I, const vec4& Nref) {
 #if (GNM_SIMD)
   __m128 dot0 = _mm_dp_ps(Nref._v, I._v, 0xFF);
   __m128 sgn0 = _mm_or_ps(_mm_and_ps(_mm_cmplt_ps(dot0, VEC4_ZERO._v), VEC4_NEG_ONE._v),
@@ -145,21 +145,21 @@ GNM_INLINE vec4 faceforward(const vec4& N, const vec4& I, const vec4& Nref) {
 
 // ----------------------------------------------------------------------------------------------------
 
-GNM_INLINE float reflect(const float I, const float N) {
+GNM_INLINE float Reflect(const float I, const float N) {
   return (I - N * N * I * 2.0f);
 }
 
-GNM_INLINE vec2 reflect(const vec2& I, const vec2& N) {
+GNM_INLINE vec2 Reflect(const vec2& I, const vec2& N) {
   const float d = N.x * I.x + N.y * I.y;
   return vec2(I.x - N.x * d * 2.0f, I.y - N.y * d * 2.0f);
 }
 
-GNM_INLINE vec3 reflect(const vec3& I, const vec3& N) {
+GNM_INLINE vec3 Reflect(const vec3& I, const vec3& N) {
   const float d = N.x * I.x + N.y * I.y + N.z * I.z;
   return vec3(I.x - N.x * d * 2.0f, I.y - N.y * d * 2.0f, I.z - N.z * d * 2.0f);
 }
 
-GNM_INLINE vec4 reflect(const vec4& I, const vec4& N) {
+GNM_INLINE vec4 Reflect(const vec4& I, const vec4& N) {
 #if (GNM_SIMD)
   __m128 mul0 = _mm_mul_ps(N._v, _mm_dp_ps(N._v, I._v, 0xFF));
   return vec4(_mm_sub_ps(I._v, _mm_mul_ps(mul0, _mm_set1_ps(2.0f))));
@@ -171,25 +171,25 @@ GNM_INLINE vec4 reflect(const vec4& I, const vec4& N) {
 
 // ----------------------------------------------------------------------------------------------------
 
-GNM_INLINE float refract(const float I, const float N, const float eta) {
+GNM_INLINE float Refract(const float I, const float N, const float eta) {
   const float d = N * I;
   const float k = 1.0f - eta * eta * (1.0f - d * d);
   return (k < 0.0f ? 0.0f : eta * I - (eta * d + std::sqrt(k)) * N);
 }
 
-GNM_INLINE vec2 refract(const vec2& I, const vec2& N, const float eta) {
+GNM_INLINE vec2 Refract(const vec2& I, const vec2& N, const float eta) {
   const float d = N.x * I.x + N.y * I.y;
   const float k = 1.0f - eta * eta * (1.0f - d * d);
   return (k < 0.0f ? VEC2_ZERO : eta * I - (eta * d + std::sqrt(k)) * N);
 }
 
-GNM_INLINE vec3 refract(const vec3& I, const vec3& N, const float eta) {
+GNM_INLINE vec3 Refract(const vec3& I, const vec3& N, const float eta) {
   const float d = N.x * I.x + N.y * I.y + N.z * I.z;
   const float k = 1.0f - eta * eta * (1.0f - d * d);
   return (k < 0.0f ? VEC3_ZERO : eta * I - (eta * d + std::sqrt(k)) * N);
 }
 
-GNM_INLINE vec4 refract(const vec4& I, const vec4& N, const float eta) {
+GNM_INLINE vec4 Refract(const vec4& I, const vec4& N, const float eta) {
 #if (GNM_SIMD)
   __m128 dot0 = _mm_dp_ps(N._v, I._v, 0xFF);
   __m128 eta0 = _mm_set_ps1(eta);

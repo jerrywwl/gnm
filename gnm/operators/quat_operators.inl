@@ -45,13 +45,13 @@ GNM_INLINE quat operator * (const float a, const quat& b) {
 }
 
 GNM_INLINE vec3 operator * (const quat& a, const vec3& b) {
-	vec3 uv = cross(a.xyz, b);
-	vec3 uvv = cross(a.xyz, uv);
+	vec3 uv = Cross(a.xyz, b);
+	vec3 uvv = Cross(a.xyz, uv);
 	return b + ((uv * a.w) + uvv) * 2.0f;
 }
 
 GNM_INLINE vec3 operator * (const vec3& a, const quat& b) {
-	return inverse(b) * a;
+	return Inverse(b) * a;
 }
 
 GNM_INLINE vec4 operator * (const quat& a, const vec4& b) {
@@ -59,7 +59,7 @@ GNM_INLINE vec4 operator * (const quat& a, const vec4& b) {
 }
 
 GNM_INLINE vec4 operator * (const vec4& a, const quat& b) {
-	return inverse(b) * a;
+	return Inverse(b) * a;
 }
 
 GNM_INLINE quat operator / (const quat& a, const float b) {

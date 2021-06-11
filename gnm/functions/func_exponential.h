@@ -9,40 +9,40 @@
 
 GNM_NAMESPACE_BEGIN
 
-float pow(const float x, const float y);
-vec2 pow(const vec2& x, const vec2& y);
-vec3 pow(const vec3& x, const vec3& y);
-vec4 pow(const vec4& x, const vec4& y);
+float Pow(const float x, const float y);
+vec2 Pow(const vec2& x, const vec2& y);
+vec3 Pow(const vec3& x, const vec3& y);
+vec4 Pow(const vec4& x, const vec4& y);
 
-float exp(const float x);
-vec2 exp(const vec2& x);
-vec3 exp(const vec3& x);
-vec4 exp(const vec4& x);
+float Exp(const float x);
+vec2 Exp(const vec2& x);
+vec3 Exp(const vec3& x);
+vec4 Exp(const vec4& x);
 
-float log(const float x);
-vec2 log(const vec2& x);
-vec3 log(const vec3& x);
-vec4 log(const vec4& x);
+float Log(const float x);
+vec2 Log(const vec2& x);
+vec3 Log(const vec3& x);
+vec4 Log(const vec4& x);
 
-float exp2(const float x);
-vec2 exp2(const vec2& x);
-vec3 exp2(const vec3& x);
-vec4 exp2(const vec4& x);
+float Exp2(const float x);
+vec2 Exp2(const vec2& x);
+vec3 Exp2(const vec3& x);
+vec4 Exp2(const vec4& x);
 
-float log2(const float x);
-vec2 log2(const vec2& x);
-vec3 log2(const vec3& x);
-vec4 log2(const vec4& x);
+float Log2(const float x);
+vec2 Log2(const vec2& x);
+vec3 Log2(const vec3& x);
+vec4 Log2(const vec4& x);
 
-float sqrt(const float x);
-vec2 sqrt(const vec2& x);
-vec3 sqrt(const vec3& x);
-vec4 sqrt(const vec4& x);
+float Sqrt(const float x);
+vec2 Sqrt(const vec2& x);
+vec3 Sqrt(const vec3& x);
+vec4 Sqrt(const vec4& x);
 
-float inversesqrt(const float x);
-vec2 inversesqrt(const vec2& x);
-vec3 inversesqrt(const vec3& x);
-vec4 inversesqrt(const vec4& x);
+float Inversesqrt(const float x);
+vec2 Inversesqrt(const vec2& x);
+vec3 Inversesqrt(const vec3& x);
+vec4 Inversesqrt(const vec4& x);
 
 GNM_NAMESPACE_END
 

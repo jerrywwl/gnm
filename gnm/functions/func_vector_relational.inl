@@ -1,334 +1,334 @@
 GNM_NAMESPACE_BEGIN
 
-GNM_INLINE bvec2 lessThan(const vec2& x, const vec2& y) {
+GNM_INLINE bvec2 LessThan(const vec2& x, const vec2& y) {
   return bvec2(x.x < y.x, x.y < y.y);
 }
 
-GNM_INLINE bvec3 lessThan(const vec3& x, const vec3& y) {
+GNM_INLINE bvec3 LessThan(const vec3& x, const vec3& y) {
   return bvec3(x.x < y.x, x.y < y.y, x.z < y.z);
 }
 
-GNM_INLINE bvec4 lessThan(const vec4& x, const vec4& y) {
+GNM_INLINE bvec4 LessThan(const vec4& x, const vec4& y) {
   return bvec4(x.x < y.x, x.y < y.y, x.z < y.z, x.w < y.w);
 }
 
-GNM_INLINE bvec2 lessThan(const ivec2& x, const ivec2& y) {
+GNM_INLINE bvec2 LessThan(const ivec2& x, const ivec2& y) {
   return bvec2(x.x < y.x, x.y < y.y);
 }
 
-GNM_INLINE bvec3 lessThan(const ivec3& x, const ivec3& y) {
+GNM_INLINE bvec3 LessThan(const ivec3& x, const ivec3& y) {
   return bvec3(x.x < y.x, x.y < y.y, x.z < y.z);
 }
 
-GNM_INLINE bvec4 lessThan(const ivec4& x, const ivec4& y) {
+GNM_INLINE bvec4 LessThan(const ivec4& x, const ivec4& y) {
   return bvec4(x.x < y.x, x.y < y.y, x.z < y.z, x.w < y.w);
 }
 
-GNM_INLINE bvec2 lessThan(const uvec2& x, const uvec2& y) {
+GNM_INLINE bvec2 LessThan(const uvec2& x, const uvec2& y) {
   return bvec2(x.x < y.x, x.y < y.y);
 }
 
-GNM_INLINE bvec3 lessThan(const uvec3& x, const uvec3& y) {
+GNM_INLINE bvec3 LessThan(const uvec3& x, const uvec3& y) {
   return bvec3(x.x < y.x, x.y < y.y, x.z < y.z);
 }
 
-GNM_INLINE bvec4 lessThan(const uvec4& x, const uvec4& y) {
+GNM_INLINE bvec4 LessThan(const uvec4& x, const uvec4& y) {
   return bvec4(x.x < y.x, x.y < y.y, x.z < y.z, x.w < y.w);
 }
 
 // ----------------------------------------------------------------------------------------------------
 
-GNM_INLINE bvec2 lessThanEqual(const vec2& x, const vec2& y) {
+GNM_INLINE bvec2 LessThanEqual(const vec2& x, const vec2& y) {
   return bvec2(x.x <= y.x, x.y <= y.y);
 }
 
-GNM_INLINE bvec3 lessThanEqual(const vec3& x, const vec3& y) {
+GNM_INLINE bvec3 LessThanEqual(const vec3& x, const vec3& y) {
   return bvec3(x.x <= y.x, x.y <= y.y, x.z <= y.z);
 }
 
-GNM_INLINE bvec4 lessThanEqual(const vec4& x, const vec4& y) {
+GNM_INLINE bvec4 LessThanEqual(const vec4& x, const vec4& y) {
   return bvec4(x.x <= y.x, x.y <= y.y, x.z <= y.z, x.w <= y.w);
 }
 
-GNM_INLINE bvec2 lessThanEqual(const ivec2& x, const ivec2& y) {
+GNM_INLINE bvec2 LessThanEqual(const ivec2& x, const ivec2& y) {
   return bvec2(x.x <= y.x, x.y <= y.y);
 }
 
-GNM_INLINE bvec3 lessThanEqual(const ivec3& x, const ivec3& y) {
+GNM_INLINE bvec3 LessThanEqual(const ivec3& x, const ivec3& y) {
   return bvec3(x.x <= y.x, x.y <= y.y, x.z <= y.z);
 }
 
-GNM_INLINE bvec4 lessThanEqual(const ivec4& x, const ivec4& y) {
+GNM_INLINE bvec4 LessThanEqual(const ivec4& x, const ivec4& y) {
   return bvec4(x.x <= y.x, x.y <= y.y, x.z <= y.z, x.w <= y.w);
 }
 
-GNM_INLINE bvec2 lessThanEqual(const uvec2& x, const uvec2& y) {
+GNM_INLINE bvec2 LessThanEqual(const uvec2& x, const uvec2& y) {
   return bvec2(x.x <= y.x, x.y <= y.y);
 }
 
-GNM_INLINE bvec3 lessThanEqual(const uvec3& x, const uvec3& y) {
+GNM_INLINE bvec3 LessThanEqual(const uvec3& x, const uvec3& y) {
   return bvec3(x.x <= y.x, x.y <= y.y, x.z <= y.z);
 }
 
-GNM_INLINE bvec4 lessThanEqual(const uvec4& x, const uvec4& y) {
+GNM_INLINE bvec4 LessThanEqual(const uvec4& x, const uvec4& y) {
   return bvec4(x.x <= y.x, x.y <= y.y, x.z <= y.z, x.w <= y.w);
 }
 
 // ----------------------------------------------------------------------------------------------------
 
-GNM_INLINE bvec2 greaterThan(const vec2& x, const vec2& y) {
+GNM_INLINE bvec2 GreaterThan(const vec2& x, const vec2& y) {
   return bvec2(x.x > y.x, x.y > y.y);
 }
 
-GNM_INLINE bvec3 greaterThan(const vec3& x, const vec3& y) {
+GNM_INLINE bvec3 GreaterThan(const vec3& x, const vec3& y) {
   return bvec3(x.x > y.x, x.y > y.y, x.z > y.z);
 }
 
-GNM_INLINE bvec4 greaterThan(const vec4& x, const vec4& y) {
+GNM_INLINE bvec4 GreaterThan(const vec4& x, const vec4& y) {
   return bvec4(x.x > y.x, x.y > y.y, x.z > y.z, x.w > y.w);
 }
 
-GNM_INLINE bvec2 greaterThan(const ivec2& x, const ivec2& y) {
+GNM_INLINE bvec2 GreaterThan(const ivec2& x, const ivec2& y) {
   return bvec2(x.x > y.x, x.y > y.y);
 }
 
-GNM_INLINE bvec3 greaterThan(const ivec3& x, const ivec3& y) {
+GNM_INLINE bvec3 GreaterThan(const ivec3& x, const ivec3& y) {
   return bvec3(x.x > y.x, x.y > y.y, x.z > y.z);
 }
 
-GNM_INLINE bvec4 greaterThan(const ivec4& x, const ivec4& y) {
+GNM_INLINE bvec4 GreaterThan(const ivec4& x, const ivec4& y) {
   return bvec4(x.x > y.x, x.y > y.y, x.z > y.z, x.w > y.w);
 }
 
-GNM_INLINE bvec2 greaterThan(const uvec2& x, const uvec2& y) {
+GNM_INLINE bvec2 GreaterThan(const uvec2& x, const uvec2& y) {
   return bvec2(x.x > y.x, x.y > y.y);
 }
 
-GNM_INLINE bvec3 greaterThan(const uvec3& x, const uvec3& y) {
+GNM_INLINE bvec3 GreaterThan(const uvec3& x, const uvec3& y) {
   return bvec3(x.x > y.x, x.y > y.y, x.z > y.z);
 }
 
-GNM_INLINE bvec4 greaterThan(const uvec4& x, const uvec4& y) {
+GNM_INLINE bvec4 GreaterThan(const uvec4& x, const uvec4& y) {
   return bvec4(x.x > y.x, x.y > y.y, x.z > y.z, x.w > y.w);
 }
 
 // ----------------------------------------------------------------------------------------------------
 
-GNM_INLINE bvec2 greaterThanEqual(const vec2& x, const vec2& y) {
+GNM_INLINE bvec2 GreaterThanEqual(const vec2& x, const vec2& y) {
   return bvec2(x.x >= y.x, x.y >= y.y);
 }
 
-GNM_INLINE bvec3 greaterThanEqual(const vec3& x, const vec3& y) {
+GNM_INLINE bvec3 GreaterThanEqual(const vec3& x, const vec3& y) {
   return bvec3(x.x >= y.x, x.y >= y.y, x.z >= y.z);
 }
 
-GNM_INLINE bvec4 greaterThanEqual(const vec4& x, const vec4& y) {
+GNM_INLINE bvec4 GreaterThanEqual(const vec4& x, const vec4& y) {
   return bvec4(x.x >= y.x, x.y >= y.y, x.z >= y.z, x.w >= y.w);
 }
 
-GNM_INLINE bvec2 greaterThanEqual(const ivec2& x, const ivec2& y) {
+GNM_INLINE bvec2 GreaterThanEqual(const ivec2& x, const ivec2& y) {
   return bvec2(x.x >= y.x, x.y >= y.y);
 }
 
-GNM_INLINE bvec3 greaterThanEqual(const ivec3& x, const ivec3& y) {
+GNM_INLINE bvec3 GreaterThanEqual(const ivec3& x, const ivec3& y) {
   return bvec3(x.x >= y.x, x.y >= y.y, x.z >= y.z);
 }
 
-GNM_INLINE bvec4 greaterThanEqual(const ivec4& x, const ivec4& y) {
+GNM_INLINE bvec4 GreaterThanEqual(const ivec4& x, const ivec4& y) {
   return bvec4(x.x >= y.x, x.y >= y.y, x.z >= y.z, x.w >= y.w);
 }
 
-GNM_INLINE bvec2 greaterThanEqual(const uvec2& x, const uvec2& y) {
+GNM_INLINE bvec2 GreaterThanEqual(const uvec2& x, const uvec2& y) {
   return bvec2(x.x >= y.x, x.y >= y.y);
 }
 
-GNM_INLINE bvec3 greaterThanEqual(const uvec3& x, const uvec3& y) {
+GNM_INLINE bvec3 GreaterThanEqual(const uvec3& x, const uvec3& y) {
   return bvec3(x.x >= y.x, x.y >= y.y, x.z >= y.z);
 }
 
-GNM_INLINE bvec4 greaterThanEqual(const uvec4& x, const uvec4& y) {
+GNM_INLINE bvec4 GreaterThanEqual(const uvec4& x, const uvec4& y) {
   return bvec4(x.x >= y.x, x.y >= y.y, x.z >= y.z, x.w >= y.w);
 }
 
 // ----------------------------------------------------------------------------------------------------
 
-GNM_INLINE bool equal(const float x, const float y) {
-  return (abs(x - y) <= GNM_EPSILON);
+GNM_INLINE bool Equal(const float x, const float y) {
+  return (Abs(x - y) <= GNM_EPSILON);
 }
 
-GNM_INLINE bvec2 equal(const vec2& x, const vec2& y) {
-  return bvec2((abs(x.x - y.x) <= GNM_EPSILON), (abs(x.y - y.y) <= GNM_EPSILON));
+GNM_INLINE bvec2 Equal(const vec2& x, const vec2& y) {
+  return bvec2((Abs(x.x - y.x) <= GNM_EPSILON), (Abs(x.y - y.y) <= GNM_EPSILON));
 }
 
-GNM_INLINE bvec3 equal(const vec3& x, const vec3& y) {
-  return bvec3((abs(x.x - y.x) <= GNM_EPSILON), (abs(x.y - y.y) <= GNM_EPSILON), (abs(x.z - y.z) <= GNM_EPSILON));
+GNM_INLINE bvec3 Equal(const vec3& x, const vec3& y) {
+  return bvec3((Abs(x.x - y.x) <= GNM_EPSILON), (Abs(x.y - y.y) <= GNM_EPSILON), (Abs(x.z - y.z) <= GNM_EPSILON));
 }
 
-GNM_INLINE bvec4 equal(const vec4& x, const vec4& y) {
-  return bvec4((abs(x.x - y.x) <= GNM_EPSILON), (abs(x.y - y.y) <= GNM_EPSILON), (abs(x.z - y.z) <= GNM_EPSILON), (abs(x.w - y.w) <= GNM_EPSILON));
+GNM_INLINE bvec4 Equal(const vec4& x, const vec4& y) {
+  return bvec4((Abs(x.x - y.x) <= GNM_EPSILON), (Abs(x.y - y.y) <= GNM_EPSILON), (Abs(x.z - y.z) <= GNM_EPSILON), (Abs(x.w - y.w) <= GNM_EPSILON));
 }
 
-GNM_INLINE bvec2 equal(const ivec2& x, const ivec2& y) {
+GNM_INLINE bvec2 Equal(const ivec2& x, const ivec2& y) {
   return bvec2(x.x == y.x, x.y == y.y);
 }
 
-GNM_INLINE bvec3 equal(const ivec3& x, const ivec3& y) {
+GNM_INLINE bvec3 Equal(const ivec3& x, const ivec3& y) {
   return bvec3(x.x == y.x, x.y == y.y, x.z == y.z);
 }
 
-GNM_INLINE bvec4 equal(const ivec4& x, const ivec4& y) {
+GNM_INLINE bvec4 Equal(const ivec4& x, const ivec4& y) {
   return bvec4(x.x == y.x, x.y == y.y, x.z == y.z, x.w == y.w);
 }
 
-GNM_INLINE bvec2 equal(const uvec2& x, const uvec2& y) {
+GNM_INLINE bvec2 Equal(const uvec2& x, const uvec2& y) {
   return bvec2(x.x == y.x, x.y == y.y);
 }
 
-GNM_INLINE bvec3 equal(const uvec3& x, const uvec3& y) {
+GNM_INLINE bvec3 Equal(const uvec3& x, const uvec3& y) {
   return bvec3(x.x == y.x, x.y == y.y, x.z == y.z);
 }
 
-GNM_INLINE bvec4 equal(const uvec4& x, const uvec4& y) {
+GNM_INLINE bvec4 Equal(const uvec4& x, const uvec4& y) {
   return bvec4(x.x == y.x, x.y == y.y, x.z == y.z, x.w == y.w);
 }
 
-GNM_INLINE bvec2 equal(const bvec2& x, const bvec2& y) {
+GNM_INLINE bvec2 Equal(const bvec2& x, const bvec2& y) {
   return bvec2(x.x == y.x, x.y == y.y);
 }
 
-GNM_INLINE bvec3 equal(const bvec3& x, const bvec3& y) {
+GNM_INLINE bvec3 Equal(const bvec3& x, const bvec3& y) {
   return bvec3(x.x == y.x, x.y == y.y, x.z == y.z);
 }
 
-GNM_INLINE bvec4 equal(const bvec4& x, const bvec4& y) {
+GNM_INLINE bvec4 Equal(const bvec4& x, const bvec4& y) {
   return bvec4(x.x == y.x, x.y == y.y, x.z == y.z, x.w == y.w);
 }
 
 // ----------------------------------------------------------------------------------------------------
 
-GNM_INLINE bool equal(const float x, const float y, float epsilon) {
-  return (abs(x - y) <= epsilon);
+GNM_INLINE bool Equal(const float x, const float y, float epsilon) {
+  return (Abs(x - y) <= epsilon);
 }
 
-GNM_INLINE bvec2 equal(const vec2& x, const vec2& y, float epsilon) {
-  return bvec2((abs(x.x - y.x) <= epsilon), (abs(x.y - y.y) <= epsilon));
+GNM_INLINE bvec2 Equal(const vec2& x, const vec2& y, float epsilon) {
+  return bvec2((Abs(x.x - y.x) <= epsilon), (Abs(x.y - y.y) <= epsilon));
 }
 
-GNM_INLINE bvec3 equal(const vec3& x, const vec3& y, float epsilon) {
-  return bvec3((abs(x.x - y.x) <= epsilon), (abs(x.y - y.y) <= epsilon), (abs(x.z - y.z) <= epsilon));
+GNM_INLINE bvec3 Equal(const vec3& x, const vec3& y, float epsilon) {
+  return bvec3((Abs(x.x - y.x) <= epsilon), (Abs(x.y - y.y) <= epsilon), (Abs(x.z - y.z) <= epsilon));
 }
 
-GNM_INLINE bvec4 equal(const vec4& x, const vec4& y, float epsilon) {
-  return bvec4((abs(x.x - y.x) <= epsilon), (abs(x.y - y.y) <= epsilon), (abs(x.z - y.z) <= epsilon), (abs(x.w - y.w) <= epsilon));
-}
-
-// ----------------------------------------------------------------------------------------------------
-
-GNM_INLINE bvec2 notEqual(const vec2& x, const vec2& y) {
-  return bvec2(x.x != y.x, x.y != y.y);
-}
-
-GNM_INLINE bvec3 notEqual(const vec3& x, const vec3& y) {
-  return bvec3(x.x != y.x, x.y != y.y, x.z != y.z);
-}
-
-GNM_INLINE bvec4 notEqual(const vec4& x, const vec4& y) {
-  return bvec4(x.x != y.x, x.y != y.y, x.z != y.z, x.w != y.w);
-}
-
-GNM_INLINE bvec2 notEqual(const ivec2& x, const ivec2& y) {
-  return bvec2(x.x != y.x, x.y != y.y);
-}
-
-GNM_INLINE bvec3 notEqual(const ivec3& x, const ivec3& y) {
-  return bvec3(x.x != y.x, x.y != y.y, x.z != y.z);
-}
-
-GNM_INLINE bvec4 notEqual(const ivec4& x, const ivec4& y) {
-  return bvec4(x.x != y.x, x.y != y.y, x.z != y.z, x.w != y.w);
-}
-
-GNM_INLINE bvec2 notEqual(const uvec2& x, const uvec2& y) {
-  return bvec2(x.x != y.x, x.y != y.y);
-}
-
-GNM_INLINE bvec3 notEqual(const uvec3& x, const uvec3& y) {
-  return bvec3(x.x != y.x, x.y != y.y, x.z != y.z);
-}
-
-GNM_INLINE bvec4 notEqual(const uvec4& x, const uvec4& y) {
-  return bvec4(x.x != y.x, x.y != y.y, x.z != y.z, x.w != y.w);
-}
-
-GNM_INLINE bvec2 notEqual(const bvec2& x, const bvec2& y) {
-  return bvec2(x.x != y.x, x.y != y.y);
-}
-
-GNM_INLINE bvec3 notEqual(const bvec3& x, const bvec3& y) {
-  return bvec3(x.x != y.x, x.y != y.y, x.z != y.z);
-}
-
-GNM_INLINE bvec4 notEqual(const bvec4& x, const bvec4& y) {
-  return bvec4(x.x != y.x, x.y != y.y, x.z != y.z, x.w != y.w);
+GNM_INLINE bvec4 Equal(const vec4& x, const vec4& y, float epsilon) {
+  return bvec4((Abs(x.x - y.x) <= epsilon), (Abs(x.y - y.y) <= epsilon), (Abs(x.z - y.z) <= epsilon), (Abs(x.w - y.w) <= epsilon));
 }
 
 // ----------------------------------------------------------------------------------------------------
 
-GNM_INLINE bool notEqual(const float x, const float y, float epsilon) {
-  return (abs(x - y) > epsilon);
+GNM_INLINE bvec2 NotEqual(const vec2& x, const vec2& y) {
+  return bvec2(x.x != y.x, x.y != y.y);
 }
 
-GNM_INLINE bvec2 notEqual(const vec2& x, const vec2& y, float epsilon) {
-  return bvec2((abs(x.x - y.x) > epsilon), (abs(x.y - y.y) > epsilon));
+GNM_INLINE bvec3 NotEqual(const vec3& x, const vec3& y) {
+  return bvec3(x.x != y.x, x.y != y.y, x.z != y.z);
 }
 
-GNM_INLINE bvec3 notEqual(const vec3& x, const vec3& y, float epsilon) {
-  return bvec3((abs(x.x - y.x) > epsilon), (abs(x.y - y.y) > epsilon), (abs(x.z - y.z) > epsilon));
+GNM_INLINE bvec4 NotEqual(const vec4& x, const vec4& y) {
+  return bvec4(x.x != y.x, x.y != y.y, x.z != y.z, x.w != y.w);
 }
 
-GNM_INLINE bvec4 notEqual(const vec4& x, const vec4& y, float epsilon) {
-  return bvec4((abs(x.x - y.x) > epsilon), (abs(x.y - y.y) > epsilon), (abs(x.z - y.z) > epsilon), (abs(x.w - y.w) > epsilon));
+GNM_INLINE bvec2 NotEqual(const ivec2& x, const ivec2& y) {
+  return bvec2(x.x != y.x, x.y != y.y);
+}
+
+GNM_INLINE bvec3 NotEqual(const ivec3& x, const ivec3& y) {
+  return bvec3(x.x != y.x, x.y != y.y, x.z != y.z);
+}
+
+GNM_INLINE bvec4 NotEqual(const ivec4& x, const ivec4& y) {
+  return bvec4(x.x != y.x, x.y != y.y, x.z != y.z, x.w != y.w);
+}
+
+GNM_INLINE bvec2 NotEqual(const uvec2& x, const uvec2& y) {
+  return bvec2(x.x != y.x, x.y != y.y);
+}
+
+GNM_INLINE bvec3 NotEqual(const uvec3& x, const uvec3& y) {
+  return bvec3(x.x != y.x, x.y != y.y, x.z != y.z);
+}
+
+GNM_INLINE bvec4 NotEqual(const uvec4& x, const uvec4& y) {
+  return bvec4(x.x != y.x, x.y != y.y, x.z != y.z, x.w != y.w);
+}
+
+GNM_INLINE bvec2 NotEqual(const bvec2& x, const bvec2& y) {
+  return bvec2(x.x != y.x, x.y != y.y);
+}
+
+GNM_INLINE bvec3 NotEqual(const bvec3& x, const bvec3& y) {
+  return bvec3(x.x != y.x, x.y != y.y, x.z != y.z);
+}
+
+GNM_INLINE bvec4 NotEqual(const bvec4& x, const bvec4& y) {
+  return bvec4(x.x != y.x, x.y != y.y, x.z != y.z, x.w != y.w);
 }
 
 // ----------------------------------------------------------------------------------------------------
 
-GNM_INLINE bool any(const bvec2& x) {
+GNM_INLINE bool NotEqual(const float x, const float y, float epsilon) {
+  return (Abs(x - y) > epsilon);
+}
+
+GNM_INLINE bvec2 NotEqual(const vec2& x, const vec2& y, float epsilon) {
+  return bvec2((Abs(x.x - y.x) > epsilon), (Abs(x.y - y.y) > epsilon));
+}
+
+GNM_INLINE bvec3 NotEqual(const vec3& x, const vec3& y, float epsilon) {
+  return bvec3((Abs(x.x - y.x) > epsilon), (Abs(x.y - y.y) > epsilon), (Abs(x.z - y.z) > epsilon));
+}
+
+GNM_INLINE bvec4 NotEqual(const vec4& x, const vec4& y, float epsilon) {
+  return bvec4((Abs(x.x - y.x) > epsilon), (Abs(x.y - y.y) > epsilon), (Abs(x.z - y.z) > epsilon), (Abs(x.w - y.w) > epsilon));
+}
+
+// ----------------------------------------------------------------------------------------------------
+
+GNM_INLINE bool Any(const bvec2& x) {
   return (x.x || x.y);
 }
 
-GNM_INLINE bool any(const bvec3& x) {
+GNM_INLINE bool Any(const bvec3& x) {
   return (x.x || x.y || x.z);
 }
 
-GNM_INLINE bool any(const bvec4& x) {
+GNM_INLINE bool Any(const bvec4& x) {
   return (x.x || x.y || x.z || x.w);
 }
 
 // ----------------------------------------------------------------------------------------------------
 
-GNM_INLINE bool all(const bvec2& x) {
+GNM_INLINE bool All(const bvec2& x) {
   return (x.x && x.y);
 }
 
-GNM_INLINE bool all(const bvec3& x) {
+GNM_INLINE bool All(const bvec3& x) {
   return (x.x && x.y && x.z);
 }
 
-GNM_INLINE bool all(const bvec4& x) {
+GNM_INLINE bool All(const bvec4& x) {
   return (x.x && x.y && x.z && x.w);
 }
 
 // ----------------------------------------------------------------------------------------------------
 
-GNM_INLINE bvec2 none(const bvec2& x) {
+GNM_INLINE bvec2 Not(const bvec2& x) {
   return bvec2(!x.x, !x.y);
 }
 
-GNM_INLINE bvec3 none(const bvec3& x) {
+GNM_INLINE bvec3 Not(const bvec3& x) {
   return bvec3(!x.x, !x.y, !x.z);
 }
 
-GNM_INLINE bvec4 none(const bvec4& x) {
+GNM_INLINE bvec4 Not(const bvec4& x) {
   return bvec4(!x.x, !x.y, !x.z, !x.w);
 }
 

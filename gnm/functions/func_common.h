@@ -10,220 +10,220 @@
 GNM_NAMESPACE_BEGIN
 
 template <typename T>
-T abs(const T x);
-vec2 abs(const vec2& x);
-vec3 abs(const vec3& x);
-vec4 abs(const vec4& x);
-ivec2 abs(const ivec2& x);
-ivec3 abs(const ivec3& x);
-ivec4 abs(const ivec4& x);
+T Abs(const T x);
+vec2 Abs(const vec2& x);
+vec3 Abs(const vec3& x);
+vec4 Abs(const vec4& x);
+ivec2 Abs(const ivec2& x);
+ivec3 Abs(const ivec3& x);
+ivec4 Abs(const ivec4& x);
 
 template <typename T>
-T sign(const T x);
-vec2 sign(const vec2& x);
-vec3 sign(const vec3& x);
-vec4 sign(const vec4& x);
-ivec2 sign(const ivec2& x);
-ivec3 sign(const ivec3& x);
-ivec4 sign(const ivec4& x);
+T Sign(const T x);
+vec2 Sign(const vec2& x);
+vec3 Sign(const vec3& x);
+vec4 Sign(const vec4& x);
+ivec2 Sign(const ivec2& x);
+ivec3 Sign(const ivec3& x);
+ivec4 Sign(const ivec4& x);
 
-float floor(const float x);
-vec2 floor(const vec2& x);
-vec3 floor(const vec3& x);
-vec4 floor(const vec4& x);
+float Floor(const float x);
+vec2 Floor(const vec2& x);
+vec3 Floor(const vec3& x);
+vec4 Floor(const vec4& x);
 
-float trunc(const float x);
-vec2 trunc(const vec2& x);
-vec3 trunc(const vec3& x);
-vec4 trunc(const vec4& x);
+float Trunc(const float x);
+vec2 Trunc(const vec2& x);
+vec3 Trunc(const vec3& x);
+vec4 Trunc(const vec4& x);
 
-float round(const float x);
-vec2 round(const vec2& x);
-vec3 round(const vec3& x);
-vec4 round(const vec4& x);
+float Round(const float x);
+vec2 Round(const vec2& x);
+vec3 Round(const vec3& x);
+vec4 Round(const vec4& x);
 
-float roundEven(const float x);
-vec2 roundEven(const vec2& x);
-vec3 roundEven(const vec3& x);
-vec4 roundEven(const vec4& x);
+float RoundEven(const float x);
+vec2 RoundEven(const vec2& x);
+vec3 RoundEven(const vec3& x);
+vec4 RoundEven(const vec4& x);
 
-float ceil(const float x);
-vec2 ceil(const vec2& x);
-vec3 ceil(const vec3& x);
-vec4 ceil(const vec4& x);
+float Ceil(const float x);
+vec2 Ceil(const vec2& x);
+vec3 Ceil(const vec3& x);
+vec4 Ceil(const vec4& x);
 
-float fract(const float x);
-vec2 fract(const vec2& x);
-vec3 fract(const vec3& x);
-vec4 fract(const vec4& x);
+float Fract(const float x);
+vec2 Fract(const vec2& x);
+vec3 Fract(const vec3& x);
+vec4 Fract(const vec4& x);
 
-float mod(const float x, const float y);
-vec2 mod(const vec2& x, const float y);
-vec3 mod(const vec3& x, const float y);
-vec4 mod(const vec4& x, const float y);
-vec2 mod(const vec2& x, const vec2& y);
-vec3 mod(const vec3& x, const vec3& y);
-vec4 mod(const vec4& x, const vec4& y);
+float Mod(const float x, const float y);
+vec2 Mod(const vec2& x, const float y);
+vec3 Mod(const vec3& x, const float y);
+vec4 Mod(const vec4& x, const float y);
+vec2 Mod(const vec2& x, const vec2& y);
+vec3 Mod(const vec3& x, const vec3& y);
+vec4 Mod(const vec4& x, const vec4& y);
 
-float modf(const float x, float& i);
-vec2 modf(const vec2& x, vec2& i);
-vec3 modf(const vec3& x, vec3& i);
-vec4 modf(const vec4& x, vec4& i);
-
-// ----------------------------------------------------------------------------------------------------
-
-template <typename T>
-T min(const T x, const T y);
-
-vec2 min(const vec2& x, const vec2& y);
-vec2 min(const vec2& x, const float y);
-vec3 min(const vec3& x, const vec3& y);
-vec3 min(const vec3& x, const float y);
-vec4 min(const vec4& x, const vec4& y);
-vec4 min(const vec4& x, const float y);
-ivec2 min(const ivec2& x, const ivec2& y);
-ivec2 min(const ivec2& x, const int y);
-ivec3 min(const ivec3& x, const ivec3& y);
-ivec3 min(const ivec3& x, const int y);
-ivec4 min(const ivec4& x, const ivec4& y);
-ivec4 min(const ivec4& x, const int y);
-uvec2 min(const uvec2& x, const uvec2& y);
-uvec2 min(const uvec2& x, const uint y);
-uvec3 min(const uvec3& x, const uvec3& y);
-uvec3 min(const uvec3& x, const uint y);
-uvec4 min(const uvec4& x, const uvec4& y);
-uvec4 min(const uvec4& x, const uint y);
+float Modf(const float x, float& i);
+vec2 Modf(const vec2& x, vec2& i);
+vec3 Modf(const vec3& x, vec3& i);
+vec4 Modf(const vec4& x, vec4& i);
 
 // ----------------------------------------------------------------------------------------------------
 
 template <typename T>
-T max(const T x, const T y);
-vec2 max(const vec2& x, const vec2& y);
-vec2 max(const vec2& x, const float y);
-vec3 max(const vec3& x, const vec3& y);
-vec3 max(const vec3& x, const float y);
-vec4 max(const vec4& x, const vec4& y);
-vec4 max(const vec4& x, const float y);
-ivec2 max(const ivec2& x, const ivec2& y);
-ivec2 max(const ivec2& x, const int y);
-ivec3 max(const ivec3& x, const ivec3& y);
-ivec3 max(const ivec3& x, const int y);
-ivec4 max(const ivec4& x, const ivec4& y);
-ivec4 max(const ivec4& x, const int y);
-uvec2 max(const uvec2& x, const uvec2& y);
-uvec2 max(const uvec2& x, const uint y);
-uvec3 max(const uvec3& x, const uvec3& y);
-uvec3 max(const uvec3& x, const uint y);
-uvec4 max(const uvec4& x, const uvec4& y);
-uvec4 max(const uvec4& x, const uint y);
+T Min(const T x, const T y);
+
+vec2 Min(const vec2& x, const vec2& y);
+vec2 Min(const vec2& x, const float y);
+vec3 Min(const vec3& x, const vec3& y);
+vec3 Min(const vec3& x, const float y);
+vec4 Min(const vec4& x, const vec4& y);
+vec4 Min(const vec4& x, const float y);
+ivec2 Min(const ivec2& x, const ivec2& y);
+ivec2 Min(const ivec2& x, const int y);
+ivec3 Min(const ivec3& x, const ivec3& y);
+ivec3 Min(const ivec3& x, const int y);
+ivec4 Min(const ivec4& x, const ivec4& y);
+ivec4 Min(const ivec4& x, const int y);
+uvec2 Min(const uvec2& x, const uvec2& y);
+uvec2 Min(const uvec2& x, const uint y);
+uvec3 Min(const uvec3& x, const uvec3& y);
+uvec3 Min(const uvec3& x, const uint y);
+uvec4 Min(const uvec4& x, const uvec4& y);
+uvec4 Min(const uvec4& x, const uint y);
 
 // ----------------------------------------------------------------------------------------------------
 
 template <typename T>
-T clamp(const T x, const T minVal, const T maxVal);
-vec2 clamp(const vec2& x, const vec2& minVal, const vec2& maxVal);
-vec2 clamp(const vec2& x, const float minVal, const float maxVal);
-vec3 clamp(const vec3& x, const vec3& minVal, const vec3& maxVal);
-vec3 clamp(const vec3& x, const float minVal, const float maxVal);
-vec4 clamp(const vec4& x, const vec4& minVal, const vec4& maxVal);
-vec4 clamp(const vec4& x, const float minVal, const float maxVal);
-ivec2 clamp(const ivec2& x, const ivec2& minVal, const ivec2& maxVal);
-ivec2 clamp(const ivec2& x, const int minVal, const int maxVal);
-ivec3 clamp(const ivec3& x, const ivec3& minVal, const ivec3& maxVal);
-ivec3 clamp(const ivec3& x, const int minVal, const int maxVal);
-ivec4 clamp(const ivec4& x, const ivec4& minVal, const ivec4& maxVal);
-ivec4 clamp(const ivec4& x, const int minVal, const int maxVal);
-uvec2 clamp(const uvec2& x, const uvec2& minVal, const uvec2& maxVal);
-uvec2 clamp(const uvec2& x, const uint minVal, const uint maxVal);
-uvec3 clamp(const uvec3& x, const uvec3& minVal, const uvec3& maxVal);
-uvec3 clamp(const uvec3& x, const uint minVal, const uint maxVal);
-uvec4 clamp(const uvec4& x, const uvec4& minVal, const uvec4& maxVal);
-uvec4 clamp(const uvec4& x, const uint minVal, const uint maxVal);
-
-// ----------------------------------------------------------------------------------------------------
-
-float mix(const float x, const float y, const float a);
-vec2 mix(const vec2& x, const vec2& y, const vec2& a);
-vec3 mix(const vec3& x, const vec3& y, const vec3& a);
-vec4 mix(const vec4& x, const vec4& y, const vec4& a);
-vec2 mix(const vec2& x, const vec2& y, const float a);
-vec3 mix(const vec3& x, const vec3& y, const float a);
-vec4 mix(const vec4& x, const vec4& y, const float a);
+T Max(const T x, const T y);
+vec2 Max(const vec2& x, const vec2& y);
+vec2 Max(const vec2& x, const float y);
+vec3 Max(const vec3& x, const vec3& y);
+vec3 Max(const vec3& x, const float y);
+vec4 Max(const vec4& x, const vec4& y);
+vec4 Max(const vec4& x, const float y);
+ivec2 Max(const ivec2& x, const ivec2& y);
+ivec2 Max(const ivec2& x, const int y);
+ivec3 Max(const ivec3& x, const ivec3& y);
+ivec3 Max(const ivec3& x, const int y);
+ivec4 Max(const ivec4& x, const ivec4& y);
+ivec4 Max(const ivec4& x, const int y);
+uvec2 Max(const uvec2& x, const uvec2& y);
+uvec2 Max(const uvec2& x, const uint y);
+uvec3 Max(const uvec3& x, const uvec3& y);
+uvec3 Max(const uvec3& x, const uint y);
+uvec4 Max(const uvec4& x, const uvec4& y);
+uvec4 Max(const uvec4& x, const uint y);
 
 // ----------------------------------------------------------------------------------------------------
 
 template <typename T>
-T mix(const T x, const T y, const bool a);
-vec2 mix(const vec2& x, const vec2& y, const bvec2& a);
-vec3 mix(const vec3& x, const vec3& y, const bvec3& a);
-vec4 mix(const vec4& x, const vec4& y, const bvec4& a);
-ivec2 mix(const ivec2& x, const ivec2& y, const bvec2& a);
-ivec3 mix(const ivec3& x, const ivec3& y, const bvec3& a);
-ivec4 mix(const ivec4& x, const ivec4& y, const bvec4& a);
-uvec2 mix(const uvec2& x, const uvec2& y, const bvec2& a);
-uvec3 mix(const uvec3& x, const uvec3& y, const bvec3& a);
-uvec4 mix(const uvec4& x, const uvec4& y, const bvec4& a);
-bvec2 mix(const bvec2& x, const bvec2& y, const bvec2& a);
-bvec3 mix(const bvec3& x, const bvec3& y, const bvec3& a);
-bvec4 mix(const bvec4& x, const bvec4& y, const bvec4& a);
+T Clamp(const T x, const T minVal, const T maxVal);
+vec2 Clamp(const vec2& x, const vec2& minVal, const vec2& maxVal);
+vec2 Clamp(const vec2& x, const float minVal, const float maxVal);
+vec3 Clamp(const vec3& x, const vec3& minVal, const vec3& maxVal);
+vec3 Clamp(const vec3& x, const float minVal, const float maxVal);
+vec4 Clamp(const vec4& x, const vec4& minVal, const vec4& maxVal);
+vec4 Clamp(const vec4& x, const float minVal, const float maxVal);
+ivec2 Clamp(const ivec2& x, const ivec2& minVal, const ivec2& maxVal);
+ivec2 Clamp(const ivec2& x, const int minVal, const int maxVal);
+ivec3 Clamp(const ivec3& x, const ivec3& minVal, const ivec3& maxVal);
+ivec3 Clamp(const ivec3& x, const int minVal, const int maxVal);
+ivec4 Clamp(const ivec4& x, const ivec4& minVal, const ivec4& maxVal);
+ivec4 Clamp(const ivec4& x, const int minVal, const int maxVal);
+uvec2 Clamp(const uvec2& x, const uvec2& minVal, const uvec2& maxVal);
+uvec2 Clamp(const uvec2& x, const uint minVal, const uint maxVal);
+uvec3 Clamp(const uvec3& x, const uvec3& minVal, const uvec3& maxVal);
+uvec3 Clamp(const uvec3& x, const uint minVal, const uint maxVal);
+uvec4 Clamp(const uvec4& x, const uvec4& minVal, const uvec4& maxVal);
+uvec4 Clamp(const uvec4& x, const uint minVal, const uint maxVal);
 
 // ----------------------------------------------------------------------------------------------------
 
-float step(const float edge, const float x);
-vec2 step(const vec2& edge, const vec2& x);
-vec3 step(const vec3& edge, const vec3& x);
-vec4 step(const vec4& edge, const vec4& x);
-vec2 step(const float edge, const vec2& x);
-vec3 step(const float edge, const vec3& x);
-vec4 step(const float edge, const vec4& x);
+float Mix(const float x, const float y, const float a);
+vec2 Mix(const vec2& x, const vec2& y, const vec2& a);
+vec3 Mix(const vec3& x, const vec3& y, const vec3& a);
+vec4 Mix(const vec4& x, const vec4& y, const vec4& a);
+vec2 Mix(const vec2& x, const vec2& y, const float a);
+vec3 Mix(const vec3& x, const vec3& y, const float a);
+vec4 Mix(const vec4& x, const vec4& y, const float a);
 
-float smoothstep(const float edge0, const float edge1, const float x);
-vec2 smoothstep(const vec2& edge0, const vec2& edge1, const vec2& x);
-vec3 smoothstep(const vec3& edge0, const vec3& edge1, const vec3& x);
-vec4 smoothstep(const vec4& edge0, const vec4& edge1, const vec4& x);
-vec2 smoothstep(const float edge0, const float edge1, const vec2& x);
-vec3 smoothstep(const float edge0, const float edge1, const vec3& x);
-vec4 smoothstep(const float edge0, const float edge1, const vec4& x);
+// ----------------------------------------------------------------------------------------------------
 
-float isnan(const float x);
-vec2 isnan(const vec2& x);
-vec3 isnan(const vec3& x);
-vec4 isnan(const vec4& x);
+template <typename T>
+T Mix(const T x, const T y, const bool a);
+vec2 Mix(const vec2& x, const vec2& y, const bvec2& a);
+vec3 Mix(const vec3& x, const vec3& y, const bvec3& a);
+vec4 Mix(const vec4& x, const vec4& y, const bvec4& a);
+ivec2 Mix(const ivec2& x, const ivec2& y, const bvec2& a);
+ivec3 Mix(const ivec3& x, const ivec3& y, const bvec3& a);
+ivec4 Mix(const ivec4& x, const ivec4& y, const bvec4& a);
+uvec2 Mix(const uvec2& x, const uvec2& y, const bvec2& a);
+uvec3 Mix(const uvec3& x, const uvec3& y, const bvec3& a);
+uvec4 Mix(const uvec4& x, const uvec4& y, const bvec4& a);
+bvec2 Mix(const bvec2& x, const bvec2& y, const bvec2& a);
+bvec3 Mix(const bvec3& x, const bvec3& y, const bvec3& a);
+bvec4 Mix(const bvec4& x, const bvec4& y, const bvec4& a);
 
-float isinf(const float x);
-vec2 isinf(const vec2& x);
-vec3 isinf(const vec3& x);
-vec4 isinf(const vec4& x);
+// ----------------------------------------------------------------------------------------------------
 
-int floatBitsToInt(const float x);
-ivec2 floatBitsToInt(const vec2& x);
-ivec3 floatBitsToInt(const vec3& x);
-ivec4 floatBitsToInt(const vec4& x);
+float Step(const float edge, const float x);
+vec2 Step(const vec2& edge, const vec2& x);
+vec3 Step(const vec3& edge, const vec3& x);
+vec4 Step(const vec4& edge, const vec4& x);
+vec2 Step(const float edge, const vec2& x);
+vec3 Step(const float edge, const vec3& x);
+vec4 Step(const float edge, const vec4& x);
 
-uint floatBitsToUint(const float x);
-uvec2 floatBitsToUint(const vec2& x);
-uvec3 floatBitsToUint(const vec3& x);
-uvec4 floatBitsToUint(const vec4& x);
+float Smoothstep(const float edge0, const float edge1, const float x);
+vec2 Smoothstep(const vec2& edge0, const vec2& edge1, const vec2& x);
+vec3 Smoothstep(const vec3& edge0, const vec3& edge1, const vec3& x);
+vec4 Smoothstep(const vec4& edge0, const vec4& edge1, const vec4& x);
+vec2 Smoothstep(const float edge0, const float edge1, const vec2& x);
+vec3 Smoothstep(const float edge0, const float edge1, const vec3& x);
+vec4 Smoothstep(const float edge0, const float edge1, const vec4& x);
 
-float intBitsToFloat(const int x);
-vec2 intBitsToFloat(const ivec2& x);
-vec3 intBitsToFloat(const ivec3& x);
-vec4 intBitsToFloat(const ivec4& x);
+float Isnan(const float x);
+vec2 Isnan(const vec2& x);
+vec3 Isnan(const vec3& x);
+vec4 Isnan(const vec4& x);
 
-float uintBitsToFloat(const uint x);
-vec2 uintBitsToFloat(const uvec2& x);
-vec3 uintBitsToFloat(const uvec3& x);
-vec4 uintBitsToFloat(const uvec4& x);
+float Isinf(const float x);
+vec2 Isinf(const vec2& x);
+vec3 Isinf(const vec3& x);
+vec4 Isinf(const vec4& x);
 
-float frexp(const float x, int& exp);
-vec2 frexp(const vec2& x, ivec2& exp);
-vec3 frexp(const vec3& x, ivec3& exp);
-vec4 frexp(const vec4& x, ivec4& exp);
+int FloatBitsToInt(const float x);
+ivec2 FloatBitsToInt(const vec2& x);
+ivec3 FloatBitsToInt(const vec3& x);
+ivec4 FloatBitsToInt(const vec4& x);
 
-float ldexp(const float x, const int exp);
-vec2 ldexp(const vec2& x, const ivec2& exp);
-vec3 ldexp(const vec3& x, const ivec3& exp);
-vec4 ldexp(const vec4& x, const ivec4& exp);
+uint FloatBitsToUint(const float x);
+uvec2 FloatBitsToUint(const vec2& x);
+uvec3 FloatBitsToUint(const vec3& x);
+uvec4 FloatBitsToUint(const vec4& x);
+
+float IntBitsToFloat(const int x);
+vec2 IntBitsToFloat(const ivec2& x);
+vec3 IntBitsToFloat(const ivec3& x);
+vec4 IntBitsToFloat(const ivec4& x);
+
+float UintBitsToFloat(const uint x);
+vec2 UintBitsToFloat(const uvec2& x);
+vec3 UintBitsToFloat(const uvec3& x);
+vec4 UintBitsToFloat(const uvec4& x);
+
+float Frexp(const float x, int& Exp);
+vec2 Frexp(const vec2& x, ivec2& Exp);
+vec3 Frexp(const vec3& x, ivec3& Exp);
+vec4 Frexp(const vec4& x, ivec4& Exp);
+
+float Ldexp(const float x, const int Exp);
+vec2 Ldexp(const vec2& x, const ivec2& Exp);
+vec3 Ldexp(const vec3& x, const ivec3& Exp);
+vec4 Ldexp(const vec4& x, const ivec4& Exp);
 
 // ----------------------------------------------------------------------------------------------------
 

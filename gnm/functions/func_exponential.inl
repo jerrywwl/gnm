@@ -2,19 +2,19 @@ GNM_NAMESPACE_BEGIN
 
 // ----------------------------------------------------------------------------------------------------
 
-GNM_INLINE float pow(const float x, const float y) {
+GNM_INLINE float Pow(const float x, const float y) {
   return std::pow(x, y);
 }
 
-GNM_INLINE vec2 pow(const vec2& x, const vec2& y) {
+GNM_INLINE vec2 Pow(const vec2& x, const vec2& y) {
   return vec2(std::pow(x.x, y.x), std::pow(x.y, y.y));
 }
 
-GNM_INLINE vec3 pow(const vec3& x, const vec3& y) {
+GNM_INLINE vec3 Pow(const vec3& x, const vec3& y) {
   return vec3(std::pow(x.x, y.x), std::pow(x.y, y.y), std::pow(x.z, y.z));
 }
 
-GNM_INLINE vec4 pow(const vec4& x, const vec4& y) {
+GNM_INLINE vec4 Pow(const vec4& x, const vec4& y) {
 #if (GNM_SIMD)
   return vec4(_mm_pow_ps(x._v, y._v));
 #else
@@ -24,19 +24,19 @@ GNM_INLINE vec4 pow(const vec4& x, const vec4& y) {
 
 // ----------------------------------------------------------------------------------------------------
 
-GNM_INLINE float exp(const float x) {
+GNM_INLINE float Exp(const float x) {
   return std::exp(x);
 }
 
-GNM_INLINE vec2 exp(const vec2& x) {
+GNM_INLINE vec2 Exp(const vec2& x) {
   return vec2(std::exp(x.x), std::exp(x.y));
 }
 
-GNM_INLINE vec3 exp(const vec3& x) {
+GNM_INLINE vec3 Exp(const vec3& x) {
   return vec3(std::exp(x.x), std::exp(x.y), std::exp(x.z));
 }
 
-GNM_INLINE vec4 exp(const vec4& x) {
+GNM_INLINE vec4 Exp(const vec4& x) {
 #if (GNM_SIMD)
   return vec4(_mm_exp_ps(x._v));
 #else
@@ -46,19 +46,19 @@ GNM_INLINE vec4 exp(const vec4& x) {
 
 // ----------------------------------------------------------------------------------------------------
 
-GNM_INLINE float log(const float x) {
+GNM_INLINE float Log(const float x) {
   return std::log(x);
 }
 
-GNM_INLINE vec2 log(const vec2& x) {
+GNM_INLINE vec2 Log(const vec2& x) {
   return vec2(std::log(x.x), std::log(x.y));
 }
 
-GNM_INLINE vec3 log(const vec3& x) {
+GNM_INLINE vec3 Log(const vec3& x) {
   return vec3(std::log(x.x), std::log(x.y), std::log(x.z));
 }
 
-GNM_INLINE vec4 log(const vec4& x) {
+GNM_INLINE vec4 Log(const vec4& x) {
 #if (GNM_SIMD)
   return vec4(_mm_log_ps(x._v));
 #else
@@ -68,19 +68,19 @@ GNM_INLINE vec4 log(const vec4& x) {
 
 // ----------------------------------------------------------------------------------------------------
 
-GNM_INLINE float exp2(const float x) {
+GNM_INLINE float Exp2(const float x) {
   return std::exp2(x);
 }
 
-GNM_INLINE vec2 exp2(const vec2& x) {
+GNM_INLINE vec2 Exp2(const vec2& x) {
   return vec2(std::exp2(x.x), std::exp2(x.y));
 }
 
-GNM_INLINE vec3 exp2(const vec3& x) {
+GNM_INLINE vec3 Exp2(const vec3& x) {
   return vec3(std::exp2(x.x), std::exp2(x.y), std::exp2(x.z));
 }
 
-GNM_INLINE vec4 exp2(const vec4& x) {
+GNM_INLINE vec4 Exp2(const vec4& x) {
 #if (GNM_SIMD)
   return vec4(_mm_exp2_ps(x._v));
 #else
@@ -90,19 +90,19 @@ GNM_INLINE vec4 exp2(const vec4& x) {
 
 // ----------------------------------------------------------------------------------------------------
 
-GNM_INLINE float log2(const float x) {
+GNM_INLINE float Log2(const float x) {
   return std::log2(x);
 }
 
-GNM_INLINE vec2 log2(const vec2& x) {
+GNM_INLINE vec2 Log2(const vec2& x) {
   return vec2(std::log2(x.x), std::log2(x.y));
 }
 
-GNM_INLINE vec3 log2(const vec3& x) {
+GNM_INLINE vec3 Log2(const vec3& x) {
   return vec3(std::log2(x.x), std::log2(x.y), std::log2(x.z));
 }
 
-GNM_INLINE vec4 log2(const vec4& x) {
+GNM_INLINE vec4 Log2(const vec4& x) {
 #if (GNM_SIMD)
   return vec4(_mm_log2_ps(x._v));
 #else
@@ -112,19 +112,19 @@ GNM_INLINE vec4 log2(const vec4& x) {
 
 // ----------------------------------------------------------------------------------------------------
 
-GNM_INLINE float sqrt(const float x) {
+GNM_INLINE float Sqrt(const float x) {
   return std::sqrt(x);
 }
 
-GNM_INLINE vec2 sqrt(const vec2& x) {
+GNM_INLINE vec2 Sqrt(const vec2& x) {
   return vec2(std::sqrt(x.x), std::sqrt(x.y));
 }
 
-GNM_INLINE vec3 sqrt(const vec3& x) {
+GNM_INLINE vec3 Sqrt(const vec3& x) {
   return vec3(std::sqrt(x.x), std::sqrt(x.y), std::sqrt(x.z));
 }
 
-GNM_INLINE vec4 sqrt(const vec4& x) {
+GNM_INLINE vec4 Sqrt(const vec4& x) {
 #if (GNM_SIMD)
   return vec4(_mm_sqrt_ps(x._v));
 #else
@@ -134,19 +134,19 @@ GNM_INLINE vec4 sqrt(const vec4& x) {
 
 // ----------------------------------------------------------------------------------------------------
 
-GNM_INLINE float inversesqrt(const float x) {
+GNM_INLINE float Inversesqrt(const float x) {
   return 1.0f / std::sqrt(x);
 }
 
-GNM_INLINE vec2 inversesqrt(const vec2& x) {
+GNM_INLINE vec2 Inversesqrt(const vec2& x) {
   return vec2(1.0f / std::sqrt(x.x), 1.0f / std::sqrt(x.y));
 }
 
-GNM_INLINE vec3 inversesqrt(const vec3& x) {
+GNM_INLINE vec3 Inversesqrt(const vec3& x) {
   return vec3(1.0f / std::sqrt(x.x), 1.0f / std::sqrt(x.y), 1.0f / std::sqrt(x.z));
 }
 
-GNM_INLINE vec4 inversesqrt(const vec4& x) {
+GNM_INLINE vec4 Inversesqrt(const vec4& x) {
 #if (GNM_SIMD)
   return vec4(_mm_rsqrt_ps(x._v));
 #else

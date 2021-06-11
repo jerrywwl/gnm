@@ -7,39 +7,39 @@
 
 GNM_NAMESPACE_BEGIN
 
-bvec4 equal(const quat& x, const quat& y);
+bvec4 Equal(const quat& x, const quat& y);
 
-float dot(const quat& x, const quat& y);
+float Dot(const quat& x, const quat& y);
 
-quat cross(const quat& x, const quat& y);
+quat Cross(const quat& x, const quat& y);
 
-float length(const quat& x);
+float Length(const quat& x);
 
-quat normalize(const quat& x);
+quat Normalize(const quat& x);
 
-quat conjugate(const quat& x);
+quat Conjugate(const quat& x);
 
-quat inverse(const quat& x);
+quat Inverse(const quat& x);
 
-float angle(const quat& x);
+float Angle(const quat& x);
 
-vec3 axis(const quat& x);
+vec3 Axis(const quat& x);
 
-quat rotate(const quat& x, const vec3& axis, const float angle);
+quat Rotate(const quat& x, const vec3& Axis, const float Angle);
 
-quat fromNormalizedAxis(const vec3& x, const vec3& y);
+quat FromNormalizedAxis(const vec3& x, const vec3& y);
 
-float roll(const quat& q);
+float Roll(const quat& q);
 
-float pitch(const quat& q);
+float Pitch(const quat& q);
 
-float yaw(const quat& q);
+float Yaw(const quat& q);
 
-vec3 eulerAngles(const quat& q);
+vec3 EulerAngles(const quat& q);
 
-quat quatAxisAngle(const vec3& axis, const float angle);
+quat QuatAxisAngle(const vec3& Axis, const float Angle);
 
-quat quatEulerAngles(const vec3& angles);
+quat QuatEulerAngles(const vec3& angles);
 
 GNM_NAMESPACE_END
 

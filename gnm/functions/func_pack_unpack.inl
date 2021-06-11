@@ -109,7 +109,7 @@ GNM_DETAIL_NAMESPACE_END
 
 GNM_NAMESPACE_BEGIN
 
-GNM_INLINE uint packSnorm2x16(const vec2& v) {
+GNM_INLINE uint PackSnorm2x16(const vec2& v) {
 
 	union {
 		int16 in[2];
@@ -122,7 +122,7 @@ GNM_INLINE uint packSnorm2x16(const vec2& v) {
   return u.out;
 }
 
-GNM_INLINE vec2 unpackSnorm2x16(const uint p) {
+GNM_INLINE vec2 UnpackSnorm2x16(const uint p) {
 
 	union {
 		uint in;
@@ -135,7 +135,7 @@ GNM_INLINE vec2 unpackSnorm2x16(const uint p) {
 							GNM_CLAMP(u.out[1] * 3.0518509475997192297128208258309e-5f, -1.0f, 1.0f));
 }
 
-GNM_INLINE uint packUnorm2x16(const vec2& v) {
+GNM_INLINE uint PackUnorm2x16(const vec2& v) {
 
 	union {
 		uint16 in[2];
@@ -148,7 +148,7 @@ GNM_INLINE uint packUnorm2x16(const vec2& v) {
 	return u.out;
 }
 
-GNM_INLINE vec2 unpackUnorm2x16(const uint p) {
+GNM_INLINE vec2 UnpackUnorm2x16(const uint p) {
 
 	union {
 		uint in;
@@ -161,7 +161,7 @@ GNM_INLINE vec2 unpackUnorm2x16(const uint p) {
 							u.out[1] * 1.5259021896696421759365224689097e-5f);
 }
 
-GNM_INLINE uint packHalf2x16(const vec2& v) {
+GNM_INLINE uint PackHalf2x16(const vec2& v) {
 
 	union {
 		int16 in[2];
@@ -174,7 +174,7 @@ GNM_INLINE uint packHalf2x16(const vec2& v) {
 	return u.out;
 }
 
-GNM_INLINE vec2 unpackHalf2x16(const uint v) {
+GNM_INLINE vec2 UnpackHalf2x16(const uint v) {
 
 	union {
 		uint in;
@@ -186,7 +186,7 @@ GNM_INLINE vec2 unpackHalf2x16(const uint v) {
 	return vec2(detail::ToFloat32(u.out[0]), detail::ToFloat32(u.out[1]));
 }
 
-GNM_INLINE uint packUnorm4x8(const vec4& v) {
+GNM_INLINE uint PackUnorm4x8(const vec4& v) {
 
 	union {
 		uint8 in[4];
@@ -201,7 +201,7 @@ GNM_INLINE uint packUnorm4x8(const vec4& v) {
 	return u.out;
 }
 
-GNM_INLINE uint packSnorm4x8(const vec4& v) {
+GNM_INLINE uint PackSnorm4x8(const vec4& v) {
 
 	union {
 		int8 in[4];
@@ -216,7 +216,7 @@ GNM_INLINE uint packSnorm4x8(const vec4& v) {
 	return u.out;
 }
 
-GNM_INLINE vec4 unpackUnorm4x8(const uint v) {
+GNM_INLINE vec4 UnpackUnorm4x8(const uint v) {
 
 	union {
 		uint in;
@@ -228,7 +228,7 @@ GNM_INLINE vec4 unpackUnorm4x8(const uint v) {
 	return vec4(u.out[0], u.out[1], u.out[2], u.out[3]) * 0.0039215686274509803921568627451f;
 }
 
-GNM_INLINE vec4 unpackSnorm4x8(const uint v) {
+GNM_INLINE vec4 UnpackSnorm4x8(const uint v) {
 
 	union {
 		uint in;
@@ -237,7 +237,7 @@ GNM_INLINE vec4 unpackSnorm4x8(const uint v) {
 
 	u.in = v;
 
-	return clamp(vec4(u.out[0], u.out[1], u.out[2], u.out[3]) * 0.0078740157480315f, -1.0f, 1.0f);
+	return Clamp(vec4(u.out[0], u.out[1], u.out[2], u.out[3]) * 0.0078740157480315f, -1.0f, 1.0f);
 }
 
 GNM_NAMESPACE_END
